@@ -1,0 +1,29 @@
+body.nb-theme-corporate {font-family: 'Montserrat', sans-serif !important; background: #EEEEEE !important}
+
+.nb-theme-corporate .menu-sidebar nb-menu{background:#2F353F; color: #fff; font-family: 'Montserrat', sans-serif;}
+.nb-theme-corporate .menu-sidebar nb-menu .menu-items > .menu-item{border: none}
+body.nb-theme-corporate nb-sidebar.menu-sidebar .main-container{border:none !important;}
+
+.nb-theme-corporate .menu-sidebar nb-menu .menu-item .menu-icon{color:#999;     font-size: 24px;}
+
+
+.nb-theme-corporate nb-layout .scrollable-container .layout nb-layout-header nav{background: #fff;}
+.nb-theme-corporate nb-user .user-name{color: #333; font-family: 'Montserrat', sans-serif;}
+.nb-theme-corporate nb-layout .scrollable-container .layout{background: #EEEEEE}
+
+.nb-theme-corporate ul.menu-items li a{color: #a7b1c2; font-size:13px}
+.nb-theme-corporate .menu-sidebar .menu-item a:hover, .nb-theme-corporate .menu-sidebar .menu-item a.active{background: #000; color: #fff}
+.nb-theme-corporate .menu-sidebar nb-menu .menu-item > .menu-items{background:#2f353f}
+.nb-theme-corporate .menu-sidebar .menu-item a:hover i, .nb-theme-corporate .menu-sidebar .menu-item a.active i{color: #fff}
+.nb-theme-corporate .menu-sidebar nb-menu .menu-item > .menu-items > .menu-item{background:#2f353f; border:none;}
+.nb-theme-corporate .menu-sidebar nb-menu .menu-item > .menu-items > .menu-item a { border: none;  background: none; color:#a7b1c2}
+.nb-theme-corporate .menu-sidebar nb-menu .menu-item > .menu-items > .menu-item a.active{ border: none;  background: none; color:#a7b1c2}
+
+.pop-btn {margin-left: 120px;}
+.logo-containter { background: #2f353f; padding: 20px;margin: 0;}
+.nb-theme-corporate nb-layout .layout nb-layout-header nav { -webkit-box-shadow: none !important; 
+   box-shadow: none !important; height: 4.75rem;padding: 0 !important; background: #111218;color: #f7fafb;}
+ .nb-theme-corporate [_nghost-c4] .logo-containter[_ngcontent-c4] { width: calc(16.9rem - 1.25rem) !important;}
+
+
+#sidebar-menu > ul > li > a{padding: 5px 25px;     position: relative;}

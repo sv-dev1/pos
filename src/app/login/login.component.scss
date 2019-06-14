@@ -1,0 +1,16 @@
+.logo{
+	width:100px;
+}
+
+button:disabled,
+button[disabled]{
+  // border: 1px solid #999999;
+  // background-color: #33612b;
+  // color: #ffffff;
+  cursor:not-allowed;
+}
+
+.sgn-txt span{
+  color: red;
+  cursor: pointer;
+}

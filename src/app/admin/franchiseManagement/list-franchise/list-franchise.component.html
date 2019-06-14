@@ -1,0 +1,141 @@
+<div class="p-4">
+	<div class="franchise-sec1">
+        <div class="franchise-form mb-4">
+        	<form [formGroup]="franchiseForm" (ngSubmit)="onSubmit(franchiseForm.value)">
+	            <div class="row">
+		            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+		                <div class="form-group row">
+		                     <label for="email_address" class="col-md-4 col-form-label">Franchise Name</label>
+		                     <div class="col-md-8 form-err">
+		                        <input type="text" formControlName="Name" id="email_address" class="form-control" name="email-address"  placeholder="Franchise Name">
+                                <span
+                                    *ngIf="!franchiseForm.controls['Name'].valid && ( franchiseForm.controls['Name'].touched)">
+                                        Please enter franchise name.
+                                </span>
+		                     </div>
+		                </div>
+		                <div class="form-group row">
+		                     <label for="email_address" class="col-md-4 col-form-label">Franchise Phone</label>
+		                     <div class="col-md-8 form-err">
+		                        <input type="text" formControlName="phonenumber" id="email_address" class="form-control" name="email-address" placeholder="Franchise Phone">
+                                <span
+                                    *ngIf="!franchiseForm.controls['phonenumber'].valid && ( franchiseForm.controls['phonenumber'].touched)">
+                                        Please enter franchise phone number.
+                                </span>
+		                     </div>
+		                </div>
+		                <div class="form-group row">
+		                     <label for="email_address" class="col-md-4 col-form-label">Franchise Image Logo</label>
+		                     <div class="col-md-8 file-upload form-err">
+		                        <input formControlName="uploadFile" (change)="onUpload($event)" id="file-upload1" type="file"/>
+                                <span
+                                    *ngIf="!franchiseForm.controls['uploadFile'].valid && ( franchiseForm.controls['uploadFile'].touched)">
+                                        Please upload franchise logo.
+                                </span>
+		                     </div>
+		                </div>
+		            </div>
+		            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+		                  <div class="form-group row">
+		                     <label for="email_address" class="col-md-4 col-form-label">Franchise Address</label>
+		                     <div class="col-md-8 form-err">
+		                        <input type="text" formControlName="address" id="email_address" class="form-control" name="email-address" placeholder="Franchise Address">
+                                <span
+                                    *ngIf="!franchiseForm.controls['address'].valid && ( franchiseForm.controls['address'].touched)">
+                                        Please enter franchise address.
+                                </span>
+		                     </div>
+		                  </div>
+		                  <div class="form-group row">
+		                     <label for="email_address" class="col-md-4 col-form-label">Franchise Code</label>
+		                     <div class="col-md-8 form-err">
+		                        <input type="text" formControlName="code" id="email_address" class="form-control" name="email-address" placeholder="Franchise Code">
+                                <span
+                                    *ngIf="!franchiseForm.controls['code'].valid && ( franchiseForm.controls['code'].touched)">
+                                        Please enter franchise code.
+                                </span>
+		                     </div>
+		                  </div>
+		            </div>
+		            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		                  <div class="form-group row m-0">
+		                     <div class="col-md-2"></div>
+		                     <div class="col-md-10">
+		                        <button class="btn btn-info submit sm-btn" [disabled]="!franchiseForm.valid" > Submit</button>
+		                        <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="Cancel">
+		                     </div>
+		                  </div>
+		            </div>
+	            </div>
+            </form>
+        </div>
+	</div>
+
+	<div class="table-gridbox">
+	<mat-card>
+		<!-- <mat-form-field>
+		  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+		</mat-form-field> -->
+
+		<div class="mat-elevation-z8">
+			<table mat-table [dataSource]="dataSource" matSort>
+
+			  <!-- Name Column -->
+			  <ng-container matColumnDef="branchName">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Franchise Name </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.franchiseName || 'N/A'}} </td>
+			  </ng-container>
+
+			  <!-- Weight Column -->
+			  <ng-container matColumnDef="branchAddress">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Franchise Address </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.franchiseAddress || 'N/A'}} </td>
+			  </ng-container>
+
+			  <!-- Symbol Column -->
+			  <ng-container matColumnDef="phone">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone No. </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.franchisePhone || 'N/A'}} </td>
+			  </ng-container>
+
+			  <!-- Symbol Column -->
+			  <ng-container matColumnDef="branchCode">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Franchise Code </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.franchiseCode || 'N/A'}} </td>
+			  </ng-container>
+
+			  <!-- Symbol Column -->
+			  <ng-container matColumnDef="date">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+			    <td mat-cell *matCellDef="let element"> {{element.createdDate.split('T')[0]}} </td>
+			  </ng-container>
+
+			  <ng-container matColumnDef="image">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Logo </th>
+			    <td mat-cell *matCellDef="let element"> 
+			       <div class="td-logo-img">
+			       	    <img src="{{element!.imageLogo || 'assets/images/franchise_logo_placeholder.png'}}" >
+			       </div>
+				</td>
+			  </ng-container>
+
+			  <ng-container matColumnDef="action">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+			    <td mat-cell *matCellDef="let element"> 
+					<ul class="list-inline list-btn-td">
+						<li class="list-inline-item edit-pen-btn"><a class="btn btn-primary btn-sm" href="javascript:void(0);" (click)="openEdit(element)"><i class="fa fa-pencil"></i></a></li>
+						<li class="list-inline-item edit-user-btn"><a class="btn btn-info btn-sm" href="javascript:void(0);" routerLink="/admin/franchise-user/{{element.franchiseId}}/{{element.franchiseName}}"><i class="fa fa-user-plus"></i></a></li>
+						<li class="list-inline-item trash-btn"><a class="btn btn-danger btn-sm" href="javascript:void(0);" (click)="openDelete(element.franchiseId)"><i class="fa fa-trash"></i></a></li>
+						
+					</ul>
+			    </td>
+			  </ng-container>
+
+			  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			</table>
+			<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+		</div>
+	</mat-card>
+	</div>
+</div>

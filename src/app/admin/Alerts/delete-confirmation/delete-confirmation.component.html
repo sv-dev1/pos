@@ -1,0 +1,14 @@
+<div class="modal-header" style="position: relative;">
+	<h4 class="modal-title" style="cursor: pointer;">Hey!! <span class="pull-right"><a (click)="onNoClick()"><i class="fa fa-times" style="position:absolute;top:-7px;right: 1px;z-index: 99;"></i></a></span> </h4>
+<!-- 	<h4 class="modal-title" >Hey!! <span class="pull-right"><a (click)="onNoClick()"><i class="fa fa-times" style="position: absolute;top:-7px;right: 1px"></i></a></span> </h4> -->
+
+</div>
+<div class="modal-body" style="margin-top: 20px;">
+	<div >
+		<p >Are you sure you want to delete ? </p>
+	</div>
+	<div  style="margin-top: 28px;">
+		<button class="btn btn-round btn-mat btn-disabled btn-success btn-cust" style="width: 48%" (click)="onYesClick()">Yes</button>
+		<button class="btn btn-round btn-mat btn-disabled btn-danger btn-cust" style="width: 48%;margin: 0 7px;" (click)="onNoClick()">No Thanks</button>
+	</div>
+</div>
