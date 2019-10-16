@@ -1,0 +1,83 @@
+F:\Rajat\POS\POS\bin\Debug\netcoreapp2.2\POS.deps.json
+F:\Rajat\POS\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.json
+F:\Rajat\POS\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.dev.json
+F:\Rajat\POS\POS\bin\Debug\netcoreapp2.2\POS.dll
+F:\Rajat\POS\POS\bin\Debug\netcoreapp2.2\POS.pdb
+F:\Rajat\POS\POS\obj\Debug\netcoreapp2.2\POS.csprojAssemblyReference.cache
+F:\Rajat\POS\POS\obj\Debug\netcoreapp2.2\POS.csproj.CoreCompileInputs.cache
+F:\Rajat\POS\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cache
+F:\Rajat\POS\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cs
+F:\Rajat\POS\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfoInputs.cache
+F:\Rajat\POS\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfo.cs
+F:\Rajat\POS\POS\obj\Debug\netcoreapp2.2\POS.RazorTargetAssemblyInfo.cache
+F:\Rajat\POS\POS\obj\Debug\netcoreapp2.2\POS.dll
+F:\Rajat\POS\POS\obj\Debug\netcoreapp2.2\POS.pdb
+E:\Nikhil\POS\POS\POS\bin\Debug\netcoreapp2.2\POS.deps.json
+E:\Nikhil\POS\POS\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.json
+E:\Nikhil\POS\POS\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.dev.json
+E:\Nikhil\POS\POS\POS\bin\Debug\netcoreapp2.2\POS.dll
+E:\Nikhil\POS\POS\POS\bin\Debug\netcoreapp2.2\POS.pdb
+E:\Nikhil\POS\POS\POS\obj\Debug\netcoreapp2.2\POS.csproj.CoreCompileInputs.cache
+E:\Nikhil\POS\POS\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cache
+E:\Nikhil\POS\POS\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cs
+E:\Nikhil\POS\POS\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfoInputs.cache
+E:\Nikhil\POS\POS\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfo.cs
+E:\Nikhil\POS\POS\POS\obj\Debug\netcoreapp2.2\POS.RazorTargetAssemblyInfo.cache
+E:\Nikhil\POS\POS\POS\obj\Debug\netcoreapp2.2\POS.dll
+E:\Nikhil\POS\POS\POS\obj\Debug\netcoreapp2.2\POS.pdb
+F:\Nikhil\LatestCode\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.deps.json
+F:\Nikhil\LatestCode\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.json
+F:\Nikhil\LatestCode\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.dev.json
+F:\Nikhil\LatestCode\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.dll
+F:\Nikhil\LatestCode\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.pdb
+F:\Nikhil\LatestCode\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.csproj.CoreCompileInputs.cache
+F:\Nikhil\LatestCode\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cache
+F:\Nikhil\LatestCode\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cs
+F:\Nikhil\LatestCode\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfoInputs.cache
+F:\Nikhil\LatestCode\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfo.cs
+F:\Nikhil\LatestCode\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorTargetAssemblyInfo.cache
+F:\Nikhil\LatestCode\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.dll
+F:\Nikhil\LatestCode\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.pdb
+F:\Nikhil\LatestCode\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.csprojAssemblyReference.cache
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.deps.json
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.json
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.dev.json
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.dll
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.pdb
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.csproj.CoreCompileInputs.cache
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cache
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cs
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfoInputs.cache
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfo.cs
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorTargetAssemblyInfo.cache
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.dll
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.pdb
+E:\Nikhil\Project\POS\LatestCode\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.csprojAssemblyReference.cache
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.csproj.CoreCompileInputs.cache
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cache
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cs
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfoInputs.cache
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfo.cs
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.deps.json
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.json
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.dev.json
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.dll
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.pdb
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorTargetAssemblyInfo.cache
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.dll
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.pdb
+F:\Nikhil\Projects\POSAPI\POS (2)\POS (2)\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.csprojAssemblyReference.cache
+E:\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.deps.json
+E:\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.json
+E:\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.runtimeconfig.dev.json
+E:\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.dll
+E:\POS (2)\POS\bin\Debug\netcoreapp2.2\POS.pdb
+E:\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.csproj.CoreCompileInputs.cache
+E:\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cache
+E:\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorAssemblyInfo.cs
+E:\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfoInputs.cache
+E:\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.AssemblyInfo.cs
+E:\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.RazorTargetAssemblyInfo.cache
+E:\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.dll
+E:\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.pdb
+E:\POS (2)\POS\obj\Debug\netcoreapp2.2\POS.csprojAssemblyReference.cache
