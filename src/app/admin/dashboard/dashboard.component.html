@@ -1,450 +1,326 @@
 <div class="custom-dashboard">
-   <div class="container-fluid">
-      <div class="row">
-         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h2 class="heading">Welcome!</h2>
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
-            <div class="sales-box">
-               <img src="assets/images/daily-sales.png">
-               <div class="sales-text">
-                  <p>Daily Sales</p>
-                  <h2>$45,000</h2>
-               </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2 class="heading" data-aos="fade-down" data-aos-duration="800">{{'Welcome!' | translate}}</h2>
             </div>
-         </div>
-         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
-            <div class="sales-box">
-               <img src="assets/images/Weekly-slaes.png">
-               <div class="sales-text">
-                  <p>Weekly Sales</p>
-                  <h2>$45,000</h2>
-               </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                <div class="sales-box brown-bg-bx" data-aos="zoom-in" data-aos-duration="600">
+                    <!--<img src="assets/images/daily-sales-1.1.png">-->
+                    <figure class="d-top-icon doller-icon">
+                        <img class="img-fluid" src="assets/images/$-sign.png" />
+                    </figure>
+                    <div class="sales-text">
+                        <h4 class="dsh-card-title">{{'Daily' | translate}}</h4>
+                        <p class="fw-500">{{'Sales' | translate}} :
+                            {{currency}}{{moneyConversion(dashboardData.cards.dailySales)}}</p>
+                        <p class="fw-500">{{'Rent' | translate}} :
+                            {{currency}}{{moneyConversion(dashboardData.cards.dailyRent)}}</p>
+                    </div>
+                </div>
             </div>
-         </div>
-         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
-            <div class="sales-box">
-               <img src="assets/images/monthly-income.png">
-               <div class="sales-text">
-                  <p>Monthly Sales</p>
-                  <h2>$45,000</h2>
-               </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                <div class="sales-box b-dark-bg-bx" data-aos="zoom-in" data-aos-duration="700">
+                    <!--<img src="assets/images/weekly-sales-1.1.png">-->
+                    <figure class="d-top-icon weekly-icon">
+                        <img class="img-fluid" src="assets/images/weekly.png" />
+                    </figure>
+                    <div class="sales-text">
+                        <h4 class="text-white fw-500 dsh-card-title">{{'Weekly' | translate}}</h4>
+                        <p class="fw-500">{{'Sales' | translate}} :
+                            {{currency}}{{moneyConversion(dashboardData.cards.weeklySales)}}</p>
+                        <p class="fw-500">{{'Rent' | translate}} :
+                            {{currency}}{{moneyConversion(dashboardData.cards.weeklyRent)}}</p>
+                    </div>
+                </div>
             </div>
-         </div>
-         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
-            <div class="sales-box">
-               <img src="assets/images/yearly-sales.png">
-               <div class="sales-text">
-                  <p>Yearly Sales</p>
-                  <h2>$45,000</h2>
-               </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                <div class="sales-box black-bg-bx" data-aos="zoom-in" data-aos-duration="400">
+                    <!--<img src="assets/images/monthly-sales-1.1.png">-->
+                    <figure class="d-top-icon monthly-icon">
+                        <img class="img-fluid" src="assets/images/monthly.png" />
+                    </figure>
+                    <div class="sales-text">
+                        <h4 class="text-white fw-500 dsh-card-title">{{'Monthly' | translate}}</h4>
+                        <p class="fw-500">{{'Sales' | translate}} :
+                            {{currency}}{{moneyConversion(dashboardData.cards.monthlySales)}}</p>
+                        <p class="fw-500">{{'Rent' | translate}} :
+                            {{currency}}{{moneyConversion(dashboardData.cards.monthlyRent)}}</p>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+                <div class="sales-box red-bg-bx" data-aos="zoom-in" data-aos-duration="1200">
+                    <!--<img src="assets/images/yearly-sales-1.1.png">-->
+                    <figure class="d-top-icon yearly-icon">
+                        <img class="img-fluid" src="assets/images/yearly.png" />
+                    </figure>
+                    <div class="sales-text">
+                        <h4 class="text-white fw-500 dsh-card-title">{{'Yearly' | translate}}</h4>
+                        <p class="fw-500">{{'Sales' | translate}} :
+                            {{currency}}{{moneyConversion(dashboardData.cards.yearlySales)}}</p>
+                        <p class="fw-500">{{'Rent' | translate}} :
+                            {{currency}}{{moneyConversion(dashboardData.cards.yearlyRent)}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="Monthly-Income-section">
-   <div class="container-fluid">
-      <div class="row">
-         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="monthly-graph">
-               <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                     <div class="dashboard-heading-top">
-                        <h2>Monthly Graph</h2>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                     <div class="monthly-graph-img">
-                        <img src="assets/images/monthly-graph.png">
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="incoming-rented-items">
-               <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                     <div class="dashboard-heading-top">
-                        <h2>Incoming Rented items</h2>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                     <div class="table-gridbox">
-                        <table width="100%">
-                           <thead>
-                              <tr>
-                                 <th>Product name</th>
-                                 <th>DOI</th>
-                                 <th class="text-center">DOR</th>
-                                 <th class="text-center">QTY</th>
-                                 <th class="text-center">From</th>
-                              </tr>
-                           </thead>
-                        </table>
-                     </div>
-                     <div class="table-gridbox" id="boxscroll4">
-                        <div class="overflow-auto scroll-height">
-                           <table class="table table-striped custab">
-                           <tr>
-                              <td><img src="assets/images/customer-img.png">Neck Suit X10</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">John Doe</td>
-                           </tr>
-                           <tr>
-                              <td><img src="assets/images/customer-img.png">Neck Suit X10</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">John Doe</td>
-                           </tr>
-                           <tr>
-                              <td><img src="assets/images/customer-img.png">Neck Suit X10</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">John Doe</td>
-                           </tr>
-                           <tr>
-                              <td><img src="assets/images/customer-img.png">Neck Suit X10</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">John Doe</td>
-                           </tr>
-                           <tr>
-                              <td><img src="assets/images/customer-img.png">Neck Suit X10</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">John Doe</td>
-                           </tr>
-                           <tr>
-                              <td><img src="assets/images/customer-img.png">Neck Suit X10</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">John Doe</td>
-                           </tr>
-                           <tr>
-                              <td><img src="assets/images/customer-img.png">Neck Suit X10</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">John Doe</td>
-                           </tr>
-                           <tr>
-                              <td><img src="assets/images/customer-img.png">Neck Suit X10</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">John Doe</td>
-                           </tr>
-                           <tr>
-                              <td><img src="assets/images/customer-img.png">Neck Suit X10</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">10-06-2019</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">John Doe</td>
-                           </tr>
-                        </table>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                <div class="monthly-graph mt-4" data-aos="fade-up" data-aos-duration="1500">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="row">
+                                <div class="col-12 col-sm-7 col-md-7 col-lg-7">
+                                    <div class="dashboard-heading-top">
+                                        <span>
+                                            <h2>{{'Monthly Graph' | translate}}</h2>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-7 col-md-5 col-lg-5">
+                                    <ul class="list-inline text-right mt-2 pr-2">
+                                        <li class="list-inline-item"><label> <input type="radio"
+                                                    [(ngModel)]="monthlyGraphRadio" (click)="setMonthlyGraph('sales')"
+                                                    [checked]="monthlyGraphRadio == 'sales'" name="monthly_graph"
+                                                    value="sales"> {{'Sales' | translate}}</label></li>
+                                        <li class="list-inline-item"><label>
+
+                                                <input type="radio" [(ngModel)]="monthlyGraphRadio"
+                                                    (click)="setMonthlyGraph('rent')"
+                                                    [checked]="monthlyGraphRadio == 'rent'" name="monthly_graph"
+                                                    value="rent"> {{'Rent' | translate}}
+                                            </label></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                    <div class="row"
+                        *ngIf="dashboardData.monthlySaleReport && dashboardData.monthlySaleReport.length > 0">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div echarts [options]="option" class="echart">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                <div class="incoming-rented-items incoming_rented mt-4" data-aos="fade-up" data-aos-duration="1500">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="dashboard-heading-top row">
+                                <div class="col-sm-6">
+                                    <h2>{{'Incoming Rented items' | translate}}</h2>
+                                </div>
+                                <div class="col-sm-6 text-right"><a
+                                        routerLink="/admin/incoming_Rented">{{'View Report' | translate}} <i
+                                            class="mdi mdi-arrow-right"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="table-gridbox scroll-height mCustomScrollbar">
+                                <div class="overflow-auto">
+                                    <table class="table table-striped custab">
+                                        <thead>
+                                            <tr>
+                                                <th>{{'Franchise' | translate}}</th>
+                                                <th>{{'Product name' | translate}}</th>
+                                                <th cass="text-center">{{'DOI' | translate}}/{{'DOR' | translate}}</th>
+
+                                                <th class="text-center">{{'From' | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tr *ngFor="let rentedItems of dashboardData.itemRentedList | slice:0:10">
+                                            <td>{{rentedItems!.franchiseName || 'N/A'}}</td>
+                                            <td style="width: 42%;"><img
+                                                    src="{{rentedItems!.productLogo || 'assets/images/customer-img.png'}}"><strong
+                                                    class="d-product-name product-name-right">{{rentedItems!.itemName || '--'}}</strong>
+                                            </td>
+                                            <td class="text-center">
+                                                {{rentedItems!.rentedOn.split('T')[0] || '--'}}<br>{{rentedItems.returnDate.split('T')[0] || 'N/A'}}
+                                            </td>
+
+                                            <td class="text-center">{{rentedItems!.issuedName || '--'}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="highest-selling-section">
-   <div class="container-fluid">
-      <div class="row">
-         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
-            <div class="incoming-rented-items">
-               <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                     <div class="dashboard-heading-top">
-                        <h2>Hishest Selling Items</h2>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                     <div class="table-gridbox">
-                        <table width="100%">
-                           <thead>
-                              <tr>
-                                 <th>Product name</th>
-                                 <th class="text-center">Quantity</th>
-                                 <th class="text-center">Price</th>
-                              </tr>
-                           </thead>
-                        </table>
-                     </div>
-                     <div class="table-gridbox mCustomScrollbar " id="boxscroll3">
-                        <div class="overflow-auto scroll-height">
-                           <table class="table table-striped custab">
-                           <tr>
-                              <td>1.Neck Suit X10</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">$30</td>
-                           </tr>
-                           <tr>
-                              <td>2.Neck Suit X10</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">$30</td>
-                           </tr>
-                           <tr>
-                              <td>3.Neck Suit X10</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">$30</td>
-                           </tr>
-                           <tr>
-                              <td>4.Neck Suit X10</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">$30</td>
-                           </tr>
-                           <tr>
-                              <td>5.Neck Suit X10</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">$30</td>
-                           </tr>
-                           <tr>
-                              <td>6.Neck Suit X10</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">$30</td>
-                           </tr>
-                           <tr>
-                              <td>7.Neck Suit X10</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">$30</td>
-                           </tr>
-                           <tr>
-                              <td>8.Neck Suit X10</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">$30</td>
-                           </tr>
-                           <tr>
-                              <td>9.Neck Suit X10</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">$30</td>
-                           </tr>
-                           <tr>
-                              <td>10.Neck Suit X10</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">$30</td>
-                           </tr>
-                           <tr>
-                              <td>11.Neck Suit X10</td>
-                              <td class="text-center">1</td>
-                              <td class="text-center">$30</td>
-                           </tr>
-                        </table>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                <div class="incoming-rented-items mt-4" data-aos="fade-up" data-aos-duration="1500">
+                    <div class="dashboard-heading-top row">
+                        <div class="col-sm-6">
+                            <h2>{{'Highest Selling Items' | translate}}</h2>
                         </div>
-                     </div>
-                  </div>
-               </div>
+                        <div class="col-sm-6 text-right"><a
+                                routerLink="/admin/higest_sale">{{'View Report' | translate}}<i
+                                    class="mdi mdi-arrow-right"></i></a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="table-gridbox scroll-height mCustomScrollbar">
+                                <div class="overflow-auto">
+                                    <table class="table table-striped custab"
+                                        *ngIf="dashboardData && dashboardData.highestSelling">
+                                        <thead>
+                                            <tr>
+                                                <th>{{'Product name' | translate}}</th>
+                                                <th class="">{{'Quantity' | translate}}</th>
+                                                <th class="">{{'Price' | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tr
+                                            *ngFor="let item of dashboardData.highestSelling | slice:0:10; let i = index">
+                                            <td>{{i+1}}. {{item!.itemName || '--'}}</td>
+                                            <td class="">{{item!.quantity || '--'}}</td>
+                                            <td class="">{{currency}} {{item.totalPrice | number:'0.2'}}</td>
+                                        </tr>
+                                        <tr *ngIf="dashboardData && dashboardData.highestSelling.length < 1">
+                                            <td>
+                                                Data Not Found!
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
-            <div class="customer-section">
-               <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                     <div class="dashboard-heading-top">
-                         <h2>Customers</h2>
-                     </div>
-                    
-                  </div>
-               </div>
-               <div class="overflow-auto scroll-height-390">
-                  <div class="row custom_border">
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-                     <div class="customer-image">
-                        <img src="assets/images/customer-img.png">
-                     </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-10">
-                     <div class="customer-text">
-                        <h2>John De</h2>
-                        <p>123 4567 8910</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="row custom_border">
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-                     <div class="customer-image">
-                        <img src="assets/images/customer-img.png">
-                     </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-10">
-                     <div class="customer-text">
-                        <h2>John De</h2>
-                        <p>123 4567 8910</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="row custom_border">
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-                     <div class="customer-image">
-                        <img src="assets/images/customer-img.png">
-                     </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-10">
-                     <div class="customer-text">
-                        <h2>John De</h2>
-                        <p>123 4567 8910</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="row custom_border">
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-                     <div class="customer-image">
-                        <img src="assets/images/customer-img.png">
-                     </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-10">
-                     <div class="customer-text">
-                        <h2>John De</h2>
-                        <p>123 4567 8910</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="row custom_border">
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-                     <div class="customer-image">
-                        <img src="assets/images/customer-img.png">
-                     </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-10">
-                     <div class="customer-text">
-                        <h2>John De</h2>
-                        <p>123 4567 8910</p>
-                     </div>
-                  </div>
-               </div>
-               <div class="row custom_border">
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">
-                     <div class="customer-image">
-                        <img src="assets/images/customer-img.png">
-                     </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-10">
-                     <div class="customer-text">
-                        <h2>John De</h2>
-                        <p>123 4567 8910</p>
-                     </div>
-                  </div>
-               </div>
-               </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                <div class="customer-section mt-4" data-aos="fade-up" data-aos-duration="500">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="dashboard-heading-top">
+                                <h2>{{'Customers' | translate}}</h2>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="scroll-height-390 mCustomScrollbar">
+                        <div class="overflow-auto">
+                            <div class="row custom_border" *ngFor="let customer of dashboardData.customerList">
+                                <div class="col-3 col-sm-2 col-md-6 col-lg-2">
+                                    <div class="customer-image">
+                                        <img src="assets/images/person_placeholder.png">
+                                    </div>
+                                </div>
+                                <div class="col-9 col-sm-10 col-md-6 col-lg-10">
+                                    <div class="customer-text">
+                                        <h2>{{customer!.customerName || 'Unknown'}}</h2>
+                                        <p>{{customer!.customerContactNo || 'N/A'}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
 <div class="sock-alert-section">
-   <div class="container-fluid">
-      <div class="row">
-         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="incoming-rented-items">
-               <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-12">
-                     <div class="dashboard-heading-top">
-                          <h2>Stock Alert</h2>
-                     </div>
-                    
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-                     <div class="table-gridbox">
-                        <table width="100%">
-                           <thead>
-                              <tr>
-                                 <th align="left">Product name</th>
-                                 <th align="center" width="100">Quantity</th>
-                              </tr>
-                           </thead>
-                        </table>
-                     </div>
-                     <div class="table-gridbox mCustomScrollbar " id="boxscroll2">
-                        <div class="overflow-auto scroll-height">
-                           <table class="table table-striped custab">
-                           <tr>
-                              <td>1.Neck Suit X10</td>
-                              <td class="text-center" width="100"><span>1</span></td>
-                           </tr>
-                           <tr>
-                              <td>2.Neck Suit X10</td>
-                              <td class="text-center" width="100"><span>1</span></td>
-                           </tr>
-                           <tr>
-                              <td>3.Neck Suit X10</td>
-                              <td class="text-center" width="100"><span>1</span></td>
-                           </tr>
-                           <tr>
-                              <td>4.Neck Suit X10</td>
-                              <td class="text-center" width="100"><span>1</span></td>
-                           </tr>
-                           <tr>
-                              <td>5.Neck Suit X10</td>
-                              <td class="text-center" width="100"><span>1</span></td>
-                           </tr>
-                           <tr>
-                              <td>6.Neck Suit X10</td>
-                              <td class="text-center" width="100"><span>1</span></td>
-                           </tr>
-                           <tr>
-                              <td>7.Neck Suit X10</td>
-                              <td class="text-center" width="100"><span>1</span></td>
-                           </tr>
-                           <tr>
-                              <td>8.Neck Suit X10</td>
-                              <td class="text-center" width="100"><span>1</span></td>
-                           </tr>
-                           <tr>
-                              <td>9.Neck Suit X10</td>
-                              <td class="text-center" width="100"><span>1</span></td>
-                           </tr>
-                           <tr>
-                              <td>10.Neck Suit X10</td>
-                              <td class="text-center" width="100"><span>1</span></td>
-                           </tr>
-                        </table>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                <div class="incoming-rented-items mt-4" data-aos="fade-up" data-aos-duration="1500">
+                    <div class="dashboard-heading-top row">
+                        <div class="col-sm-6">
+                            <h2>{{'Stock Alert' | translate}}</h2>
                         </div>
-                     </div>
-                  </div>
-               </div>
+                        <div class="col-sm-6 text-right"><a
+                                routerLink="/admin/incoming_Sale">{{'View Report' | translate}}<i class="mdi mdi-arrow-right"></i></a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                            <div class="table-gridbox scroll-height-436 mCustomScrollbar">
+                                <div class="overflow-auto">
+                                    <table class="table table-striped custab">
+                                        <thead>
+                                            <tr>
+                                                <th align="center">{{'Franchise' | translate}}</th>
+                                                <th align="left">{{'Product name' | translate}}</th>
+                                                <th align="center" width="100">{{'Quantity' | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tr *ngFor="let stock of dashboardData.itemsstock">
+                                            <td>{{stock!.franchiseName | translate}}</td>
+                                            <td>{{stock!.itemName || 'N/A'}}</td>
+                                            <td><span class="text-center">{{stock!.minimumStock || 0}}</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="counter-alert">
-               <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                     
-                     <div class="dashboard-heading-top">
-                          <h2>Counter Wise Alert</h2>
-                     </div>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                     <div class="chart-image">
-                        <img src="assets/images/chart-image.png">
-                     </div>
-                  </div>
-               </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                <div class="counter-alert mt-4" data-aos="fade-up" data-aos-duration="1500">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="dashboard-heading-top dashbrd_mnthly row">
+                                <div class="col-sm-6">
+                                    <h2>{{'Monthly Report' | translate}}</h2>
+                                </div>
+                                <div class="col-sm-6 text-right" *ngIf="monthlySaleReportRadio == 'sales'"><a
+                                        routerLink="/admin/sales-report/monthly">{{'View Report' | translate}}<i
+                                            class="mdi mdi-arrow-right"></i></a>
+                                </div>
+                                <div class="col-sm-6 text-right" *ngIf="monthlySaleReportRadio == 'rent'"><a
+                                        routerLink="/admin/date-wise-rent-report">{{'View Report' | translate}}<i
+                                            class="mdi mdi-arrow-right"></i></a>
+                                </div>
+                                <div class="col-12 col-sm-7 col-md-5 col-lg-5">
+                                    <ul class="list-inline text-left  pl-2">
+                                        <li class="list-inline-item">
+                                            <label>
+                                                <input type="radio" [(ngModel)]="monthlySaleReportRadio"
+                                                    (click)="setMonthlyPieChart('sales')"
+                                                    [checked]="monthlySaleReportRadio == 'sales'"
+                                                    name="monthly_sale_report" value="sales">
+                                                {{'Sales' | translate}}
+                                            </label>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <label>
+                                                <input type="radio" [(ngModel)]="monthlySaleReportRadio"
+                                                    (click)="setMonthlyPieChart('rent')"
+                                                    [checked]="monthlySaleReportRadio == 'rent'"
+                                                    name="monthly_sale_report" value="rent"> {{'Rent' | translate}}
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+                            *ngIf="dashboardData.pieChart && dashboardData.pieChart.length > 0">
+                            <div echarts [options]="chartOption" class="echart"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>

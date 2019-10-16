@@ -5,12 +5,27 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 .mat-table thead tr {
-    background-color: #087eb7;
+    background-color: #eee;
     color: #fff !important;
 }
 .mat-table thead tr th {
-    color: #fff !important;
+    color: #333 !important;
     font-size:15 px;
+}
+.list-inline {
+    padding-left: 0;
+    list-style: none;
+}
+.lang-top {
+    position: fixed;
+    z-index: 99999;
+    right: 29px;
+}
+.list-inline-item:not(:last-child) {
+    margin-right: .5rem;
+}
+.list-inline-item {
+    display: inline-block;
 }
 // .mat-table {
 //         overflow: auto;
@@ -32,3 +47,6 @@
  // .md-row:nth-child(odd){
  //      background-color:#FDFDFB;
  //      }
+
+
+

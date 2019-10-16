@@ -1,0 +1,113 @@
+<div class="p-2">
+    <div class="franchise-sec1">
+        <div class="franchise-form mb-2">
+           <div class="franchise-top-header">
+               <h2 class="heading-name">{{'Unit Category Measurement Form' | translate}}<!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> --></h2>  
+           </div>
+          <form [formGroup]="unitMeasurementForm" (ngSubmit)="onSubmit(unitMeasurementForm.value)">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                    <div class="form-group row">
+                      <label for="email_address" class="col-md-4 col-form-label mt-2">{{'Unit Category Name' | translate}}</label>
+                      <div class="col-md-8 form-err">
+                        <select formControlName="unitCategoryId" class="form-control custom_select"  (change)="onChange($event.target.value)" >
+                            <option value=null disabled="">{{'Select' | translate}}</option>
+                            <option  *ngFor="let unit of formServiceData.unitCategoryList" value="{{unit.unitCategoryId}}" >{{unit.unitCategoryName}}</option>
+                            </select>
+                             <span
+                                 *ngIf="!unitMeasurementForm.controls['unitCategoryId'].valid && ( unitMeasurementForm.controls['unitCategoryId'].touched)">
+                                     {{'Please Select Unit Category name.' | translate}}
+                             </span>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                      <div class="form-group row">
+                        <label for="ctype" class="col-md-5 col-form-label mt-2">{{'Unit Measurement Name' | translate}}</label>
+                        <div class="col-md-7 form-err">
+                                  
+                            <input type="text" formControlName="UnitMeasurementName" id="id_unitCategoryMeasureName" class="form-control" name="user-name" >
+                           <span
+                               *ngIf="!unitMeasurementForm.controls['UnitMeasurementName'].valid && ( unitMeasurementForm.controls['UnitMeasurementName'].touched)">
+                                   {{'Please enter Unit Measurement name.' | translate}}
+                           </span>
+                        
+                        </div>
+                      </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px;">
+                      <div class="form-group row m-0">
+                         <div class="col-md-2"></div>
+                         <div class="col-md-10">
+                            <button class="btn btn-info submit sm-btn" > {{'Submit' | translate}}</button>
+                            <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="{{'Cancel' | translate}}">
+                         </div>
+                      </div>
+                </div>
+              </div>
+            </form>
+        </div>
+    </div>
+    <div class="table-gridbox">
+    <mat-card>
+     <mat-form-field>
+            <input matInput (keyup)="doFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <div class="mat-elevation-z8">
+            <div class="table-responsive">
+                 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                       
+                          <ng-container matColumnDef="unitCategoryName" >
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header >{{'Unit Category Name' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.unitCategoryName}} </td>
+                          </ng-container>
+
+                           <ng-container matColumnDef="unitMeasurementName" >
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header >{{'Unit Measurement Name' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"> {{element.unitMeasurementName}} </td>
+                          </ng-container>
+                        
+                       
+                            <!-- <ng-container matColumnDef="isActive">
+                                <th mat-header-cell *matHeaderCellDef > Is Active </th>
+                                <td mat-cell *matCellDef="let element">  {{ element.isActive==1? 'Active' : element.isActive==2? 'Inactive':'' }}</td>
+                            </ng-container> -->
+                           
+                            <ng-container matColumnDef="action">
+                              <th mat-header-cell *matHeaderCellDef> {{'Action' | translate}} </th>
+                              <td mat-cell *matCellDef="let element">
+                                  <ul class="list-inline list-btn-td">
+                                      <li class="list-inline-item"><mat-card class="result">
+                                          <mat-card-content>
+                                                  
+                                            <section class="example-section">
+                                              <mat-slide-toggle
+                                                  class="example-margin"
+                                                  [color]="color"
+                                                  [checked]="element.isActive"
+                                                  (click)="activateUnitCategoryMeasurement(element.unitMeasurementId)"
+                                                  [disabled]="disabled">
+                                              </mat-slide-toggle>
+                                            </section>
+                                          </mat-card-content>
+                                        </mat-card> 
+                                    </li>
+                                  <li class="list-inline-item edit-pen-btn" (click)="openEdit(element)"><a class="btn btn-primary btn-sm"  href="javascript:void(0);"><i class="fa fa-pencil" style="margin: 0 8px" aria-hidden="true"></i></a></li>
+                                  <li class="list-inline-item edit-user-btn" (click)="DeleteUnitMeasureCategory(element.unitMeasurementId)" ><a class="btn btn-danger btn-sm" href="javascript:void(0);"><i class="fa fa-trash"></i></a></li>
+                               
+                              </ul>
+                              </td>
+                          </ng-container>
+                          
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          </table>
+            </div>
+              <mat-paginator class="cstm_pagination" [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions">
+              </mat-paginator>
+        </div>
+    </mat-card>
+    </div>
+  </div>

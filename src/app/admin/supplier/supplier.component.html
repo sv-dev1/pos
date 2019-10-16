@@ -1,0 +1,196 @@
+<div class="p-2">
+    <div class="franchise-sec1">
+        <div class="franchise-form mb-2">
+            <div class="franchise-top-header">
+                <h2 class="heading-name">{{'Supplier Form' | translate}}<!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> --></h2>
+            </div>
+            <form [formGroup]="formdata" (ngSubmit)="onSubmit(formdata.value)">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group row mt-2">
+                            <label class="control-label col-sm-3" for="email">{{'Franchise' | translate}}</label>
+                            <div class="col-sm-9 form-err">
+                                <select formControlName="franchiseId" class="form-control mt-0">
+                                    <option value=null disabled="">{{'Select' | translate}}</option>
+                                    <option value="{{franchise.franchiseId}}" *ngFor="let franchise of formServiceData.franchiseList">{{franchise.franchiseName}}</option>
+                                </select>
+                               <div *ngIf="loginData.userRole == 1">
+                                <span *ngIf="!formdata.controls['franchiseId'].valid && ( formdata.controls['franchiseId'].touched)">
+                                    {{'Please select franchise.' | translate}}
+                                </span>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-3">
+                                <label class="control-label col-sm-3" for="email">{{'Contact No.' | translate}}</label>
+                                <div class="col-sm-9 form-err">
+                                    <input type="email" formControlName="supplierContactNo" name="values" class="form-control mt-0" id="email">
+                                    <span *ngIf="!formdata.controls['supplierContactNo'].valid && ( formdata.controls['supplierContactNo'].touched)">
+                                        {{'Please enter Contact Number' | translate}}
+                                    </span>
+                                </div>
+                            </div>
+                       
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+
+                            <div class="form-group row mt-2">
+                                    <label class="control-label col-sm-3" for="email">{{'Commercial Company Name' | translate}}</label>
+                                    <div class="col-sm-9 form-err">
+                                        <input type="email" formControlName="companyName" name="values" class="form-control mt-0" id="companyName">
+                                        <span *ngIf="!formdata.controls['companyName'].valid && ( formdata.controls['companyName'].touched)">
+                                            {{'Please enter Company Name' | translate}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                        
+                        <div class="form-group row mt-3">
+                            <label class="control-label col-sm-3" for="pwd">{{'Address' | translate}}</label>
+                            <div class="col-sm-9 form-err">
+                                <textarea type="email" formControlName="supplierAddress" name="supplierAddress" class="form-control" id="pwd"></textarea>
+                                <span *ngIf="!formdata.controls['supplierAddress'].valid && ( formdata.controls['supplierAddress'].touched)">
+                                    {{'Please enter Supplier Address' | translate}}
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                   
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="form-group row mt-2">
+                                    <label class="control-label col-sm-3" for="email">{{'City' | translate}}</label>
+                                    <div class="col-sm-9 form-err">
+                                        <input type="email" formControlName="supplierCity" name="values" class="form-control mt-0" id="email">
+                                        <span *ngIf="!formdata.controls['supplierCity'].valid && ( formdata.controls['supplierCity'].touched)">
+                                            {{'Please enter City' | translate}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                        <label class="control-label col-sm-3" for="email">{{'Email' | translate}}</label>
+                                        <div class="col-sm-9 form-err">
+                                            <input type="email" formControlName="email" name="values" class="form-control mt-0" id="email">
+                                            <span *ngIf="!formdata.controls['email'].valid && ( formdata.controls['email'].touched)">
+                                                {{'Please enter email' | translate }}
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+                        
+                        
+
+                    </div>
+
+                    
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group row mt-2">
+                            <label class="control-label col-sm-3" for="email">{{'Phone No.' | translate}}</label>
+                            <div class="col-sm-9 form-err">
+                                <input type="email" formControlName="cellphone" name="cellphone" class="form-control mt-0" id="email">
+                                <span *ngIf="!formdata.controls['cellphone'].valid && ( formdata.controls['cellphone'].touched)">
+                                    {{'Please enter Phone No.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-3">
+                                <label class="control-label col-sm-3" for="email">{{'Supplier Name' | translate}}</label>
+                                <div class="col-sm-9 form-err">
+                                    <input type="email" formControlName="supplierName" name="supplierName" class="form-control mt-0" id="email">
+                                    <span *ngIf="!formdata.controls['supplierName'].valid && ( formdata.controls['supplierName'].touched)">
+                                        {{'Please enter Supplier Name' | translate}}
+                                    </span>
+                                </div>
+                            </div>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px;">
+                        <div class="form-group row m-0">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10 mt-1">
+                                <button class="btn btn-info submit sm-btn">{{'Submit' | translate}}</button>
+                                <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="{{'Cancel' | translate}}">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-gridbox">
+        <mat-card>
+            <mat-form-field>
+                <input matInput (keyup)="doFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field>
+            <div class="mat-elevation-z8">
+                <div class="table-responsive">
+                    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+                        <ng-container matColumnDef="supplierName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Supplier Name' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.supplierName}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="supplierAddress">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Address' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.supplierAddress}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="supplierCity">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'City' | translate}} </th>
+                            <td mat-cell *matCellDef="let element">  {{element.supplierCity}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="supplierContactNo">
+                            <th mat-header-cell *matHeaderCellDef> {{'Contact Number' | translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.supplierContactNo}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef> {{'Action' | translate}} </th>
+                            <td mat-cell *matCellDef="let element">
+                                <ul class="list-inline list-btn-td">
+                                    <li class="list-inline-item">
+                                        <mat-card class="result">
+                                            <mat-card-content>
+
+                                                <section class="example-section">
+                                                    <mat-slide-toggle class="example-margin"
+                                                                      [color]="color"
+                                                                      [checked]="element.isActive"
+                                                                      (click)="ActivateSupplier(element.supplierId)"
+                                                                      [disabled]="disabled">
+                                                    </mat-slide-toggle>
+                                                </section>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </li>
+                                    <li class="list-inline-item edit-pen-btn" (click)="openEdit(element)"><a class="btn btn-primary btn-sm" href="javascript:void(0);"><i class="fa fa-pencil" style="margin: 0 8px" aria-hidden="true"></i></a></li>
+                                    <li class="list-inline-item edit-user-btn" (click)="DeleteSupplier(element.supplierId)"><a class="btn btn-danger btn-sm" href="javascript:void(0);"><i class="fa fa-trash"></i></a></li>
+
+                                </ul>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator class="cstm_pagination" [length]="length"
+                                   [pageSize]="pageSize"
+                                   [pageSizeOptions]="pageSizeOptions">
+                    </mat-paginator>
+                </div>
+
+            </div>
+        </mat-card>
+    </div>
+</div>

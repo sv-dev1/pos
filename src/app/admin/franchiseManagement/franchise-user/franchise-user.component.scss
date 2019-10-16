@@ -41,19 +41,11 @@ td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:
 }
 .franchise-form{
   background: #fff;
-    padding: 20px 0px;
-    border-top: #01baef 4px solid;
+    padding:0px 0px 20px;
+    border-top: #595a5d 4px solid;
     position: relative;
 }
-.franchise-form::before{
-    position: absolute;
-    content: "";
-    right: 0;
-    width: 50%;
-    background: #086a91;
-    height: 4px;
-    top: -4px;
-}
+
 .franchise-form .form-group label {
     color: #171717;
     font-size: 13px;
@@ -96,7 +88,7 @@ td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:
    font-size:13px;
 }
 button.btn.btn-info.submit {
-    background-color:#086a91 !important;
+    background-color:#919191 !important;
     border-radius: 100px;
     border: none;
     padding: 10px 26px;

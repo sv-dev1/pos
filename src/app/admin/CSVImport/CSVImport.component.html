@@ -1,0 +1,79 @@
+﻿
+<div class="p-2">
+      <div class="loadWrapper" *ngIf="showProgress"> 
+                    <img src="../../assets/images/loader-image.gif">
+                </div>  
+    <div class="franchise-sec1">
+           
+        <div class="franchise-form mb-2">
+            <div class="franchise-top-header">
+                <h2 class="heading-name">{{'Import' | translate}}</h2>
+            </div>
+            
+            <form [formGroup]="itemForm">
+
+                <div class="row">
+                       
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group row">
+                            <label for="email_address" class="col-md-4 col-form-label pt-3">{{'Franchise' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <select formControlName="FranchiseId" (change)="selectChangeHandler1($event)" class="form-control">
+                                    <option value=null disabled="">{{'Select' | translate}}</option>
+                                    <option value="{{franchise.franchiseId}}" *ngFor="let franchise of franchiseList">{{franchise.franchiseName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group row">
+                            <label for="file" class="col-md-4 col-form-label pt-3">{{'File to upload' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input formControlName="fileName" class="form-control" type="file" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" (change)="onFileChange($event)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group row">
+                            <label for="email_address" class="col-md-4 col-form-label pt-3">{{'Supplier' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <select formControlName="SupplierId" class="form-control" (click)="_getSuppliers()">
+                                    <option value=null disabled="">{{'Select' | translate}}</option>
+                                    <option value="{{supplier.supplierId}}"
+                                            *ngFor="let supplier of formServiceData.supplier">
+                                        {{supplier.supplierName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group row">
+                            <label for="file" class="col-md-4 col-form-label pt-3">{{'Supply Name' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input class="form-control" formControlName="SupplyName" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group row m-0 pt-2">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2"></div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
+                                    <button class="btn btn-info submit sm-btn" [disabled]="!itemForm.valid" (click)="uploadFile();"> Submit</button>
+                                    <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="{{'Cancel' | translate}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+            </form>
+        </div>
+    </div>
+</div>
+
+

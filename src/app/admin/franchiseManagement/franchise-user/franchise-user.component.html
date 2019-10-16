@@ -1,17 +1,16 @@
-<div class="p-4">
-    <div class="franchise-sec1">
+<div class="p-2">
+    <div class="franchise-sec1" data-aos="fade-down" data-aos-duration="800">
       
-    	        <div class="franchise-form mb-4">
+    	        <div class="franchise-form mb-2">
     	        	<form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
+                         <div class="franchise-top-header">
+                             <h2 class="heading-name">{{'User Form' | translate}}</h2>  
+                         </div>
     		            <div class="row">
-    		            	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    		            		<div class="row">
-    		            		<h2 class="heading-name">Franchise Name :<span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span></h2>	
-    		            	</div>
-    		            	</div>
+    		            	
     			            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
     			                <div class="form-group row">
-    			                     <label for="email_address" class="col-md-4 col-form-label">First Name</label>
+    			                     <label for="email_address" class="col-md-4 col-form-label">{{'First Name' | translate}}</label>
     			                     <div class="col-md-8 form-err">
     			                        <input type="text" formControlName="firstname" id="email_address" class="form-control" name="email-address"  placeholder="First Name">
                                         <span
@@ -20,8 +19,8 @@
                                         </span>
     			                     </div>
     			                </div>
-    			                <div class="form-group row">
-    			                     <label for="email_address" class="col-md-4 col-form-label">Username</label>
+    			                <div class="form-group row pt-2">
+    			                     <label for="email_address" class="col-md-4 col-form-label">{{'Username' | translate}}</label>
     			                     <div class="col-md-8 form-err">
     			                        <input type="text" formControlName="Name" id="Username" class="form-control" name="user-name" placeholder="Username">
                                         <span
@@ -30,17 +29,9 @@
                                         </span>
     			                     </div>
     			                </div>
-                                <div class="form-group row">
-                                    <label for="email_address" class="col-md-4 col-form-label">Select Role</label>
+                                <div class="form-group row pt-2 pb-2">
+                                    <label for="email_address" class="col-md-4 col-form-label">{{'Select Role' | translate}}</label>
                                     <div class="col-md-8 form-err" *ngIf="roles">
-                                       <!--  <mat-form-field>
-                                          <mat-label>Favorite food</mat-label>
-                                          <mat-select>
-                                            <mat-option *ngFor="let role of roles" [value]="role.roleId">
-                                              {{role.roleName}}
-                                            </mat-option>
-                                          </mat-select>
-                                        </mat-form-field> -->
                                         <select formControlName="role" class="form-control">
                                             <option value=null disabled="">Select</option>
                                             <option value="{{role.roleId}}" *ngFor="let role of roles">{{role.roleName}}</option>
@@ -54,7 +45,7 @@
     			            </div>
     			            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
     			                  <div class="form-group row">
-    			                     <label for="email_address" class="col-md-4 col-form-label">Last Name</label>
+    			                     <label for="email_address" class="col-md-4 col-form-label">{{'Last Name' | translate}}</label>
     			                     <div class="col-md-8 form-err">
     			                        <input type="text" formControlName="lastname" id="lastname" class="form-control" name="last-name" placeholder="Last Name">
                                         <span
@@ -63,8 +54,8 @@
                                         </span>
     			                     </div>
     			                  </div>
-    			                  <div class="form-group row">
-    			                     <label for="email_address" class="col-md-4 col-form-label">Password</label>
+    			                  <div class="form-group row pt-2">
+    			                     <label for="email_address" class="col-md-4 col-form-label">{{'Password' | translate}}</label>
     			                     <div class="col-md-8 form-err">
     			                        <input type="password" formControlName="Password" id="password" class="form-control" name="passwordd" placeholder="Password">
                                         <span
@@ -78,8 +69,9 @@
     			                  <div class="form-group row m-0">
     			                     <div class="col-md-2"></div>
     			                     <div class="col-md-10">
-    			                        <button class="btn btn-info submit sm-btn" [disabled]="!userForm.valid" > Submit</button>
-    			                        <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="Cancel">
+    			                        <button class="btn btn-info submit sm-btn" > {{'Submit' | translate}}</button>
+                                        <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="{{'Cancel' | translate}}">
+                                        
     			                     </div>
     			                  </div>
     			            </div>
@@ -88,50 +80,55 @@
     	        </div>
     	    
     </div>
-    <div class="table-gridbox">
+    <div class="table-gridbox" data-aos="fade-down" data-aos-duration="2000">
     <mat-card>
-    <!--     <mat-form-field>
+     <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-        </mat-form-field -->
+        </mat-form-field >
         <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort>
-                <!-- Name Column -->
-                <ng-container matColumnDef="username">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> User Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element!.userName || 'N/A'}} </td>
-                </ng-container>
-                <!-- Weight Column -->
-                <ng-container matColumnDef="firstname">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element!.firstName || 'N/A'}} </td>
-                </ng-container>
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="lastname">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element!.lastName || 'N/A'}} </td>
-                </ng-container>
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="role">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
-                    <td mat-cell *matCellDef="let element"> {{element!.userRoleName || 'N/A'}} </td>
-                </ng-container>
+            <div class="table-responsive">
+                <table mat-table [dataSource]="dataSource" matSort>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="username">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'User Name' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"><span class="product-name-right"> {{element!.userName || 'N/A'}} </span></td>
+                    </ng-container>
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="firstname">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'First Name' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"><span class="product-name-right">  {{element!.firstName || 'N/A'}}</span> </td>
+                    </ng-container>
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="lastname">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Last Name' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"> <span class="product-name-right">{{element!.lastName || 'N/A'}}</span> </td>
+                    </ng-container>
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="role">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Role' | translate}} </th>
+                        <td mat-cell *matCellDef="let element"><span class="product-name-right"> {{element!.userRoleName || 'N/A'}}</span> </td>
+                    </ng-container>
 
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-                    <td mat-cell *matCellDef="let element">
-                        <ul class="list-inline list-btn-td">
-                        <li class="list-inline-item edit-pen-btn"><a class="btn btn-primary btn-sm" href="javascript:void(0);" (click)="openEdit(element)"><i class="fa fa-pencil" style="margin: 0 8px" aria-hidden="true"></i></a></li>
-                        <li class="list-inline-item edit-user-btn"><a class="btn btn-danger btn-sm" href="javascript:void(0);" (click)="openDelete(element.userId)"><i class="fa fa-trash"></i></a></li>
-                       
-                        
-                    </ul>
-                    </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Action' | translate}} </th>
+                        <td mat-cell *matCellDef="let element">
+                            <ul class="list-inline list-btn-td">
+                            <li class="list-inline-item edit-pen-btn"><a class="btn btn-primary btn-sm" href="javascript:void(0);" (click)="openEdit(element)"><i class="fa fa-pencil" style="margin: 0 8px" aria-hidden="true"></i></a></li>
+                            <li class="list-inline-item edit-user-btn" [style.visibility]="(loginData.userRole == 1 ) ? 'visible' : 'hidden' "><a class="btn btn-danger btn-sm" href="javascript:void(0);" (click)="openDelete(element.userId)"><i class="fa fa-trash"></i></a></li>
+                           
+                            
+                        </ul>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+            <mat-paginator class="cstm_pagination" [length]="length"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions">
+            </mat-paginator>
         </div>
     </mat-card>
     </div>

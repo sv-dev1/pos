@@ -1,0 +1,109 @@
+<form [formGroup]="infoForm" (ngSubmit)="onSubmit(infoForm.value)">
+    <div class="row custom-roww">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+           
+              <div class="form-group row">
+                 <label for="email_address" class="col-md-4 col-form-label">{{'Address' | translate}}</label>
+                 <div class="col-md-8 form-err">
+                    <input type="text" formControlName="FranchiseAddress" id="address1" class="form-control" name="email-address" >
+                    <span
+                        *ngIf="!infoForm.controls['FranchiseAddress'].valid && ( infoForm.controls['FranchiseAddress'].touched)">
+                            {{'Please enter Address.' | translate}}
+                    </span>
+                 </div>
+              </div>
+            <div class="form-group row">
+                 <label for="email_address" class="col-md-4 col-form-label">{{'City' | translate}}</label>
+                 <div class="col-md-8 file-upload form-err">
+                    <input formControlName="FranchiseCity" id="email" type="email" class="form-control"/>
+                    <span
+                        *ngIf="!infoForm.controls['FranchiseCity'].valid && ( infoForm.controls['FranchiseCity'].touched)">
+                           {{' Please enter city.' | translate}}
+                    </span>
+                 </div>
+            </div>
+            <div class="form-group row">
+                <label for="email_address" class="col-md-4 col-form-label">{{'Store Code' | translate}}</label>
+                <div class="col-md-8 form-err">
+                    <input type="text" formControlName="FranchiseCode" id="store_code" class="form-control" name="email-address">
+                    <span
+                        *ngIf="!infoForm.controls['FranchiseCode'].valid && ( infoForm.controls['FranchiseCode'].touched)">
+                            {{'Please enter Store Code.' | translate}}
+                    </span>
+                </div>
+            </div>
+            <div class="form-group row">
+                 <label for="email_address" class="col-md-4 col-form-label">{{'Store Email' | translate}}</label>
+                 <div class="col-md-8 file-upload form-err">
+                    <input formControlName="FranchiseEmail" id="email" type="email" class="form-control"/>
+                    <span
+                        *ngIf="!infoForm.controls['FranchiseEmail'].valid && ( infoForm.controls['FranchiseEmail'].touched)">
+                            {{'Please enter Store Email.' | translate}}
+                    </span>
+                 </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+              <div class="form-group row">
+                 <label for="email_address" class="col-md-4 col-form-label">{{'Store Name' | translate}}</label>
+                 <div class="col-md-8 form-err">
+                    <input type="text" formControlName="FranchiseName" id="franchise_name" class="form-control" name="email-address">
+                    <span
+                        *ngIf="!infoForm.controls['FranchiseName'].valid && ( infoForm.controls['FranchiseName'].touched)">
+                           {{' Please enter Store Name.' | translate}}
+                    </span>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="email_address" class="col-md-4 col-form-label">{{'Contact Person' | translate}}</label>
+                 <div class="col-md-8 form-err">
+                    <input type="text" formControlName="FranchiseAddress2" id="address2" class="form-control" name="email-address" >
+                 <!--    <span
+                        *ngIf="!infoForm.controls['FranchiseAddress2'].valid && ( infoForm.controls['FranchiseAddress2'].touched)">
+                            Please enter Address 2.
+                    </span> -->
+                 </div>
+              </div>
+            <div class="form-group row">
+                 <label for="email_address" class="col-md-4 col-form-label">{{'P.O. Box.' | translate}}</label>
+                 <div class="col-md-8 file-upload form-err">
+                    <input formControlName="FranchisePobox" id="phone_no" type="text" class="form-control"/>
+                    <span
+                        *ngIf="!infoForm.controls['FranchisePobox'].valid && ( infoForm.controls['FranchisePobox'].touched)">
+                            {{'Please enter P.O. Box.' | translate}}
+                    </span>
+                 </div>
+            </div>
+
+              <div class="form-group row">
+                 <label for="email_address" class="col-md-4 col-form-label">{{'Store phone number' | translate}}</label>
+                 <div class="col-md-8 form-err">
+                    <input type="text" formControlName="FranchisePhone" id="phone_no" class="form-control" name="email-address">
+                    <span
+                        *ngIf="!infoForm.controls['FranchisePhone'].valid && ( infoForm.controls['FranchisePhone'].touched)">
+                            {{'Please enter phone number.' | translate}}
+                    </span>
+                 </div>
+              </div>
+              <div class="form-group row">
+                 <label for="email_address" class="col-md-4 col-form-label">{{'Additional Details' | translate}}</label>
+                 <div class="col-md-8 form-err">
+                    <input type="text" formControlName="FranchiseAdditionalDetails" id="add_details" class="form-control" name="email-address">
+                   <!--  <span
+                        *ngIf="!infoForm.controls['CustomerName'].valid && ( infoForm.controls['CustomerName'].touched)">
+                            Please enter Store Name.
+                    </span> -->
+                 </div>
+              </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group row m-0">
+                 <div class="col-md-2"></div>
+                 <div class="col-md-10">
+                    <button class="btn btn-info submit sm-btn" [disabled]="!infoForm.valid" > {{'Submit' | translate}}</button>
+                    <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="{{'Cancel' | translate}}">
+                 </div>
+              </div>
+        </div>
+    </div>
+</form>

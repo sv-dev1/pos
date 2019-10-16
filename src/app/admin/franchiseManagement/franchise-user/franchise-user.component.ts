@@ -5,9 +5,14 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { AdminService } from '../../../shared/admin/admin.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { DeleteConfirmationComponent } from '../../Alerts/delete-confirmation/delete-confirmation.component';
-import { FormGroup, FormArray, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup,FormControl, FormArray, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+declare var AOS;
+import * as CryptoJS from 'crypto-js';  
+import * as moment from 'moment';
 
 export interface PeriodicElement {
     UserName: string;
@@ -22,12 +27,14 @@ var ELEMENT_DATA: PeriodicElement[] = [];
   templateUrl: './franchise-user.component.html',
   styleUrls: ['./franchise-user.component.scss']
 })
+
+
 export class FranchiseUserComponent implements OnInit {
     displayedColumns: string[] = ['username', 'firstname', 'lastname', 'role', 'action'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
-
+    dateSelect:any;
     franchiseData : any;
     tableData : any;
     user : any;
@@ -39,31 +46,52 @@ export class FranchiseUserComponent implements OnInit {
         {value: 'tacos-2', viewValue: 'Tacos'}
       ];
       roles
-    constructor(private AdminService: AdminService, public dialog: MatDialog,
-		private formbulider: FormBuilder, private route: ActivatedRoute,public router: Router) { 
-        
-        this.franchiseData = {}
-	    this.route.paramMap.subscribe(params => {
-	      this.franchiseData.id = parseInt(params.get("id"))
-	      this.franchiseData.name = params.get("franchise_name")
-	    })
+      loginData
+      length=100;
+      pageSize=10;
+      pageSizeOptions=[5, 10, 25, 100];
+      constructor(private AdminService: AdminService,public translate: TranslateService, public dialog: MatDialog,private _snackBar: MatSnackBar,
+            private formbulider: FormBuilder, private route: ActivatedRoute,public router: Router) { 
+            this.dateSelect = {}
+            this.franchiseData = {}
+            this.route.paramMap.subscribe(params => {
+            this.franchiseData.id = parseInt(params.get("id"))
+            this.franchiseData.name = params.get("franchise_name")
+            })
 
-        this.user = {};
-        // this.userForm = this.formbulider.group({
-        //     Name: [null, [Validators.required]],
-        //     Password: [null],
-        //     firstname: [null, [Validators.required]],
-        //     lastname: [null],
-        //     role:[null,[Validators.required]]
-        // });
+            this.user = {};
+            if (localStorage['loginUserData']) {
+                let encrypData = localStorage['loginUserData']
+                let userData = CryptoJS.AES.decrypt(encrypData, 'pos_masRetail').toString(CryptoJS.enc.Utf8);
+                this.loginData = JSON.parse(userData);
+                console.log(this.loginData);
+       }
     }
 
 	ngOnInit() {
+        this.getSeletedDates();
+        AOS.init();
         this.onFranchiseUserRoles();
 		this.getUsers(this.franchiseData.id);
-        // this.getFranchise();
         this.addForm();
 	}
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
+
+    async getSeletedDates(){
+        let today = new Date();
+        let tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() );
+        console.log(today,tomorrow)
+        this.dateSelect.doiMin = await moment(today).format("YYYY-MM-DD");
+        this.dateSelect.dorMin = await moment(tomorrow).format("YYYY-MM-DD");
+        console.log(this.dateSelect.doiMin, this.dateSelect.dorMin)
+    }
+
 
     addForm(){
         this.userForm = this.formbulider.group({
@@ -87,7 +115,6 @@ export class FranchiseUserComponent implements OnInit {
 
     onFranchiseUserRoles(){
         this.AdminService.GetFranchiseUserRoles().subscribe(data => {
-            // console.log(data);
             if(data.statusCode == 200){
                  this.roles = data.result
             }else{
@@ -95,7 +122,6 @@ export class FranchiseUserComponent implements OnInit {
             }
         }, err => {
             alert("Error, please try after some time!")
-            console.log(err)
         })
     }
 
@@ -108,7 +134,6 @@ export class FranchiseUserComponent implements OnInit {
 	}
 
     getUsers(id) {
-        // debugger;
         this.AdminService.GetUserDetails(id).subscribe(data => {
             console.log(data);
             if(data.statusCode == 200){
@@ -118,16 +143,12 @@ export class FranchiseUserComponent implements OnInit {
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
             }else{
-                // alert()
             }
         }, err => {
-            console.log(err)
-            // this.toastr.error('Something went wrong, please try after some time', 'Error');
         })
     }
 
     getRole(id){
-        console.log(id)
         for(var i=0; i<= this.roles.length; i++){
             if(this.roles[i].roleId == id){
                 return this.roles[i].roleName
@@ -135,15 +156,24 @@ export class FranchiseUserComponent implements OnInit {
         }
     }
 
+    validateAllFormFields(formGroup: FormGroup) {
+        Object.keys(formGroup.controls).forEach(field => {
+          const control = formGroup.get(field);
+          if (control instanceof FormControl) {
+            control.markAsTouched({ onlySelf: true });
+          } else if (control instanceof FormGroup) {
+            this.validateAllFormFields(control);
+          }
+        });
+    }
+
+
     onSubmit(formValue){
-    	console.log(formValue)
+    	if(this.userForm.valid){
         if (this.userForm.invalid) {
             alert('Kindly fill the entire form');
             return;
-        // }else if(!this.user.userid && (formValue.Password == null || formValue.Password == '')){
-        // 	alert("Please fill user password")
         }else {
-            // debugger;
             if(formValue.Password != null && formValue.Password != ''){
                 this.user.Password = formValue.Password;
             }
@@ -153,26 +183,35 @@ export class FranchiseUserComponent implements OnInit {
             this.user.LastName = formValue.lastname;
             this.user.UserRole = formValue.role;
             this.AdminService.AddUser(this.user).subscribe(data=>{
-            	console.log(data)
             	if(data.statusCode == 200){
             		if(this.user.userid){
             			this.updateTableList(data.result);
-            		}else{        			
+            		}else{   			
 			            this.tableData.push(data.result)
 			            ELEMENT_DATA = this.tableData
 			            this.dataSource = new MatTableDataSource(ELEMENT_DATA);
 			            this.dataSource.paginator = this.paginator;
 			            this.dataSource.sort = this.sort;
-			            this.onCancel();
             		}
+			        this.onCancel();
+                    this.openSnackBar(data.message,'Success')
             	}else{
             		alert(data.message)
+                    this.openSnackBar(data.message,'Error')
             	}
-            },err=>{
 
+            },err=>{
+                this.openSnackBar('Sever encountered with some error, please try after some time.','Error')
             });
         }
+        }else{
+            this.validateAllFormFields(this.userForm);
+        }
     }
+
+
+
+
 
 
 	updateTableList(data){
@@ -208,6 +247,7 @@ export class FranchiseUserComponent implements OnInit {
   	this.userForm.controls['lastname'].setValue(data.lastName)
     this.userForm.controls['Name'].setValue(data.userName)
   	this.userForm.controls['role'].setValue(data.userRole)
+      window.scroll(0,0);
   }
 
     openDelete(id): void {
@@ -227,11 +267,12 @@ export class FranchiseUserComponent implements OnInit {
 			        this.dataSource = new MatTableDataSource(ELEMENT_DATA);
 			        this.dataSource.paginator = this.paginator;
 			        this.dataSource.sort = this.sort;
+                    this.openSnackBar(res.message,'Success')
             	}else{
-            		alert("server encountered with some error!")
+            		this.openSnackBar(res.message,'Error')
             	}
             },err=>{
-              alert("server encountered with some error!")
+              this.openSnackBar('Sever encountered with some error, please try after some time.','Error')
             });
 
          }

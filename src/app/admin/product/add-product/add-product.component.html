@@ -1,0 +1,493 @@
+<div class="p-2">
+    <div class="franchise-sec1" data-aos="fade-down" data-aos-duration="800">
+        <div class="franchise-form mb-2">
+            <div class="franchise-top-header">
+                <h2 class="heading-name">{{'Product Form' | translate}}
+                    <!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> -->
+                </h2>
+            </div>
+            <form [formGroup]="itemForm">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Franchise' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <select formControlName="FranchiseId" (change)="_getCategory($event.target.value)"
+                                    class="form-control">
+                                    <option value=null disabled="">{{'Select' | translate}}</option>
+                                    <option value="{{franchise.franchiseId}}"
+                                        *ngFor="let franchise of formServiceData.franchiseList">
+                                        {{franchise.franchiseName}}</option>
+                                </select>
+                               <div *ngIf="loginData.userRole == 1">
+                                <span
+                                *ngIf="!itemForm.controls['FranchiseId'].valid && ( itemForm.controls['FranchiseId'].touched)">
+                                {{'Please select franchise.' | translate}}
+                            </span>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Category' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <select formControlName="CategoryId" (change)="_getSubCategory($event.target.value)"
+                                    class="form-control">
+                                    <option value=null disabled="">Select</option>
+                                    <option value="{{category.categoryId}}"
+                                        *ngFor="let category of formServiceData.category">{{category.categoryName}}
+                                    </option>
+                                </select>
+                                <span
+                                    *ngIf="!itemForm.controls['CategoryId'].valid && ( itemForm.controls['CategoryId'].touched)">
+                                    {{'Please select Category.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Unit Category' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <select formControlName="UnitCategoryId"
+                                    (change)="_getUnitMeasurment($event.target.value)" class="form-control">
+                                    <option value=null disabled="">{{'Select' | translate}}</option>
+                                    <option value="{{unitCategory.unitCategoryId}}"
+                                        *ngFor="let unitCategory of formServiceData.unitCategory">
+                                        {{unitCategory.unitCategoryName}}</option>
+                                </select>
+                                <span
+                                    *ngIf="!itemForm.controls['UnitCategoryId'].valid && ( itemForm.controls['UnitCategoryId'].touched)">
+                                    {{'Please select Unit Category.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Item Name' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="text" formControlName="ItemName" id="Username" class="form-control"
+                                    name="user-name">
+                                <span
+                                    *ngIf="!itemForm.controls['ItemName'].valid && ( itemForm.controls['ItemName'].touched)">
+                                    {{'Please enter item name.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row  mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Item Sale Price' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="text" formControlName="ItemSalePrice" id="Username" class="form-control"
+                                    name="user-name">
+                                <span
+                                    *ngIf="!itemForm.controls['ItemSalePrice'].valid && ( itemForm.controls['ItemSalePrice'].touched)">
+                                    {{'Please enter Item Sale Price.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Item Rent Price' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="text" formControlName="ItemRentPrice" id="Username" class="form-control"
+                                    name="user-name">
+                                <span
+                                    *ngIf="!itemForm.controls['ItemRentPrice'].valid && ( itemForm.controls['ItemRentPrice'].touched)">
+                                    {{'Please enter Item Rent Price.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Manufactured Date'| translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="date" formControlName="ManufacturedDate" id="Username" class="form-control"
+                                    name="user-name">
+                                <span
+                                    *ngIf="!itemForm.controls['ManufacturedDate'].valid && ( itemForm.controls['ManufacturedDate'].touched)">
+                                    {{'Please select Manufactured Date.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Packing Date' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="date" formControlName="PackingDate" id="Username" class="form-control"
+                                    name="user-name">
+                                <span
+                                    *ngIf="!itemForm.controls['PackingDate'].valid && ( itemForm.controls['PackingDate'].touched)">
+                                    {{'Please select Packing Date.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Discount' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="text" formControlName="Discount" id="Username" class="form-control"
+                                    name="user-name">
+                                <span
+                                    *ngIf="!itemForm.controls['Discount'].valid && ( itemForm.controls['Discount'].touched)">
+                                    {{'Please enter Discount.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Quantity Stock' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="text" formControlName="QuantityStock" id="Username" class="form-control"
+                                    name="user-name">
+                                <span
+                                    *ngIf="!itemForm.controls['QuantityStock'].valid && ( itemForm.controls['QuantityStock'].touched)">
+                                    {{'Please enter Quantity Stock.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Minimum Stock Values' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="text" formControlName="MinimumStock" class="form-control" name="Security">
+                                <span
+                                    *ngIf="!itemForm.controls['MinimumStock'].valid && ( itemForm.controls['MinimumStock'].touched)">
+                                    {{'Please enter Minimum Stock Value.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- hdbsvfd
+		            ds
+		            dvs
+		            v
+		            sd
+		            fv -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Supplier' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <select formControlName="SupplierId" class="form-control">
+                                    <option value=null disabled="">{{'Select' | translate}}</option>
+                                    <option value="{{supplier.supplierId}}"
+                                        *ngFor="let supplier of formServiceData.supplier">{{supplier.supplierName}}
+                                    </option>
+                                </select>
+                                
+                                <span
+                                    *ngIf="!itemForm.controls['SupplierId'].valid && ( itemForm.controls['SupplierId'].touched)">
+                                   {{' Please select Supplier.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Subcategory' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <select formControlName="SubCategoryId" class="form-control">
+                                    <option value=null disabled="">{{'Select' | translate}}</option>
+                                    <option value="{{subCategory.categoryId}}"
+                                        *ngFor="let subCategory of formServiceData.subCategory">
+                                        {{subCategory.categoryName}}</option>
+                                </select>
+                                <span
+                                    *ngIf="!itemForm.controls['SubCategoryId'].valid && ( itemForm.controls['SubCategoryId'].touched)">
+                                    {{'Please select SubCategory.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Unit Measurement' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <select formControlName="UnitMeasurementId" class="form-control">
+                                    <option value=null disabled="">{{'Select' | translate}}</option>
+                                    <option value="{{unitcategoryMeasurement.unitMeasurementId}}"
+                                        *ngFor="let unitcategoryMeasurement of formServiceData.unitcategoryMeasurement">
+                                        {{unitcategoryMeasurement.unitMeasurementName}}</option>
+                                </select>
+                                <span
+                                    *ngIf="!itemForm.controls['UnitMeasurementId'].valid && ( itemForm.controls['UnitMeasurementId'].touched)">
+                                   {{' Please select Unit Measurement.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Sku' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="text" formControlName="Sku" id="Username" class="form-control"
+                                    name="user-name">
+                                <span *ngIf="!itemForm.controls['Sku'].valid && ( itemForm.controls['Sku'].touched)">
+                                    {{'Please enter Sku.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Barcode' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="text" formControlName="Barcode" id="Username" class="form-control"
+                                    name="user-name">
+                                <span
+                                    *ngIf="!itemForm.controls['Barcode'].valid && ( itemForm.controls['Barcode'].touched)">
+                                    {{'Please enter Barcode.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-2 mt-2">
+                            <label for="Product" class="col-md-4 col-form-label">{{'Tax Manage' | translate}}</label>
+                            <div class="col-md-8" >
+                                    <ng-multiselect-dropdown
+                                        formControlName="Tax"
+                                        [placeholder]="'Select Tax'"
+                                        [data]="elements"
+                                        [(ngModel)]="selectedItems"
+                                        [settings]="dropdownSettings"
+                                        (onSelect)="onItemSelect($event)"
+                                        (onSelectAll)="onSelectAll($event)"
+                                      >
+                                      </ng-multiselect-dropdown>
+                                <div class="form-err">
+                                    <span
+                                        *ngIf="!itemForm.controls['Tax'].valid && ( itemForm.controls['Tax'].touched)">
+                                        {{'Please select Tax Name.' | translate}}
+                                    </span>
+                                </div>
+                            </div>
+
+                           
+                        </div>
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Expiration Date' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="date"  min="{{dateSelect.doiMin}}" type="date" onkeydown="return false"  formControlName="ExpirationDate" id="Username" class="form-control"
+                                    name="user-name">
+                                <span
+                                    *ngIf="!itemForm.controls['ExpirationDate'].valid && ( itemForm.controls['ExpirationDate'].touched)">
+                                    {{'Please select Expiration Date.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-2 mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Is Rented' | translate}}</label>
+                            <div class="col-md-8 form-err mt-2">
+                                <!-- <input type="text" formControlName="IsRented" id="Username" class="form-control" name="user-name" > -->
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" formControlName="IsRented" type="radio"
+                                        id="inlineRadio1" (click)="setRent('true')"
+                                        [checked]="itemForm.value.IsRented == true" value="true">
+                                    <label class="form-check-label" for="inlineRadio1">{{'Yes' | translate}}</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" formControlName="IsRented" type="radio"
+                                        id="inlineRadio2" (click)="setRent('false')" value="false"
+                                        [checked]="itemForm.value.IsRented == false">
+                                    <label class="form-check-label" for="inlineRadio2">{{'No' | translate}}</label>
+                                </div>
+                              
+                                <span
+                                    *ngIf="!itemForm.controls['IsRented'].valid && ( itemForm.controls['IsRented'].touched)">
+                                    {{'Please select Rent option.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2" id="Security" style="display:none;">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Security' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="text" formControlName="security" class="form-control" name="Security">
+                                <span
+                                    *ngIf="!itemForm.controls['security'].valid && ( itemForm.controls['security'].touched)">
+                                    {{'Please enter Security.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Description' | translate}}</label>
+                            <div class="col-md-8 form-err">
+                                <input type="text" formControlName="Description" id="Username" class="form-control"
+                                    name="user-name">
+                                <span
+                                    *ngIf="!itemForm.controls['Description'].valid && ( itemForm.controls['Description'].touched)">
+                                   {{' Please enter Description.' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-2 mt-2">
+                            <label for="email_address" class="col-md-4 col-form-label">{{'Item Image' | translate}}</label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                                <div class="row form-group-file">
+                                    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 file-upload form-err pl-0">
+                                        <input formControlName="uploadFile" (change)="onUpload($event)" id="file-upload1" type="file" />
+                                        <!-- <span
+                        *ngIf="!franchiseForm.controls['uploadFile'].valid && ( franchiseForm.controls['uploadFile'].touched)">
+                            Please upload Item image.
+                    </span> -->
+                                    </div>
+                                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 frm-img pr-0">
+                                        <div>
+                                            <img src="{{itemImage != null && itemImage || 'assets/images/franchise_logo_placeholder.png'}}">
+                                        </div>
+                                       <!--  <div *ngIf="itemForm.value.ItemId != 0">
+                                            <img src="{{itemImage || 'assets/images/franchise_logo_placeholder.png'}}">
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group row m-0">
+                            <div class="col-md-4 col-lg-2"></div>
+                            <div class="col-md-8 col-lg-10 mt-3">
+                                <button class="btn btn-info submit sm-btn" (click)="onSubmit()"> {{'Submit' | translate}}</button>
+                                <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="{{'Cancel' | translate}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-gridbox" data-aos="fade-down" data-aos-duration="2000">
+        <mat-card>
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field>
+
+            <div class="mat-elevation-z8">
+                <div class="table-responsive">
+                    <table width="2000" mat-table [dataSource]="dataSource" matSort>
+
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="sku">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:200px;">{{'Item Name' | translate}}</th>
+                            <td mat-cell *matCellDef="let element" style="width:200px;">
+                                <span class="product-name-right">
+                                    <div>{{element!.itemName || 'N/A'}}</div>
+                                    <div> Sku : {{element!.sku || 'N/A'}}
+                                    </div>
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <!--   <ng-container matColumnDef="Sku">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sku </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.sku || 'N/A'}} </td>
+			  </ng-container> -->
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="categoryName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:180px;"> {{'Category' | translate}} </th>
+                            <td mat-cell *matCellDef="let element">
+                               <span class="product-name-right" style="width:180px;">
+                                   <div>  {{element!.categoryName || 'N/A'}} </div>
+                                       <div>  {{element!.subCategoryName || 'N/A'}}</div>
+                                    </span>
+                                <!-- <div> {{element!.subCategoryName || 'N/A'}}</div> -->
+                            </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <!--   <ng-container matColumnDef="SubCategoryId">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.subCategoryName || 'N/A'}} </td>
+			  </ng-container> -->
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="unitMeasurementName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:130px;"> {{'Unit Category' | translate}} </th>
+                            <td mat-cell *matCellDef="let element">
+                                <span class="product-name-right" style="width:130px;">
+                                      <div>  {{element!.unitCategoryName || 'N/A'}} </div>
+                                      <div>  {{element!.unitMeasurementName || 'N/A'}}</div></span>
+                                <!-- <div>{{element!.unitMeasurementName || 'N/A'}}</div> -->
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <!-- 	  <ng-container matColumnDef="UnitMeasurementId">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Unit Measurement </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.unitMeasurementName || 'N/A'}} </td>
+			  </ng-container> -->
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="itemRentPrice">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Item Price' | translate}}</th>
+                            <td mat-cell *matCellDef="let element">
+                                <span class="product-name-right">
+
+                                    <div>S.P. :{{currency}}{{element.itemSalePrice | number:'0.2'}} </div>
+                                    <div>R.P. :{{currency}}{{element.itemRentPrice | number:'0.2'}}
+                                    </div>
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <!--   <ng-container matColumnDef="ItemRentPrice">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Item Rent Price </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.itemRentPrice || 'N/A'}} </td>
+			  </ng-container> -->
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="QuantityStock">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Stock' | translate}}</th>
+                            <td mat-cell *matCellDef="let element">
+                                <span class="product-name-right">{{element!.quantityStock || 'N/A'}}</span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="IsRented">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Is Rentable' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"><span class="product-name-right">
+                                    {{getRentedShowFormat(element.isRented)}} </span></td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="productImage">
+                            <th mat-header-cell *matHeaderCellDef>{{'Image' | translate}}</th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="td-logo-img">
+                                    <img src="{{element!.productLogo || 'assets/images/franchise_logo_placeholder.png'}}"
+                                        width="80">
+                                </div>
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef> {{'Action' | translate}} </th>
+                            <td mat-cell *matCellDef="let element">
+                                <ul class="list-inline list-btn-td">
+
+                                    <li class="list-inline-item"><mat-card class="result">
+                                                    <mat-card-content>
+                                                                      
+                                                      <section class="example-section">
+                                                        <mat-slide-toggle
+                                                            class="example-margin"
+                                                            [color]="color"
+                                                            [checked]="element.isActive"
+                                                            (click)="ActivateItem(element.itemId)"
+                                                            [disabled]="disabled">
+                                                        </mat-slide-toggle>
+                                                      </section>
+                                                    </mat-card-content>
+                                                  </mat-card> 
+                                    </li>
+                                    <li class="list-inline-item edit-pen-btn"><a class="btn btn-primary btn-sm"
+                                            href="javascript:void(0);" (click)="openEdit(element)"><i
+                                                class="fa fa-pencil"></i></a></li>
+                                    <li class="list-inline-item trash-btn"><a class="btn btn-danger btn-sm"
+                                            href="javascript:void(0);" (click)="openDelete(element.itemId)"><i
+                                                class="fa fa-trash"></i></a></li>
+                                </ul>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+                <mat-paginator class="cstm_pagination" [length]="length"
+                  [pageSize]="pageSize"
+                  [pageSizeOptions]="pageSizeOptions">
+                </mat-paginator>
+            </div>
+        </mat-card>
+    </div>
+
+</div>

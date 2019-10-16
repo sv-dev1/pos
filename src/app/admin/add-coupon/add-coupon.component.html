@@ -1,0 +1,245 @@
+<div class="p-2">
+
+        <div class="franchise-sec1">
+            <div class="franchise-form mb-2">
+                 <div class="franchise-top-header">
+                     <h2 class="heading-name">{{'Add Coupon' | translate}}<!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> --></h2>  
+                 </div>
+                <form [formGroup]="couponForm" (ngSubmit)="onSubmit(couponForm.value)">
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="form-group row">
+                                <label for="couponcode" class="col-md-4 col-form-label">{{'Franchise' | translate}}</label>
+                                <div class="col-sm-8 form-err">
+                                    <select (change)="_getItemList($event.target.value)" formControlName="franchiseId" class="form-control">
+                                        <option value=null disabled="">{{'Select' | translate}}</option>
+                                        <option value="{{franchise.franchiseId}}" *ngFor="let franchise of formServiceData.franchiseList">{{franchise.franchiseName}}</option>
+                                    </select>
+                                   <div *ngIf="loginData.userRole == 1">
+                                    <span *ngIf="!couponForm.controls['franchiseId'].valid && ( couponForm.controls['franchiseId'].touched)">
+                                        {{'Please select franchise.' | translate}}
+                                    </span>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="form-group row mt-2">
+                                <label for="ctype" class="col-md-4 col-form-label">{{'Coupon Type' | translate}}</label>
+                                <div class="col-md-8 form-err">
+
+
+                                    <select formControlName="CouponType" class="form-control">
+                                        <option value=null disabled="">{{'Select' | translate}}</option>
+                                        <option value="{{cp.value}}" *ngFor="let cp of coupontype">{{cp.name}}</option>
+                                    </select>
+                                    <span *ngIf="!couponForm.controls['CouponType'].valid && ( couponForm.controls['CouponType'].touched)">
+                                        {{'Please select Coupon Type' | translate}}
+                                    </span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="form-group row mt-2">
+                                <label for="couponcode" class="col-md-4 col-form-label">{{'Coupon Code' | translate}}</label>
+                                <div class="col-md-8 form-err">
+                                    <input type="text" formControlName="couponcode" id="id_couponcode" class="form-control" name="last-name">
+                                    <span *ngIf="!couponForm.controls['couponcode'].valid && ( couponForm.controls['couponcode'].touched)">
+                                        {{'Please enter code' | translate}}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mt-2">
+                                <label for="Value" class="col-md-4 col-form-label"> {{'Value' | translate}}</label>
+                                <div class="col-md-8 form-err">
+                                    <input type="text" formControlName="Value" id="cvalue" class="form-control" name="last-name">
+                                    <span *ngIf="!couponForm.controls['Value'].valid && ( couponForm.controls['Value'].touched)">
+                                        {{'Please enter Value' | translate}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="form-group row mt-2">
+                                <label for="cdate" class="col-md-4 col-form-label">{{'Start Date' | translate}}</label>
+                                <div class="col-md-8 form-err">
+                                    <input type="date" onkeydown="return false" min="{{dateSelect.doiMin}}" formControlName="StartDate" id="sdate" class="form-control" name="sdate">
+                                    <span *ngIf="!couponForm.controls['StartDate'].valid && ( couponForm.controls['StartDate'].touched)">
+                                        {{'Please Select Date.' | translate}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="form-group row mt-2">
+                                <label for="cdate" class="col-md-4 col-form-label">{{'Expiration Date' | translate}}</label>
+                                <div class="col-md-8 form-err">
+                                    <input type="date" onkeydown="return false" min="{{dateSelect.doiMin}}" formControlName="ExpirationDate" id="edate" class="form-control" name="edate">
+                                    <span *ngIf="!couponForm.controls['ExpirationDate'].valid && ( couponForm.controls['ExpirationDate'].touched)">
+                                        {{'Please Select Date.' | translate}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="form-group row mt-2">
+                                <label for="category" class="col-md-4 col-form-label">{{'Category' | translate}}</label>
+                                <div class="col-md-8">
+                                    <select formControlName="CategoryId" (change)="_getItemList($event.target.value)" class="form-control">
+                                        <option value=null disabled="">{{'Select' | translate}}</option>
+                                        <option value="{{category.categoryId}}" *ngFor="let category of categoryelements">{{category.categoryName}}</option>
+                                    </select>
+                                    <div class="form-err">
+                                        <span *ngIf="!couponForm.controls['CategoryId'].valid && ( couponForm.controls['CategoryId'].touched)">
+                                            {{'Please select Category.' | translate}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="form-group row mt-2 pt-2">
+                                <label for="Product" class="col-md-4 col-form-label">{{'Product' | translate}}</label>
+                                <div class="col-md-8">
+                                    <ng-multiselect-dropdown formControlName="ProductID"
+                                                             [placeholder]="'Select Items'"
+                                                             [data]="elements"
+                                                             [(ngModel)]="selectedItems"
+                                                             [settings]="dropdownSettings"
+                                                             (onSelect)="onItemSelect($event)"
+                                                             (onSelectAll)="onSelectAll($event)">
+                                    </ng-multiselect-dropdown>
+                                    <div class="form-err">
+                                        <span *ngIf="!couponForm.controls['ProductID'].valid && ( couponForm.controls['ProductID'].touched)">
+                                            {{'Please select Product.' | translate}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="form-group row mt-2 ">
+                                <label for="ctype" class="col-md-4 col-form-label">{{'Is Active' | translate}}</label>
+                                <div class="col-md-8 form-err">
+                                    <select formControlName="IsActive" class="form-control">
+                                        <option value=null disabled="">{{'Select' | translate}}</option>
+                                        <option value="{{cp.value}}" *ngFor="let cp of IsActiveData">{{cp.name}}</option>
+                                    </select>
+                                    <span *ngIf="!couponForm.controls['IsActive'].valid && ( couponForm.controls['IsActive'].touched)">
+                                        {{'Please select Option' | translate}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="form-group row mt-2">
+                                <label for="Description" class="col-md-4 col-form-label">{{'Description' | translate}}</label>
+                                <div class="col-md-8 form-err">
+                                    <input class="form-control" formControlName="Description" id="Description" rows="3">
+                                    <span *ngIf="!couponForm.controls['Description'].valid && ( couponForm.controls['Description'].touched)">
+                                        {{'Please enter Description' | translate}}
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px;">
+                            <div class="form-group row mt-2">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <button class="btn btn-info submit sm-btn"> {{'Submit' | translate}}</button>
+                                    <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="{{'Cancel' | translate}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>   
+        <div class="table-gridbox">
+            <mat-card>
+              <mat-form-field>
+                    <input matInput (keyup)="doFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+                <div class="mat-elevation-z8">
+                    <div class="table-responsive white-space-normal">
+                        <table mat-table [dataSource]="couponRecord" matSort class="mat-elevation-z8">
+                         
+                            <ng-container matColumnDef="couponCode" >
+                              <th class="text-left" width="100" mat-header-cell *matHeaderCellDef mat-sort-header >{{'Coupon Code' | translate}}</th>
+                              <td class="text-left" mat-cell *matCellDef="let element"> {{element.couponCode}} </td>
+                            </ng-container>
+                          
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="products"  >
+                              <th class="text-left" width="300" mat-header-cell *matHeaderCellDef mat-sort-header> {{'Products' | translate}} </th>
+                              <td class="text-left" mat-cell *matCellDef="let element"> {{element.products}} </td>
+                            </ng-container>
+                          
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="value">
+                              <th class="text-left" mat-header-cell *matHeaderCellDef mat-sort-header> {{'Value' | translate}} </th>
+                              <td class="text-left" mat-cell *matCellDef="let element">{{element.couponType == '1' ? element.value + '%' : currency + element.value}} </td>
+                            </ng-container>
+                          
+                     
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="expirationDate">
+                              <th class="text-left" mat-header-cell *matHeaderCellDef mat-sort-header> {{'Expiration Date' | translate}} </th>
+                              <td class="text-left" mat-cell *matCellDef="let element">{{ element.expirationDate != null && element.expirationDate.split('T')[0] || '--'}}</td>
+                            </ng-container>
+                        
+                            <ng-container matColumnDef="isActive">
+                                <th class="text-left" mat-header-cell *matHeaderCellDef mat-sort-header> {{'Is Active' | translate}} </th>
+                                <td class="text-left" mat-cell *matCellDef="let element"> {{ element.isActive==1 ? 'Active' : 'Inactive' }}</td>
+                            </ng-container>
+                        
+                            <ng-container matColumnDef="Action">
+                              <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header> {{'Action' | translate}} </th>
+                              <td class="text-right" mat-cell *matCellDef="let element">
+                                <ul class="list-inline list-btn-td">
+                                <!--  <li class="list-inline-item edit-pen-btn" (click)="ActivateCoupon(element.couponCode)"><a class="btn btn-primary btn-sm"  href="javascript:void(0);"><i class="fa fa-arrow-circle-down" style="margin: 0 8px" aria-hidden="true"></i></a></li> -->
+                                 <li class="list-inline-item"><mat-card class="result">
+                                        <mat-card-content>
+                                                          
+                                          <section class="example-section">
+                                            <mat-slide-toggle
+                                                class="example-margin"
+                                                [color]="color"
+                                                [checked]="element.isActive"
+                                                (click)="ActivateCoupon(element.couponCode)"
+                                                [disabled]="disabled">
+                                            </mat-slide-toggle>
+                                          </section>
+                                        </mat-card-content>
+                                      </mat-card> 
+                                    </li>
+                                  <li class="list-inline-item edit-pen-btn" (click)="openEdit(element)"><a class="btn btn-primary btn-sm"  href="javascript:void(0);"><i class="fa fa-pencil" style="margin: 0 8px" aria-hidden="true"></i></a></li>
+                                  <li class="list-inline-item edit-user-btn" (click)="DeleteCoupon(element.couponId)" ><a class="btn btn-danger btn-sm" href="javascript:void(0);"><i class="fa fa-trash"></i></a></li>
+                              </ul>
+                              </td>
+                          </ng-container>
+                          
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          </table>
+                          <mat-paginator class="cstm_pagination" [length]="length"
+                            [pageSize]="pageSize"
+                            [pageSizeOptions]="pageSizeOptions">
+                          </mat-paginator>
+                    </div>
+                  
+                </div>
+            </mat-card>
+            </div>
+        
+    </div>

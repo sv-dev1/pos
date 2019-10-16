@@ -1,0 +1,69 @@
+table {
+    width: 100%;
+    }
+    
+    .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+    }
+    
+    
+    th {
+    width: 20%;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+    vertical-align: middle;
+    }
+    
+    td{
+    
+    vertical-align: middle;
+    }
+    
+    .example-second-header-row {
+    font-style: italic;
+    }
+    
+    .example-first-footer-row {
+    font-weight: bold;
+    }
+    
+    .example-second-footer-row td {
+    color: #900000;
+    }
+    
+    .mat-column-action {
+    flex: 0 0 100px;
+    }
+
+
+    .dashboard-heading-top h2 {
+font-size: 15px !important;
+font-family: 'Montserrat', sans-serif;
+font-weight: 500;
+letter-spacing: 0.5px !important;
+}
+.product-name-right:hover {
+    -webkit-transition: 4s ease-in;
+    -moz-transition: 4s ease-in;
+    -o-transition: 4s ease-in;
+    transition: 4s ease-in;
+    text-indent: -100px;
+}
+.product-name-right {
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 13px;
+    -webkit-transition: 0.5s ease-in;
+    -moz-transition: 0.5s ease-in;
+    -o-transition: 0.5s ease-in;
+    transition: 0.5s ease-in;
+    float: left;
+}
+.dashboard-heading-top.dashbrd_mnthly h2 {
+    margin-bottom: 0;
+}

@@ -1,0 +1,84 @@
+﻿<div class="p-2">
+    <div class="franchise-sec1" data-aos="fade-down" data-aos-duration="800">
+        <div class="franchise-form mb-2">
+            <div class="franchise-top-header">
+
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12 col-md-2 col-lg-4">
+                        <h2 class="heading-name">Supply Report</h2>
+                        <br />
+                    </div>
+                    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                        <form [formGroup]="typeOne" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-form-label" for="email_address">Supply Name</label>
+                                        <div class="col-md-10 form-err">
+                                            <input class="form-control custm_input_form" formControlName="supplyName" id="supply_name" name="select-from-date" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-form-label" for="email_address">From</label>
+                                        <div class="col-md-10 form-err">
+                                            <input class="form-control custm_input_form" formControlName="fromDate" id="from_date" name="select-from-date" type="date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-form-label" for="email_address">To</label>
+                                        <div class="col-md-10 form-err">
+                                            <input class="form-control custm_input_form" formControlName="toDate" id="to_date" name="select-to-date" type="date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-14 col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group row m-0">
+                                        <div class="col-md-10  text-right">
+                                            <button class="btn btn-info submit sm-btn" [disabled]="!typeOne.valid">Submit</button>
+                                            <input class="btn btn-info cancel" type="button" (click)="onCancel()" value="{{'Cancel' | translate}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="franchise-form custom-franchise-form pb-0 mb-4" data-aos="fade-down" data-aos-duration="1200" *ngIf="tableData && tableData.length > 0">
+        
+        <div class="table-gridbox table-responsive">
+            <table width="100%" *ngIf="tableData">
+                <thead>
+                    <tr>
+                        <th class="text-left">Franchise Name</th>
+                        <th class="text-center">Created By</th>
+                        <th class="text-center">Supplier Name</th>
+                        <th class="text-left">Supply Name</th>
+                        <th class="date-srt text-center">Created Date</th>
+                        <th class="text-center">File Name</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let dta of tableData; index as i">
+                    <tr>
+                        <td class="text-left">{{dta.franchiseName}}</td>
+                        <td class="text-center">{{dta.createdName}}</td>
+                        <td class="text-center">{{dta.supplierName}}</td>
+                        <td class="text-left">{{dta.supplyName}}</td>
+                        <td class="date-srt text-center">{{dta.createdDate.split('T')[0]}}</td>
+                        <!--target="_blank" href='http://{{url}}/CSVFiles/{{dta.fileName}}'-->
+                        <td class="text-center"><a (click)="downloadFile(dta.fileName)">{{dta.fileName}}</a> </td>
+                    </tr>
+                    <tr *ngIf="!tableData">
+                        <td>Data Not Found!</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

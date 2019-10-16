@@ -1,0 +1,281 @@
+<div class="p-2">
+	<div class="franchise-sec1" data-aos="fade-down" data-aos-duration="800">
+		<div class="franchise-form mb-2">
+			<div class="franchise-top-header">
+				<h2 class="heading-name">{{'Customer Form' | translate}}
+					<!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> -->
+				</h2>
+			</div>
+			<form [formGroup]="customerForm" (ngSubmit)="onSubmit(customerForm.value)">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Franchise' | translate}}<span style="color: darkred">*</span></label>
+							<div class="col-md-8 form-err">
+								<select formControlName="FranchiseId" class="form-control">
+									<option value=null disabled="">Select</option>
+									<option value="{{franchise.franchiseId}}"
+										*ngFor="let franchise of formServiceData.franchiseList">
+										{{franchise.franchiseName}}</option>
+								</select>
+								<div *ngIf="loginData.userRole == 1">
+									<span
+									*ngIf="!customerForm.controls['FranchiseId'].valid && ( customerForm.controls['FranchiseId'].touched)">
+									{{'Please select franchise.' | translate}}
+								</span>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Customer#' | translate}}<span style="color: darkred">*</span></label>
+							<div class="col-md-8 form-err">
+								<input type="text" formControlName="CustomerN" id="customer_address"
+									class="form-control" name="email-address">
+								<span
+									*ngIf="!customerForm.controls['CustomerN'].valid && ( customerForm.controls['CustomerN'].touched)">
+									{{'Please enter Customer Address.' | translate}}
+								</span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Customer DOB' | translate}}</label>
+							<div class="col-md-8 form-err">
+								<input type="date" max="{{dateSelect.doiMin}}" onkeydown="return false"
+									formControlName="DateOfBirth" id="customer_address" class="form-control"
+									name="email-address">
+								<!--  <span
+                                    *ngIf="!customerForm.controls['DateOfBirth'].valid && ( customerForm.controls['DateOfBirth'].touched)">
+                                        Please enter Customer DOB.
+                                </span> -->
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Phone No.' | translate}}<span style="color: darkred">*</span></label>
+							<div class="col-md-8 file-upload form-err">
+								<input formControlName="CustomerContactNo" id="phone_no" type="text"
+									class="form-control" />
+								<span
+									*ngIf="!customerForm.controls['CustomerContactNo'].valid && ( customerForm.controls['CustomerContactNo'].touched) ">
+									{{'Please enter Phone No.' | translate}}
+								</span>
+								<!--    <span
+                                    *ngIf="!customerForm.controls['CustomerContactNo'].valid && ( customerForm.controls['CustomerContactNo'].touched)">
+                                        Please enter Phone No.
+                                </span> -->
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Company Name' | translate}}<span style="color: darkred">*</span></label>
+							<div class="col-md-8 form-err">
+								<input type="text" formControlName="CustomerName" id="email_address"
+									class="form-control" name="email-address">
+								   <span
+								   *ngIf="!customerForm.controls['CustomerName'].valid && ( customerForm.controls['CustomerName'].touched)">
+									  {{' Please enter Company Name.' | translate}}
+							   </span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Customer Address' | translate}}</label>
+							<div class="col-md-8 form-err">
+								<input type="text" formControlName="CustomerAddress" id="customer_address"
+									class="form-control" name="email-address">
+								<span
+									*ngIf="!customerForm.controls['CustomerAddress'].valid && ( customerForm.controls['CustomerAddress'].touched)">
+									{{'Please enter Customer Address.' | translate}}
+								</span>
+							</div>
+						</div>
+						<!-- <div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">Company Name</label>
+							<div class="col-md-8 form-err">
+							   <input type="text" formControlName="CompanyName" id="customer_address" class="form-control" name="email-address" >
+							   <span
+								   *ngIf="!customerForm.controls['CompanyName'].valid && ( customerForm.controls['CompanyName'].touched)">
+									   Please enter Customer Address.
+							   </span>
+							</div>
+						</div> -->
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Contact Name' | translate}}</label>
+							<div class="col-md-8 form-err">
+								<input type="text" formControlName="ContectName" id="customer_address"
+									class="form-control" name="email-address">
+								<span
+									*ngIf="!customerForm.controls['ContectName'].valid && ( customerForm.controls['ContectName'].touched)">
+									{{'Please enter Customer Address.' | translate}}
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'City' | translate}}</label>
+							<div class="col-md-8 form-err">
+								<input type="text" formControlName="City" id="customer_address" class="form-control"
+									name="email-address">
+								<span
+									*ngIf="!customerForm.controls['City'].valid && ( customerForm.controls['City'].touched)">
+									{{'Please enter Customer Address.' | translate}}
+								</span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Contact Title' | translate}}</label>
+							<div class="col-md-8 form-err">
+								<input type="text" formControlName="ContactTitle" id="customer_address"
+									class="form-control" name="email-address">
+								<span
+									*ngIf="!customerForm.controls['ContactTitle'].valid && ( customerForm.controls['ContactTitle'].touched)">
+									{{'Please enter Customer Address.' | translate}}
+								</span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Region' | translate}}</label>
+							<div class="col-md-8 form-err">
+								<input type="text" formControlName="Region" id="customer_address" class="form-control"
+									name="email-address">
+								<span
+									*ngIf="!customerForm.controls['Region'].valid && ( customerForm.controls['Region'].touched)">
+									{{'Please enter Customer Address.' | translate}}
+								</span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Postal Code' | translate}}</label>
+							<div class="col-md-8 form-err">
+								<input type="text" formControlName="PostalCode" id="customer_address"
+									class="form-control" name="email-address">
+								<span
+									*ngIf="!customerForm.controls['PostalCode'].valid && ( customerForm.controls['PostalCode'].touched)">
+									{{'Please enter Customer Address.' | translate}}
+								</span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Country' | translate}}</label>
+							<div class="col-md-8 form-err">
+								<input type="text" formControlName="Country" id="customer_address" class="form-control"
+									name="email-address">
+								<span
+									*ngIf="!customerForm.controls['Country'].valid && ( customerForm.controls['Country'].touched)">
+									{{'Please enter Customer Address.' | translate}}
+								</span>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="email_address" class="col-md-4 col-form-label">{{'Fax' | translate}}</label>
+							<div class="col-md-8 form-err">
+								<input type="text" formControlName="Fax" id="customer_address" class="form-control"
+									name="email-address">
+								<span
+									*ngIf="!customerForm.controls['Fax'].valid && ( customerForm.controls['Fax'].touched)">
+									{{'Please enter Customer Address.' | translate}}
+								</span>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="form-group row mt-3">
+							<div class="col-md-2"></div>
+							<div class="col-md-10">
+								<button class="btn btn-info submit sm-btn">
+									Submit</button>
+								<input type="button" class="btn btn-info cancel" (click)="onCancel()" value="{{'Cancel' | translate}}">
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="table-gridbox" data-aos="fade-down" data-aos-duration="2000">
+		<mat-card>
+			<mat-form-field>
+				<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+			</mat-form-field>
+
+			<div class="mat-elevation-z8">
+				<div class="table-responsive">
+					<table mat-table [dataSource]="dataSource" matSort>
+
+						<ng-container matColumnDef="franchiseName">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Franchise' | translate}} </th>
+							<td mat-cell *matCellDef="let element"> <span
+									class="product-name-right">{{element!.franchiseName || 'N/A'}} </span></td>
+						</ng-container>
+						<!-- Name Column -->
+						<ng-container matColumnDef="customerName">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Company Name' | translate}} </th>
+							<td mat-cell *matCellDef="let element"> <span
+									class="product-name-right">{{element!.customerName || 'N/A'}} </span></td>
+						</ng-container>
+
+						<!-- Weight Column -->
+						<ng-container matColumnDef="customerContactNo">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Contact No' | translate}} </th>
+							<td mat-cell *matCellDef="let element"><span class="product-name-right">
+									{{element!.customerContactNo || 'N/A'}}</span> </td>
+						</ng-container>
+
+						<!-- Symbol Column -->
+						<ng-container matColumnDef="customerAddress">
+							<th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Customer Address' | translate}} </th>
+							<td mat-cell *matCellDef="let element"><span class="product-name-right">
+									{{element!.customerAddress || 'N/A'}} </span></td>
+						</ng-container>
+
+						<!-- Symbol Column -->
+						<ng-container matColumnDef="DateOfBirth">
+							<th mat-header-cell *matHeaderCellDef> {{'Date Of Birth' | translate}} </th>
+							<td mat-cell *matCellDef="let element">
+								<p *ngIf="element.dateOfBirth == null">N/A</p>
+								<p *ngIf="element.dateOfBirth != null"><span class="product-name-right">
+										{{element.dateOfBirth.split('T')[0]}}</span></p>
+							</td>
+						</ng-container>
+
+						<ng-container matColumnDef="action">
+							<th mat-header-cell *matHeaderCellDef> {{'Action' | translate}} </th>
+							<td mat-cell *matCellDef="let element">
+								<ul class="list-inline list-btn-td">
+									<li class="list-inline-item">
+										<mat-card class="result">
+											<mat-card-content>
+
+												<section class="example-section">
+													<mat-slide-toggle class="example-margin" [color]="color"
+														[checked]="element.isActive"
+														(click)="ActivateCustomer(element.customerId)"
+														[disabled]="disabled">
+													</mat-slide-toggle>
+												</section>
+											</mat-card-content>
+										</mat-card>
+									</li>
+									<li class="list-inline-item edit-pen-btn"><a class="btn btn-primary btn-sm"
+											href="javascript:void(0);" (click)="openEdit(element)"><i
+												class="fa fa-pencil"></i></a></li>
+
+									<li class="list-inline-item trash-btn"><a class="btn btn-danger btn-sm"
+											href="javascript:void(0);" (click)="openDelete(element.customerId)"><i
+												class="fa fa-trash"></i></a></li>
+
+								</ul>
+							</td>
+						</ng-container>
+
+						<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+						<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+					</table>
+				</div>
+				<mat-paginator class="cstm_pagination" [length]="length" [pageSize]="pageSize"
+					[pageSizeOptions]="pageSizeOptions">
+				</mat-paginator>
+			</div>
+		</mat-card>
+	</div>
+</div>

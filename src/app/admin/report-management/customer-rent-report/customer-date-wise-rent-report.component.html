@@ -1,0 +1,164 @@
+<div class="p-2">
+    <div class="franchise-sec1" data-aos="fade-down" data-aos-duration="800">
+        <div class="franchise-form mb-2">
+            <div class="franchise-top-header">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12 col-md-2 col-lg-2">
+                        <h2 class="heading-name">{{'Customer Rent Report' | translate}}</h2>
+                    </div>
+                    <div class="col-sm-12 col-xs-12 col-md-10 col-lg-10">
+                        <form [formGroup]="typeOne" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-form-label" for="email_address">{{'From' | translate}}</label>
+                                        <div class="col-md-10 form-err">
+                                            <input class="form-control custm_input_form" formControlName="fromDate" id="from_date" name="select-from-date" (change)="onSelectFromDate()" type="date" max="{{dateSelect.maxDate}}">
+                                            <span
+                                            *ngIf="!typeOne.controls['toDate'].valid && ( typeOne.controls['toDate'].touched)">
+                                                {{'Please enter from date.' | translate}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group row">
+                                        <label class="col-md-2 col-form-label" for="email_address">{{'To' | translate}}</label>
+                                        <div class="col-md-10 form-err">
+                                            <input class="form-control custm_input_form" formControlName="toDate" id="to_date" name="select-to-date" type="date" max="{{dateSelect.maxDate}}" min="{{typeOne.value.fromDate}}">
+                                            <span
+                                            *ngIf="!typeOne.controls['toDate'].valid && ( typeOne.controls['toDate'].touched)">
+                                                {{'Please enter to date.' | translate}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-14 col-sm-12 col-md-12 col-lg-4">
+                                    <div class="form-group row m-0">
+                                        <div class="col-md-12  text-right">
+                                            <button class="btn btn-info submit sm-btn">{{'Submit' | translate}}</button>
+                                            <input class="btn btn-info cancel" type="button" (click)="onCancel()" value="{{'Cancel' | translate}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="p-4"> -->
+    <div class="franchise-form custom-franchise-form pb-0 mb-4" data-aos="fade-down" data-aos-duration="1200" *ngIf="tableData && tableData.length > 0">
+        <div>
+            <div class="form-group row">
+                <div class="col-md-8 form-err">
+                    <!-- <select class="form-control" (change)="onChange($event.target.value)" class="form-control" >
+            <option value="">Select</option>
+            <option *ngFor="let dateWise of tableData" value={{dateWise.franchiseName}}>{{dateWise.franchiseName}}</option>
+
+            </select> -->
+                    <select *ngIf="loginData.userRole == 1" class="form-control custom_select mb-2" style="width:30%;" (change)="filterForeCasts($event.target.value)">
+                        <option value="0">{{'All' | translate}}</option>
+                        <option *ngFor="let dateWise of bkUpTableList" value={{dateWise.franchiseName}}>{{dateWise.franchiseName}}</option>
+                    </select>
+                    <select *ngIf="tableData.length == 1 && tableData[0].rentAgentlist.length > 0" class="form-control custom_select mb-2" style="width:30%;" (change)="agentFilter($event.target.value)">
+                        <option value=null disabled="">{{'Select Customer' | translate}}</option>
+                        <option value="0" *ngIf="bkUpTableList2[0].rentAgentlist.length > 1">{{'All' | translate}}</option>
+                        <option *ngFor="let agent of bkUpTableList2[0].rentAgentlist" value={{agent.customerId}}>{{agent!.customerName || '--'}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="table-gridbox table-responsive">
+            <table width="100%" *ngIf="tableData">
+                <thead>
+                    <tr>
+                        <th class="text-left">{{'Bill Number' | translate}}</th>
+                        <th class="text-center">{{'Amount' | translate}}</th>
+                        <th class="text-center">{{'Discount' | translate}}</th>
+                        <th class="text-left">{{'Coupons' | translate}}</th>
+                        <th class="date-srt text-center">{{'Date' | translate}}</th>
+                        <th class="text-center">{{'Item List' | translate}}</th>
+                        <th class="text-center">{{'Qty' | translate}}</th>
+                        <th class="text-center">{{'Price' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let dateWise of tableData; index as i">
+                    <tr *ngIf="loginData.userRole == 1">
+                        <td class="bg-dark-franchise text-white" colspan="8">
+                            <strong>{{dateWise.franchiseName}}</strong>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let agent of dateWise.rentAgentlist; index as j">
+                        <td class="agent-class" colspan="8">
+                            <span>
+                                <strong>{{agent!.customerName || '--'}}</strong>
+                            </span>
+                            <table width="100%" class="inner-table-data border-2px">
+                                <tbody>
+                                    <tr *ngFor="let bills of agent.rentlist">
+                                        <td class="text-left" width="22%" style="cursor: pointer" (click)="openBill(bills, dateWise.franchiseName, agent.agentName)"><a class="link-modal" href="javascript:void(0);">{{bills!.billNumber || '--'}}</a></td>
+                                        <!--<td class="text-left" width="22%">{{bills!.billNumber || '--'}}</td>-->
+                                        <td class="text-left" width="15%">{{currency}}{{(bills.balanceAmount == null || bills.balanceAmount == 0) ? 0 : bills.balanceAmount | number:'0.2'}}</td>
+                                        <td class="text-left" width="12%">{{currency}}{{(bills.discount == null || bills.discount == 0) ? 0 : bills.discount | number:'0.2'}}</td>
+                                        <td class="text-left" width="12%">{{currency}}{{(bills.couponValue == null || bills.couponValue == 0) ? 0 : bills.couponValue | number:'0.2'}}</td>
+                                        <td class="date-srt text-left" width="12%">{{bills!.rentedOn.split('T')[0] || '0'}}</td>
+                                        <!-- <td>{{bills!.lateCharges || '0'}}</td> -->
+                                        <td width="35%">
+                                            <table width="100%" class="inner-table-data">
+                                                <thead>
+                                                    <tr></tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr _ngcontent-tyl-c2="" *ngFor="let billItems of bills.rentDetails">
+                                                        <td width="60%">
+                                                            <span class="product-name-right" style="width:130px;">{{billItems!.itemName || '--'}}</span>
+                                                        </td>
+                                                        <td width="30%">{{billItems!.quantity || '0'}}</td>
+                                                        <td width="30%">{{currency}}{{(billItems.totalPrice == null || billItems.totalPrice == 0) ? 0 : billItems.totalPrice | number:'0.2'}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="agent.rentlist.length > 0" class="cstm-total-cal">
+                                        <td class="text-left" width="24%"></td>
+                                        <td class="text-left" width="10%">{{currency}}{{getTotal(i, j, agent.rentlist, agent.customerName, 'amount') == 0 ? 0 : getTotal(i, j, agent.rentlist, agent.customerName, 'amount') | number:'0.2'}}</td>
+                                        <td class="text-left" width="10%">{{currency}}{{getTotal(i, j, agent.rentlist, agent.customerName, 'discount') == 0 ? 0 : getTotal(i, j, agent.rentlist, agent.customerName, 'discount') | number:'0.2'}}</td>
+                                        <td class="text-left" width="10%">{{currency}}{{getTotal(i, j, agent.rentlist, agent.customerName, 'coupon') == 0 ? 0 : getTotal(i, j, agent.rentlist, agent.customerName, 'coupon') | number:'0.2'}}</td>
+                                        <td class="date-srt text-left" width="15%"></td>
+                                        <td width="35%">
+                                            <table class="inner-table-data">
+                                                <thead>
+                                                    <tr></tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr _ngcontent-tyl-c2="">
+                                                        <td class="text-center" width="15%">
+                                                            <span class="product-name-right" style="width:130px;"></span>
+                                                        </td>
+                                                        <td class="text-center" width="5%">{{getTotal(i, j, agent.rentlist, agent.customerName, 'itemQuantity')}}</td>
+                                                        <td class="text-right" width="20%" class="cstm-total-cal text-right">{{currency}}{{getTotal(i, j, agent.rentlist, agent.customerName, 'itemTotal') == 0 ? 0 : getTotal(i, j, agent.rentlist, agent.customerName, 'itemTotal') | number:'0.2'}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div *ngIf="dateWise.rentAgentlist.length == j+1">
+                                <div echarts [options]="getChatsOption(i)" class="echart" style="height: 250px; width: 550px; margin: auto"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="dateWise.rentAgentlist && dateWise.rentAgentlist.length < 1">
+                        <td>{{'Data Not Found!' | translate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- </div> -->
+</div>

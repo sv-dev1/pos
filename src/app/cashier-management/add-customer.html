@@ -1,0 +1,182 @@
+<div class="modal-header" style="position: relative;">
+  <h4 class="modal-title">{{'Add Customer' | translate}}</h4>
+ <h4 class="modal-title" > <span class="pull-right" style="z-index: 9"><a (click)="onNoClick()"><i class="fa fa-times" style="position: absolute;top:-7px;right: 1px; cursor: pointer;"></i></a></span> </h4>
+</div>
+<div class="modal-body" style="margin-top: 5px;">
+    <form [formGroup]="customerForm">
+      <div class="row">
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Franchise' | translate}}</label>
+               <div class="col-md-8 form-err">
+                  <select formControlName="FranchiseId" class="form-control">
+                     <option value=null disabled="">{{'Select' | translate}}</option>
+                     <option value="{{franchise.franchiseId}}"
+                        *ngFor="let franchise of formServiceData.franchiseList">
+                        {{franchise.franchiseName}}</option>
+                  </select>
+                  <!-- <span
+                     *ngIf="!customerForm.controls['FranchiseId'].valid && ( customerForm.controls['FranchiseId'].touched)">
+                     Please select franchise.
+                  </span> -->
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Customer#' | translate}}<span style="color: darkred">*</span></label>
+               <div class="col-md-8 form-err">
+                  <input type="text" formControlName="CustomerN" id="customer_address"
+                     class="form-control" name="email-address">
+                  <span
+                     *ngIf="!customerForm.controls['CustomerN'].valid && ( customerForm.controls['CustomerN'].touched)">
+                     {{'Please enter Customer Address.' | translate}}
+                  </span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Customer DOB' | translate}}</label>
+               <div class="col-md-8 form-err">
+                  <input type="date" max="{{dateSelect.doiMin}}" onkeydown="return false"
+                     formControlName="DateOfBirth" id="customer_address" class="form-control"
+                     name="email-address">
+                  <!--  <span
+                              *ngIf="!customerForm.controls['DateOfBirth'].valid && ( customerForm.controls['DateOfBirth'].touched)">
+                                  Please enter Customer DOB.
+                          </span> -->
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Phone No.' | translate}}<span style="color: darkred">*</span></label>
+               <div class="col-md-8 file-upload form-err">
+                  <input formControlName="CustomerContactNo" id="phone_no" type="text"
+                     class="form-control" />
+                  <span
+                     *ngIf="!customerForm.controls['CustomerContactNo'].valid && ( customerForm.controls['CustomerContactNo'].touched) ">
+                     {{'Please enter Phone No.' | translate}}
+                  </span>
+                  <!--    <span
+                              *ngIf="!customerForm.controls['CustomerContactNo'].valid && ( customerForm.controls['CustomerContactNo'].touched)">
+                                  Please enter Phone No.
+                          </span> -->
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Company Name' | translate}}<span style="color: darkred">*</span></label>
+               <div class="col-md-8 form-err">
+                  <input type="text" formControlName="CustomerName" id="email_address"
+                     class="form-control" name="email-address">
+                     <span
+                     *ngIf="!customerForm.controls['CustomerName'].valid && ( customerForm.controls['CustomerName'].touched)">
+                        {{'Please enter Company Name.' | translate}}
+                  </span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Customer Address' | translate}}</label>
+               <div class="col-md-8 form-err">
+                  <input type="text" formControlName="CustomerAddress" id="customer_address"
+                     class="form-control" name="email-address">
+                  <span
+                     *ngIf="!customerForm.controls['CustomerAddress'].valid && ( customerForm.controls['CustomerAddress'].touched)">
+                     {{'Please enter Customer Address.' | translate}}
+                  </span>
+               </div>
+            </div>
+            <!-- <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">Company Name</label>
+               <div class="col-md-8 form-err">
+                  <input type="text" formControlName="CompanyName" id="customer_address" class="form-control" name="email-address" >
+                  <span
+                     *ngIf="!customerForm.controls['CompanyName'].valid && ( customerForm.controls['CompanyName'].touched)">
+                        Please enter Customer Address.
+                  </span>
+               </div>
+            </div> -->
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Contact Name' | translate}}</label>
+               <div class="col-md-8 form-err">
+                  <input type="text" formControlName="ContectName" id="customer_address"
+                     class="form-control" name="email-address">
+                  <span
+                     *ngIf="!customerForm.controls['ContectName'].valid && ( customerForm.controls['ContectName'].touched)">
+                     {{'Please enter Customer Address.' | translate}}
+                  </span>
+               </div>
+            </div>
+         </div>
+         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'City' | translate}}</label>
+               <div class="col-md-8 form-err">
+                  <input type="text" formControlName="City" id="customer_address" class="form-control"
+                     name="email-address">
+                  <span
+                     *ngIf="!customerForm.controls['City'].valid && ( customerForm.controls['City'].touched)">
+                     {{'Please enter Customer Address.' | translate}}
+                  </span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Contact Title' | translate}}</label>
+               <div class="col-md-8 form-err">
+                  <input type="text" formControlName="ContactTitle" id="customer_address"
+                     class="form-control" name="email-address">
+                  <span
+                     *ngIf="!customerForm.controls['ContactTitle'].valid && ( customerForm.controls['ContactTitle'].touched)">
+                     {{'Please enter Customer Address.' | translate}}
+                  </span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Region' | translate}}</label>
+               <div class="col-md-8 form-err">
+                  <input type="text" formControlName="Region" id="customer_address" class="form-control"
+                     name="email-address">
+                  <span
+                     *ngIf="!customerForm.controls['Region'].valid && ( customerForm.controls['Region'].touched)">
+                     {{'Please enter Customer Address.' | translate}}
+                  </span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Postal Code' | translate}}</label>
+               <div class="col-md-8 form-err">
+                  <input type="text" formControlName="PostalCode" id="customer_address"
+                     class="form-control" name="email-address">
+                  <span
+                     *ngIf="!customerForm.controls['PostalCode'].valid && ( customerForm.controls['PostalCode'].touched)">
+                     {{'Please enter Customer Address.' | translate}}
+                  </span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Country' | translate}}</label>
+               <div class="col-md-8 form-err">
+                  <input type="text" formControlName="Country" id="customer_address" class="form-control"
+                     name="email-address">
+                  <span
+                     *ngIf="!customerForm.controls['Country'].valid && ( customerForm.controls['Country'].touched)">
+                     {{'Please enter Customer Address.' | translate}}
+                  </span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <label for="email_address" class="col-md-4 col-form-label">{{'Fax' | translate}}</label>
+               <div class="col-md-8 form-err">
+                  <input type="text" formControlName="Fax" id="customer_address" class="form-control"
+                     name="email-address">
+                  <span
+                     *ngIf="!customerForm.controls['Fax'].valid && ( customerForm.controls['Fax'].touched)">
+                     {{'Please enter Customer Address.' | translate}}
+                  </span>
+               </div>
+            </div>
+
+         </div>
+        
+      </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button  type="button" class="btn btn-success" (click)="onSubmit()">{{'Submit' | translate}}</button>
+    <button type="button" class="btn btn-danger" (click)="onNoClick()">{{'Close' | translate}}</button>
+</div>

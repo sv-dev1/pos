@@ -1,0 +1,73 @@
+<div class="p-4">
+    <div class="franchise-sec1">
+        <div class="franchise-form mb-4">
+           <div class="franchise-top-header">
+              <h2 class="heading-name">{{'Profile' | translate}}</h2>  
+           </div>
+           <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
+            
+         <div class="row">
+           
+           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+               <div class="form-group row">
+                    <label for="email_address" class="col-md-4 col-form-label">{{'First Name' | translate}}</label>
+                    <div class="col-md-8 form-err">
+                       <input type="text" formControlName="firstName" id="email_address" class="form-control" name="email-address"  placeholder="First Name">
+                             <span
+                                 *ngIf="!userForm.controls['firstName'].valid && ( userForm.controls['firstName'].touched)">
+                                    {{' Please enter first name.' | translate}}
+                             </span>
+                    </div>
+               </div>
+               <div class="form-group row">
+                    <label for="email_address" class="col-md-4 col-form-label">{{'Username' | translate}}</label>
+                    <div class="col-md-8 form-err">
+                       <input type="text" formControlName="userName" id="userName" class="form-control" name="user-name" placeholder="Username">
+                             <span
+                                 *ngIf="!userForm.controls['userName'].valid && ( userForm.controls['userName'].touched)">
+                                     {{'Please enter username.' | translate}}
+                             </span>
+                    </div>
+               </div>
+                     <div class="form-group row">
+                     </div>
+           </div>
+           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                 <div class="form-group row">
+                    <label for="email_address" class="col-md-4 col-form-label">{{'Last Name' | translate}}</label>
+                    <div class="col-md-8 form-err">
+                       <input type="text" formControlName="lastName" id="lastname" class="form-control" name="last-name" placeholder="Last Name">
+                             <span
+                                 *ngIf="!userForm.controls['lastName'].valid && ( userForm.controls['lastName'].touched)">
+                                     {{'Please enter last name.' | translate}}
+                             </span>
+                    </div>
+                 </div>
+                 <div class="form-group row">
+                    <label for="email_address" class="col-md-4 col-form-label">{{'Password' | translate}}</label>
+                    <div class="col-md-8 form-err">
+                       <input type="password" formControlName="password" id="password" class="form-control" name="passwordd" placeholder="Password">
+                             <span
+                                 *ngIf="!userForm.controls['password'].valid && ( userForm.controls['password'].touched)">
+                                     {{'Please enter password.' | translate}}
+                             </span>
+                    </div>
+                 </div>
+           </div>
+           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px;">
+                 <div class="form-group row m-0">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                       <button class="btn btn-info submit sm-btn" [disabled]="!userForm.valid" > {{'Submit' | translate}}</button>
+                       <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="{{'Cancel' | translate}}">
+                    </div>
+                 </div>
+           </div>
+         </div>
+       </form>
+        </div>
+    </div>
+    <div class="table-gridbox">
+        </div>
+    
+  </div>

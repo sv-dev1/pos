@@ -1,0 +1,38 @@
+<form [formGroup]="currencyForm" (ngSubmit)="onSubmit(currencyForm.value)">
+    <div class="row custom-roww">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+			
+              <div class="form-group row">
+                 <label for="email_address" class="col-md-6 col-form-label mt-2">{{'ISO currency format' | translate}} </label>
+                 <div class="col-md-6 form-err">
+                    <input type="text" formControlName="currencySymbolFormat" id="cost_currency_symbol_format" class="form-control" name="email-address" >
+                   <!--  <span
+                        *ngIf="!currencyForm.controls['DateOfBirth'].valid && ( currencyForm.controls['DateOfBirth'].touched)">
+                            Please enter Customer DOB.
+                    </span> -->
+                 </div>
+              </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+              <div class="form-group row">
+                 <label for="email_address" class="col-md-6 col-form-label mt-2">{{'Cost Currency Symbol' | translate}}</label>
+                 <div class="col-md-6 form-err">
+                    <input type="text" formControlName="currencySymbol" id="cost_currency_symbol" class="form-control" name="email-address">
+                 <!--    <span
+                        *ngIf="!currencyForm.controls['CustomerName'].valid && ( currencyForm.controls['CustomerName'].touched)">
+                            Please enter Customer Name.
+                    </span> -->
+                 </div>
+              </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+              <div class="form-group row m-0">
+                 <div class="col-md-2"></div>
+                 <div class="col-md-10 mt-2">
+                    <button class="btn btn-info submit sm-btn" [disabled]="!currencyForm.valid"> {{'Submit' | translate}}</button>
+                    <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="{{'Cancel' | translate}}">
+                 </div>
+              </div>
+        </div>
+    </div>
+</form>

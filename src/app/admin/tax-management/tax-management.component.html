@@ -1,0 +1,167 @@
+<div class="p-2">
+
+
+
+  <div class="franchise-sec1">
+    <div class="franchise-form mb-2">
+      <div class="franchise-top-header">
+        <h2 class="heading-name">{{'Tax Form' | translate}}
+          <!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> -->
+        </h2>
+      </div>
+      <form [formGroup]="formdata" (ngSubmit)="onSubmit(formdata.value)">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+            <div class="form-group row mt-2">
+              <label class="control-label col-sm-3 mt-2" for="email">{{'Franchise' | translate}}</label>
+              <div class="col-sm-9 form-err">
+                <select formControlName="franchiseId" class="form-control mt-0">
+                  <option value=null disabled="">{{'Select' | translate}}</option>
+                  <option value="{{franchise.franchiseId}}" *ngFor="let franchise of formServiceData.franchiseList">
+                    {{franchise.franchiseName}}</option>
+                </select>
+                <span *ngIf="!formdata.controls['franchiseId'].valid && ( formdata.controls['franchiseId'].touched)">
+                  {{'Please select franchise.' | translate}}
+                </span>
+              </div>
+            </div>
+            <div class="form-group row mt-2">
+              <label class="control-label col-sm-3 mt-2" for="email">{{'Tax Name:' | translate}}</label>
+              <div class="col-sm-9 form-err">
+                <input type="email" formControlName="taxName" name="taxname" class="form-control" id="email">
+                <span *ngIf="!formdata.controls['taxName'].valid && ( formdata.controls['taxName'].touched)">
+                  {{'Please enter Tax Name' | translate}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+
+            <div class="form-group row mt-2">
+              <label class="control-label col-sm-3 mt-2" for="pwd">{{'Tax Description:' | translate}}</label>
+              <div class="col-sm-9 form-err">
+                <input type="email" formControlName="taxDescription" name="Description" class="form-control mt-0"
+                  id="pwd">
+              </div>
+            </div>
+
+            <div class="form-group row mt-3">
+              <label class="control-label col-sm-3 mt-2" for="pwd">{{'Tax Type:' | translate}}</label>
+              <div class="col-sm-9 form-err mt-2">
+                <mat-radio-group aria-label="Select an option" formControlName="taxType">
+                  <mat-radio-button value="Fixed" name="taxtype" value="0">{{'Fixed' | translate}}</mat-radio-button>
+                  <mat-radio-button value="Percentage" name="taxtype" value="1">{{'Percentage' | translate}}
+                  </mat-radio-button>
+                </mat-radio-group>
+                <span *ngIf="!formdata.controls['taxType'].valid && ( formdata.controls['taxType'].touched)">
+                  {{'Please Select Tax Type' | translate}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+
+            <div class="form-group row mt-2">
+              <label class="control-label col-sm-3 mt-2" for="email">{{'Tax Values:' | translate}}</label>
+              <div class="col-sm-9 form-err">
+                <input type="email" formControlName="taxValues" name="values" class="form-control" id="email">
+                <span *ngIf="!formdata.controls['taxValues'].valid && ( formdata.controls['taxValues'].touched)">
+                  {{'Please enter tax value' | translate}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px;">
+            <div class="form-group row m-0">
+              <div class="col-md-2"></div>
+              <div class="col-md-10 mt-1">
+                <button class="btn btn-info submit sm-btn"> {{'Submit' | translate}}</button>
+                <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="{{'Cancel' | translate}}">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-gridbox">
+    <mat-card>
+      <mat-form-field>
+        <input matInput (keyup)="doFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <div class="mat-elevation-z8">
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Tax Name' | translate}} </th>
+              <td mat-cell *matCellDef="let element"> {{element.taxName}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Description' | translate}} </th>
+              <td mat-cell *matCellDef="let element"> {{element.taxDescription}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Tax Type' | translate}} </th>
+              <td mat-cell *matCellDef="let element"> {{ element.taxType==1 ? 'Percentage' : 'Fixed' }} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="symbol">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Tax Values' | translate}} </th>
+              <td mat-cell *matCellDef="let element"> {{element.taxValues}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'Action' | translate}} </th>
+              <td mat-cell *matCellDef="let element">
+                <ul class="list-inline list-btn-td">
+
+                  <li class="list-inline-item">
+                    <mat-card class="result">
+                      <mat-card-content>
+
+                        <section class="example-section">
+                          <mat-slide-toggle class="example-margin" [color]="color" [checked]="element.isActive"
+                            (click)="ActivateTax(element.taxId)" [disabled]="disabled">
+                          </mat-slide-toggle>
+                        </section>
+                      </mat-card-content>
+                    </mat-card>
+                  </li>
+                  <li class="list-inline-item edit-pen-btn" (click)="openEdit(element)"><a
+                      class="btn btn-primary btn-sm" href="javascript:void(0);"><i class="fa fa-pencil"
+                        style="margin: 0 8px" aria-hidden="true"></i></a></li>
+                  <li class="list-inline-item edit-user-btn" (click)="DeleteTax(element.taxId)"><a
+                      class="btn btn-danger btn-sm" href="javascript:void(0);"><i class="fa fa-trash"></i></a></li>
+
+                </ul>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator class="cstm_pagination" [length]="length" [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions">
+          </mat-paginator>
+        </div>
+
+      </div>
+    </mat-card>
+  </div>
+
+</div>

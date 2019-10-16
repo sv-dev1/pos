@@ -1,0 +1,730 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    background: #EEEFF1;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+}
+
+ol, ul {
+    //margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/********************************************************/
+
+a[disabled="disabled"] {
+    pointer-events: none;
+}
+
+span.img-span {
+    display: inline-block;
+    width: 100%;
+    height: 120px;
+    margin: 0 0 0px;
+}
+
+span.img-span img {
+    height: 120px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.product-price h5 {
+    font-size: 14px;
+    color: #000;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.product-price p {
+    font-size: 12px;
+    font-weight: 600;
+    margin: 6px 0 0 !important;
+    color: #fa7268;
+}
+
+div.scrollmenu {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+    background-color: #777;
+}
+
+.form-group-list ul li.list-inline-item {
+    width: 33%;
+    text-align: center;
+    margin: -1px;
+}
+
+.form-group-list ul li button {
+    background: #f2f2f2;
+    width: 100%;
+    height: 50px;
+    border: 1px solid #fff;
+    border-radius: 0;
+    font-weight: 600;
+}
+
+.form-group-list ul li button:hover {
+    background: #01baef;
+    color: #fff;
+}
+
+.form-group-list ul li button.btn-info {
+    background: #17a2b8;
+    color: #fff;
+}
+
+.fixed-button-list li.active button.btn {
+    background: #ffc107 !important;
+    color: #000;
+}
+
+.dash-button a.darkgreen-btn {
+    color: #fff !important
+}
+.customrent_page #content.bodycontainer {
+    background-color: #dedada;
+}
+
+.custom-tab ul.list-inline {
+    margin: 0 0 0px 0;
+    padding: 0 0 15px;
+    width: 100%;
+    border-bottom: #eee 1px solid;
+}
+
+.custom-tab li.list-inline-item button.btn.btn-success {
+    width: 100%;
+    border: none;
+    height: 41px;
+    vertical-align: middle;
+}
+
+.custom-tab ul.list-inline li {
+    display: inline-block;
+    width: 25%;
+    margin-right: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.custom-tab li.list-inline-item input.form-control {
+    height: 41px;
+    font-size: 14px;
+}
+/*.custom_modl {
+    padding: 15px;
+}*/
+
+.tab.custm_tab button {
+    width: auto;
+    padding: 11px 30px;
+    border-radius: 4px 4px 0 0;
+    background: #2897a7;
+    color: #fff;
+    margin: 0 2px 0 0;
+    float: left;
+    border: 1px solid #2897a7;
+    border-bottom: transparent;
+    position: relative;
+    z-index: 999
+}
+.custom-tab ul li.list-inline-item.full-payment {
+    float: right;
+    width: 100%;
+}
+/*.tab.custm_tab button::after {
+    content: "";
+    position: relative;
+    bottom: -60px;
+    left: -10%;
+    border: 15px solid transparent;
+    border-top-color: #e74c3c;
+}*/
+.tab.custm_tab button:hover {
+    background-color: #f14376;
+}
+.w-20 {
+    width: 20% !important;
+    float: left;
+    text-align: right !important;
+    font-size: 25px;
+    padding: 1px 11px 0 10px;
+}
+.dash-btn-top ul li.linkCashier a {
+    background: #f14376;
+}
+.graybox_table lable {
+    padding-left: 0;
+    padding-right: 0;
+}
+.graybox_table .form-control {
+    padding: .375rem 1px;
+    font-size: 13px;
+}
+.graybox_table .input-group.mb-1 {
+    padding: 0 3px;
+}
+.graybox_table .input-group.mb-1 {
+    padding: 0 3px;
+}
+.rented-block {
+    position: relative;
+}
+.graybox_table label.col-sm-1.col-form-label {
+    padding: 0px 10px 0px 0px;
+    font-size: 12px;
+    margin-top: 8px;
+}
+.graybox_table .col-sm-1 {
+    -ms-flex: 0 0 8.333333%;
+    flex: 0 0 8.333333%;
+    max-width: 100%;
+}
+
+.rented-box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: rgba(64, 63, 63, 0.5);
+    bottom: 0;
+    padding: 36px 0 0;
+    top: 0;
+}
+
+
+.rented-block {
+    position: relative;
+}
+
+.rented-box h6 {
+    color: #fff;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+}
+
+.rented-box ul li {
+    color: #fff;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+}
+.product-details-p {
+    position: relative;
+}
+.product-price {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    -webkit-transition: .5s ease;
+    transition: .5s ease;
+    background-color: rgba(8, 8, 8, 0.5);
+    color: #fff;
+    height: 0;
+    overflow: hidden;
+}
+.product-details-p:hover .product-price {
+    height: 50%;
+}
+.product_text {
+    color: #fff;
+    position: absolute;
+    top: 35%;
+    left: 0;
+    text-align: center;
+    margin: auto;
+    right: 0;
+}
+span.product-name-right {
+    width: 115px;
+    margin-top: 10px;
+}
+.product-price h5 {
+    color: #fff;
+}
+.product-price p {
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+}
+.product-price p.stock-text{
+    font-size:12px;
+    font-weight:normal;
+}
+.product-details-p img {
+    height: auto;
+}
+.tab.custm_tab {
+    border-top: transparent 1px solid;
+    background-color: #fff;
+    border-bottom: transparent;
+    border-left: transparent 1px solid;
+    border-right: transparent 1px solid;
+}
+.tab.custm_tab button {
+    width: auto;
+    padding: 11px 30px;
+    border-radius: 4px 4px 0 0;
+    background: #2897a7;
+    color: #fff;
+    margin: 0 2px 0 0;
+    float: left;
+    border: 1px solid #2897a7;
+    border-bottom: transparent;
+    position: relative;
+    z-index: 999;
+}
+.tablegrid-cart span.product-name-right {
+    width: 100px;
+    margin-top: 0;
+    margin-left: 5px;
+
+}
+
+
+@media(max-width:767px) {
+
+    .count-drop {
+        padding: 0 0 15px
+    }
+
+    .dash-btn-top ul li a {
+        font-size: 12px;
+        padding: 0 9px 0 43px
+    }
+
+    #sidebar.active {
+        max-width: 40px;
+        min-width: 40px;
+    }
+
+    #sidebar ul li a {
+        padding: 5px
+    }
+
+    #content.bodycontainer {
+        padding-left: 35px
+    }
+
+    .search-barbox .input-group-append span.input-group-text {
+        width: 50px;
+        overflow: hidden;
+    }
+
+    .search-barbox .input-group-prepend span.input-group-text {
+        width: 30px;
+        padding: 0 2px;
+    }
+
+    .product-list-slide .owl-carousel .owl-nav button {
+        width: 30px;
+    }
+
+    .product-list-slide .owl-carousel {
+        padding: 0 40px;
+    }
+
+    #content.bodycontainer {
+        padding-bottom: 0;
+    }
+
+    .dash-btn-btm {
+        padding-left: 5px;
+        position: static;
+        margin: 15px 0 0
+    }
+
+    .pr0 {
+        padding: 0 15px;
+    }
+
+
+    .graybox-table {
+        position: static;
+        margin: 30px 0 0;
+    }
+
+    .time-list-in ul {
+        margin: 0;
+    }
+
+    .blue-header-section {
+        padding-top: 0;
+    }
+
+    .pos-logo {
+        margin: 10px 0 0;
+    }
+}
+
+
+@media(min-width:768px) and (max-width:991px) {
+
+    #sidebar.active {
+        max-width: 40px;
+        min-width: 40px;
+    }
+
+    #sidebar ul li a {
+        padding: 5px
+    }
+
+    #content.bodycontainer {
+        padding-left: 35px
+    }
+}
+
+
+@media(min-width:768px) and (max-width:1023px) {
+    .count-drop {
+        padding: 0 0px
+    }
+
+    .dash-btn-top ul li a {
+        font-size: 13px;
+    }
+
+
+    .pr0 {
+        padding: 0 15px;
+    }
+
+    .graybox-table {
+        position: static
+    }
+
+    .dash-btn-btm {
+        padding-left: 40px
+    }
+}
+
+@media(min-width:1024px) and (max-width:1169px) {
+
+    .dash-btn-top ul li a {
+        font-size: 15px
+    }
+}
+
+
+.csr-ptr {
+    cursor: pointer;
+}
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+// customer autosearch field start
+.example-form {
+    min-width: 150px;
+    max-width: 100%;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.example-option-img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+[dir='rtl'] .example-option-img {
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+
+// customer autosearch field ends
+.cst-ptr li a {
+    cursor: pointer;
+}
+
+/* .blue-header-section .pos-logo img {
+    max-width: 125px;
+    max-height: 60px;
+} */
+
+.table-gridbox table thead tr {
+    height: auto;
+    background: -webkit-linear-gradient( 164deg, rgb(1,186,239) 1%, rgb(12,144,182) 100%);
+}
+
+.table-gridbox table thead tr th {
+    padding: 12px !important;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    letter-spacing: 0.7px;
+    text-align: left;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.table-gridbox table tbody tr td {
+    padding: 10px 12px !important;
+    vertical-align: middle;
+    color: #555;
+    letter-spacing: 0.5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+.table-gridbox table tbody tr:nth-child(2n) {
+    background: #f5f5f5;
+}
+
+.table-gridbox table tbody tr:last-child td {
+    border: none
+}
+
+.franchise-form {
+    background: #fff;
+    position: relative;
+}
+
+.table-gridbox table tr .bg-dark-franchise {
+    background: #096991;
+    color: #000;
+    font-size: 16px;
+    border-top: 5px solid #fff;
+}
+ul.custom_comment {
+    margin: 0;
+    padding: 0;
+}
+ul.custom_comment li{
+    width:100%;
+    padding-bottom:20px;   
+}
+ul.custom_comment li b {
+    font-size: 18px;
+    font-weight: 500;
+}
+button.custom_update{
+    margin-bottom:20px;
+}
+.franchise-form.custom-franchise-form{
+    margin:0px 0px 0px 1px;
+}
+table.bottm_table {
+    margin: 0px 0px 0px;
+}
+table.bottm_table thead tr td {
+    padding: 10px 5px;
+    color: #fff;
+}
+.table-gridbox.custom_gridbox {
+    padding: 0 15px;
+}
+.modal-body.custom_modl ul {
+    margin: 0;
+    padding: 0;
+}
+.form-group-list {
+    margin: 20px 0 0;
+}
+/*.modal-body.custom_modl ul li {
+    margin-top:20px;
+}*/
+.blue-header-section .pos-logo{
+    padding:3px 0px;
+}
+.blue-header-section .pos-logo img{
+    height: 30px;
+    width: auto;
+}
+.blue-header-section .dropdown-toggle::after {
+    display: none;
+}
+.blue-header-section .dropdown-menu > li > a{
+    padding: 6px 20px;
+    font-size: 14px;
+    color: #333333;
+    line-height: 14px;
+    text-transform: capitalize;
+    font-weight: normal;
+    cursor:pointer;
+}
+.blue-header-section .dropdown-menu{
+    top: 5px !important;
+    right: -27px !important;
+    position: absolute;
+    left: auto;
+}
+.tab-focused {
+    background-color: #2897a7 !important;
+}
+
+.tablinks:hover {
+    background-color: #2f8692 !important;
+}
+button.tablinks.tab-focused {
+    background: #fff !important;
+    border-color: #2897a7 !important;
+    color: #2897a7 !important;
+    font-weight: 500;
+}
+.tabcontent {
+    min-height: 314px;
+}
+
+.form-group-list {
+    margin: 20px 0 0;
+}
+
+.fixed-content {
+    background: #f2f2f2;
+    padding: 14px 10px;
+}
+
+.fixed-content h5 {
+    font-size: 18px;
+    color: #000;
+}
+
+.tabcontent.tab_balnce {
+    padding-left: 25px;
+}
+
+.tabcontent.tab_balnce b {
+    width: 240px;
+    float: left;
+}
+
+.tabcontent.tab_balnce p {
+    padding-bottom: 10px;
+}
+
+.tabcontent.cstm_email_butn {
+    padding-left: 25px;
+}
+
+.custm_final {
+    padding-top: 0px;
+    font-size: 18px;
+    color: #000;
+    font-weight: 500;
+}
+
+.tabcontent.custm_payment {
+    padding-left: 25px;
+}
+
+.tabcontent.custm_payment b {
+    width: 240px;
+    float: left;
+}
+button.tablinks.tab-focused {
+    background: #fff !important;
+    border-color: #2897a7 !important;
+    color: #2897a7 !important;
+    font-weight: 500;
+}
+.tabcontent {
+    display: none;
+    padding: 20px 0px 0;
+    border: 1px solid #2897a7;
+    float: left;
+    width: 100%;
+    margin: -1px 0 0;
+}
+
+.loadWrapper { 
+    background: rgba(93, 92, 92, 0.3);
+    width: 98%;
+    height: 89%;
+    position: absolute;
+    /* top: 50%; */
+    /* left: 30%; */
+    z-index: 99999;
+    margin: auto;
+    text-align: center;
+    padding-top: 230px;
+
+} 
+.loadWrapper img {
+    width: 120px;
+    height: 120px;
+}
+
+.loader {
+border: 5px solid #f3f3f3; 
+border-top: 5px solid #3498db;
+position: absolute;
+left: 50%;
+top: 50%;
+border-radius: 50%;
+width: 50px;
+height: 50px;
+animation: spin 2s linear infinite;
+}
+
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}

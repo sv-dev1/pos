@@ -1,0 +1,139 @@
+<div class="bill-modal">
+	<div class="modal-header" style="position: relative;">
+  <h4 class="modal-title">Bill Details</h4>
+ <h4 class="modal-title" > <span class="pull-right" style="z-index: 9"><a (click)="onNoClick()"><i class="fa fa-times" style="position: absolute;top:-7px;right: 1px; cursor: pointer;"></i></a></span> </h4>
+</div>
+<div class="modal-body mCustomScrollbar" style="margin-top: 5px;">
+
+	<div id="print-contents" *ngIf="billData">
+	    <div style="margin:0px; border:1px  solid #ccc; font-family:arial;padding:0px;padding:15px;">
+	        <table width="500px" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;width: 100%;">
+                <tbody>
+                    <!-- <tr>
+        <td colspan="3" align="center" style="padding:5px 0 25px"><img src="assets/images/YSlogo_black.png" style="width:150px;"></td>
+    </tr> -->
+                    <tr>
+                        <td colspan="3" style="font-size:16px;font-weight:bold;padding-bottom:5px;">Franchise : {{billData.franchiseName}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="font-size:16px;font-weight:bold;padding-bottom:5px;">Cashier  : {{billData.CashierName}}</td>
+                    </tr>
+                    <tr>
+                        <!-- <td align="center" style="font-size:14px;padding-bottom:5px;">10:49 AM</td> -->
+                        <td class="pull-right" style="font-size:14px;padding-bottom:5px;">{{billData.saleDate | date:'medium'}}</td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;padding-top:10px;"> Bill Number : {{billData.billNumber}}</td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;padding-top:10px;">
+                            Customer Name  : {{billData.customerName}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;">Customer Mobile  : {{billData.customerNumber}}</td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;">Customer Address  : {{billData.customerAddress}}</td>
+                    </tr>
+                    <tr *ngIf="billData.bill_type == 'rent'">
+                        <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;">DOI : {{billData.rentedOn != null ? billData.rentedOn.split('T')[0] : '--'}}</td>
+                    </tr>
+                    <tr *ngIf="billData.bill_type == 'rent'">
+                        <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;">DOR : {{billData.returnDate != null ? billData.returnDate.split('T')[0] : '--'}}</td>
+                    </tr>
+                    <tr *ngIf="billData.bill_type == 'rent'">
+                        <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;">BUST : {{billData.bust != null ? billData.bust : '--'}}</td>
+                    </tr>
+
+                    <tr *ngIf="billData.bill_type == 'rent'">
+                        <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;">HIPS : {{billData.hips != null ? billData.hips : '--'}}</td>
+                    </tr>
+                    <tr *ngIf="billData.bill_type == 'rent'">
+                        <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;">SKIRT LENGTH : {{billData.skirtLength != null ? billData.skirtLength : '--'}}</td>
+                    </tr>
+                    <tr *ngIf="billData.bill_type == 'rent'">
+                        <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;">WAIST : {{billData.waist != null ? billData.waist : '--'}}</td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="font-size:14px;padding-bottom:15px;padding-left:0px;word-wrap: break-word;">Note  : {{billData.notes}}</td>
+                    </tr>
+                </tbody>
+	        </table>
+	        <div class="table-responsive-sm" style="padding-top:0px;padding-bottom:20px;">
+	            <table style="width:100%" class="table table-striped">
+	                <thead>
+	                    <tr>
+	                        <!--<th style="text-align:left;padding-bottom:5px;">Image</th>-->
+	                        <th style="width:60px;text-align:left;padding-bottom:5px; font-weight: 600">Item</th>
+	                        <th style="widows:50px;text-align:left;padding-bottom:5px; font-weight: 600">Unit</th>
+	                        <th style="width:50px;text-align:left;padding-bottom:5px; font-weight: 600">Qty</th>
+	                        <th style="width:50px;text-align:left;padding-bottom:5px; font-weight: 600">Total</th>
+	                    </tr>
+	                </thead>
+	                <tbody *ngFor="let item of billData.itemDetails">
+	                    <tr>
+	                        <!--<td style="font-size:14px;padding-bottom:5px;">
+	                            <img style="height:50px;width:50px;" src={{pr.image}}>
+	                        </td>-->
+	                        <td style="width:40%;font-size:14px;padding-bottom:5px;">{{item!.itemName || '--'}}</td>
+	                        <td style="width:20%;font-size:14px;padding-bottom:5px;">{{currency}}{{item.unitPrice == null ? '--' : item.unitPrice | number:'0.2'}}</td>
+	                        <td style="width:20%;font-size:14px;padding-bottom:5px;">{{item!.quantity || '--'}}</td>
+	                        <td style="width:20%;font-size:14px;padding-bottom:5px;white-space: nowrap;" >{{currency}}{{item.totalPrice | number:'0.2'}}</td>
+	                    </tr>
+	                </tbody>
+	            </table>
+	        </div>
+	        <div class="sub-total" style="width:100%;">
+	            <table class="table table-clear" style="width:100%;">
+	                <tbody>
+	                    <tr>
+	                        <td class="left">
+	                            <strong> Total Products</strong>
+	                        </td>
+	                        <td style="text-align:right;">{{billData.quantity}}</td>
+	                    </tr>
+	                    <tr>
+	                        <td class="left">
+	                            <strong>Discount</strong>
+	                        </td>
+	                        <td style="text-align:right;" >{{currency}}{{billData.discount}}</td>
+	                    </tr>
+	                    <tr>
+	                        <td class="left">
+	                            <strong>Coupon</strong>
+	                        </td>
+	                        <td style="text-align:right;" >{{currency}}{{billData.couponValue}}</td>
+	                    </tr>
+	                    <tr>
+	                        <td class="left">
+	                            <strong>Shipping</strong>
+	                        </td>
+	                        <td style="text-align:right;">{{currency}}{{billData.shippingAmount}}</td>
+	                    </tr>
+	                    <tr *ngIf="billData.bill_type == 'rent'">
+	                        <td class="left">
+	                            <strong>Security</strong>
+	                        </td>
+	                        <td style="text-align:right;">{{currency}}{{billData.security}}</td>
+	                    </tr>
+	                    <tr>
+	                        <td class="left">
+	                            <strong>Amount Paid</strong>
+	                        </td>
+	                        <td style="text-align:right;">
+	                            <strong>{{currency}}{{billData.balanceAmount}}</strong>
+	                        </td>
+	                    </tr>
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+	</div>
+
+</div>
+<!-- <div class="modal-footer">
+   <button  type="button" class="btn btn-success" >Add</button>
+    <button type="button" class="btn btn-danger">Close</button>
+</div> -->
+</div>

@@ -1,0 +1,116 @@
+<div class="modal-header" style="position: relative;">
+    <h4 class="modal-title">{{'Orders history' | translate}}</h4>
+   <div _ngcontent-ttk-c7="" class="modal-footer custom_modal_footer"><button _ngcontent-ttk-c7="" class="btn btn-success" type="button" (click)="onSubmit()">{{'Edit the Order' | translate}}</button><button _ngcontent-ttk-c7="" class="btn btn-danger" type="button" (click)="onNoClick()">{{'Close' | translate}}</button></div>
+</div>
+<div class="modal-body modal-custom" style="margin-top: 5px;">
+    <div class="container">
+        <div class="row">
+            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+                <div class="list-group">
+                   <a class="list-group-item ng-binding ng-scope active" ng-repeat="(key, val) in orderStatusObject" ng-class="{ active : val.active }" href="javascript:void(0)" ng-click="selectHistoryTab( key )" style="margin: 0px; border-radius: 0px; border-width: 0px 0px 1px 1px; border-style: solid; border-bottom-color: rgb(222, 222, 222); border-left-color: rgb(222, 222, 222); border-image: initial; border-top-color: initial; border-right-color: initial; padding-left: 30px;">Hold</a>
+                </div>
+            </div>-->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4" style="border-left: 1px solid rgb(222, 222, 222); overflow-y: scroll; height: 515px; padding: 0px;">
+                <!--<div class="input-group" style="padding: 5px; border-bottom: 1px solid rgb(238, 238, 238);">
+                    <span class="input-group-addon">Search</span>
+                    <input class="form-control ng-pristine ng-valid ng-empty ng-touched" id="searchList" (keydown)=OnSearchHoldList($event)>
+                    <span class="input-group-btn search-buttons">
+                        <button class="btn btn-default proceed-search" ng-click="searchOrder()"><i class="fa fa-search"></i>
+                        </button>
+                        <button class="btn btn-default cancel-search" (click)="cancelSearch()">
+                        <i class="fa fa-remove"></i></button>
+                    </span>
+                </div>-->
+                <div class="list-group" *ngFor="let hold of holdData">
+                    <a class="list-group-item ng-binding ng-scope" ng-repeat="value in details" ng-click="openOrderDetails( value.ID )" href="javascript:void(0)" order-id="5" style="margin: 0px; border-radius: 0px; border-width: 0px 0px 1px; border-style: solid; border-bottom-color: rgb(222, 222, 222); border-image: initial; border-top-color: initial; border-right-color: initial; padding-left: 30px; border-left-color: initial;" (click)="seeBill(hold)">
+                            <span *ngIf="hold.orderName != null && hold.orderName != ''">{{hold.orderName}} : </span>
+                            <span>{{hold.orderCode}}</span>
+                        </a>
+                   
+                    <a class="list-group-item ng-hide" ng-show="details.length == 0" style="margin: 0px; border-radius: 0px; border-width: 0px 0px 1px; border-style: solid; border-bottom-color: rgb(222, 222, 222); border-image: initial; border-top-color: initial; border-right-color: initial; padding-left: 30px; border-left-color: initial;" *ngIf="!holdData || holdData.length < 1">No order available</a>
+                </div>
+                <div class="list-group" *ngIf="!holdData || holdData.length < 1">
+                    <a class="list-group-item ng-hide" ng-show="details.length == 0" style="margin: 0px; border-radius: 0px; border-width: 0px 0px 1px; border-style: solid; border-bottom-color: rgb(222, 222, 222); border-image: initial; border-top-color: initial; border-right-color: initial; padding-left: 30px; border-left-color: initial;" *ngIf="!holdData || holdData.length < 1">No order available</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                <div class="order-details-wrapper row " style="overflow-y:scroll;height:515px;">
+                    <div *ngIf="billDetail">
+                        <h3 class="text-center">{{'Order Details' | translate}}</h3>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 text-left">
+                                    <p class="details">{{'Autor' | translate}} :<span class="details pull-right ng-binding">{{data.userData!.firstName || '--'}} {{data.userData!.lastName || ''}}</span></p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-left">
+                                    <p class="details">{{'Date' | translate}} :<span class="details pull-right ng-binding">{{billDetail.orderDate.split('T')[0]}}</span></p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-left">
+                                    <p class="details">{{'Customer' | translate}} :<span class="details pull-right ng-binding">{{billDetail.customerId != 31 && billDetail.customerNumber || '--'}}</span></p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-left">
+                                    <p class="details">{{'Code' | translate}} :<span class="details pull-right ng-binding">{{billDetail!.orderCode || 'N/A'}}</span></p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-left">
+                                    <p class="details">{{'Amount due' | translate}} :<span class="details pull-right ng-binding">{{data.currencySymbol}} {{billDetail!.amount || 'N/A'}}</span></p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-left" *ngIf="show_discount">
+                                    <p class="details">{{'Discount' | translate}}{{billDetail.discountType == 1 ? '(Fixed)' : '(Percentage)'}}:<span class="details pull-right ng-binding">{{billDetail.discountType == 1 ? data.currencySymbol : ''}}{{show_discount}}{{billDetail.discountType != 1 ? '%' : ''}}</span></p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-left">
+                                    <p class="details">{{'Shipping Charges' | translate}} :<span class="details pull-right ng-binding">{{billDetail!.shippingCharges || '0'}}</span></p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-left" *ngIf="billDetail.isRent == true">
+                                    <p class="details">{{'Security' | translate}} :<span class="details pull-right ng-binding">{{SAmount}}</span></p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-left" *ngIf="billDetail.isRent == true">
+                                    <p class="details">{{'DOI' | translate}} :
+                                        <span class="details pull-right ng-binding" *ngIf="billDetail.rentedOn && billDetail.rentedOn != null && billDetail.rentedOn != ''">
+                                            {{billDetail.rentedOn.split('T')[0]}}
+                                        </span>
+                                        <span class="details pull-right ng-binding" *ngIf="!billDetail.rentedOn || billDetail.rentedOn == null || billDetail.rentedOn == ''">
+                                            --
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-left" *ngIf="billDetail.isRent == true">
+                                    <p class="details">{{'DOR' | translate}} :
+                                        <span class="details pull-right ng-binding" *ngIf="billDetail.returnDate && billDetail.returnDate != null && billDetail.returnDate != ''">
+                                            {{billDetail.returnDate.split('T')[0] }}
+                                        </span>
+                                        <span class="details pull-right ng-binding" *ngIf="!billDetail.returnDate || billDetail.returnDate == null || billDetail.returnDate == ''">
+                                            --
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-center">{{'Product list' | translate}}</h3>
+                        <table class="table table-bordered table-striped order-details-table">
+                            <thead>
+                                <tr>
+                                    <td>{{'Item Name' | translate}}</td>
+                                    <td>{{'Unit Price' | translate}}</td>
+                                    <td>{{'Quantity' | translate}}</td>
+                                    <!-- <td>Discount</td> -->
+                                    <td>{{'Sub Total' | translate}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- ngFor: item of billDetail.holdOrderDetailList -->
+                                <tr class="item-row" *ngFor="let item of billDetail.holdOrderDetailList">
+                                    <td class="text-left">{{item!.itemName || 'N/A'}}</td>
+                                    <td class="text-left">{{data.currencySymbol}} {{item!.unitPrice || 'N/A'}}</td>
+                                    <td class="text-left">{{item!.quantity || '0'}}</td>
+                                    <!-- <td class="text-left">{{data.currencySymbol}} {{item!.discount || 'N/A'}}</td> -->
+                                    <td class="text-left">{{data.currencySymbol}} {{item!.subTotal || 'N/A'}}</td>
+                                </tr>
+                                <!-- end ngFor: item of billDetail.holdOrderDetailList -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  

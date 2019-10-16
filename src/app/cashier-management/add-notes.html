@@ -1,0 +1,18 @@
+<div class="modal-header" style="position: relative;">
+  <h4 class="modal-title">{{'Add Notes' | translate}}</h4>
+ <h4 class="modal-title" > <span class="pull-right" style="z-index: 9"><a (click)="onNoClick()"><i class="fa fa-times" style="position: absolute;top:-7px;right: 1px; cursor: pointer;"></i></a></span> </h4>
+</div>
+<div class="modal-body" style="margin-top: 5px;">
+    <form>
+      <div class="form-group row">
+        <!-- <label for="inputName1" class="col-sm-3 col-form-label">Name</label> -->
+        <div class="col-sm-12">
+         <textarea class="form-control" [(ngModel)]="noteData" [ngModelOptions]="{standalone: true}" rows="10" cols="50" id="additional_notes" placeholder="please type your note here ..."></textarea> 
+        </div>
+      </div>
+    </form>
+</div>
+<div class="modal-footer">
+   <button  type="button" class="btn btn-success" (click)="onSubmit()">{{'Add' | translate}}</button>
+    <button type="button" class="btn btn-danger" (click)="onNoClick()">{{'Close' | translate}}</button>
+</div>

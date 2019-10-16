@@ -1,59 +1,33 @@
 <div class="main-bg">
 	<!-- title -->
-	<h1 style="color: #ffffff;">MAS RETAIL</h1>
+	<h1 style="color: #ffffff;"></h1>
 	<!-- //title -->
 	<!-- content -->
 	<div class="sub-main-mak-wid">
 		<div class="bg-content-mak-widpvt" style="margin-top: 0px">
 			<div class="top-content-style">
-				<!-- <img class="logo" src="assets/images/dummy.jpg" alt="" /> -->
+				 <img class="logo" src="assets/images/large-logo.png" alt="" /> 
 			</div>
 			<form [formGroup]="LoginForm" (ngSubmit)="onLogin(LoginForm.value)" *ngIf="loginFormShow">
-				<p class="legend" id="titleBox">{{form_title}}<span class="mdi mdi-clipboard"></span></p>
+				<p class="legend" id="titleBox">{{'Login Here' | translate}}</p>
 				<div class="input">
-					<input id="emailId" formControlName="email" type="email" placeholder="Enter username" name="phone" required />
+					<input id="emailId" formControlName="email" type="email" placeholder="{{'Enter username' | translate}}" name="phone" required />
 					<span class="mdi mdi-email"></span>
 				</div>
 				<div class="input" >
-					<input id="password" formControlName="password" type="password" placeholder="Enter password" name="otp" required />
+					<input id="password" formControlName="password" type="password" placeholder="{{'Enter password' | translate}}" name="otp" required />
 					<span class="mdi mdi-lock"></span>
 				</div>
-				<button id="sendOtp" [disabled]="!LoginForm.valid" class="btn submit btn-success" >LOGIN
+				<button id="sendOtp" [disabled]="!LoginForm.valid" class="btn submit btn-success" >{{'LOGIN' | translate}}
 				</button>
-				<br>
-				<!-- <div class="sgn-txt">
-					New Here? <span (click)="switchForm()">Sign Up</span>
-				</div> -->
 			</form>
-<!-- 			<form [formGroup]="SignUpForm" *ngIf="!loginFormShow">
-				<p class="legend" id="titleBox">{{form_title}}<span class="fa fa-hand-o-down"></span></p>
-				<div class="input">
-					<input id="nameId" formControlName="name" type="name" placeholder="Enter name" required />
-					<span class="fa fa-envelope"></span>
-				</div>
-				<div class="input">
-					<input id="emailId2" formControlName="email" type="email" placeholder="Enter email" required />
-					<span class="fa fa-envelope"></span>
-				</div>
-				<div class="input" >
-					<input id="password2" formControlName="password" type="password" placeholder="Enter password" name="otp" required />
-					<span class="fa fa-lock"></span>
-				</div>
-				<button id="sendOtp" [disabled]="!SignUpForm.valid" class="btn submit" (click)="onSignUp()">
-					<span class="fa fa-sign-in"></span>
-				</button>
-				<br>
-				<div class="sgn-txt">
-					Already have an account? <span (click)="switchForm()">Log In</span>
-				</div>
-			</form> -->
 			<a href="#" class="bottom-text-mak-widls"></a>
 		</div>
 	</div>
 	<!-- //content -->
 	<!-- copyright -->
 	<div class="copyright">
-		<h2>&copy; 2019 MAS RETAIL. All rights reserved.
+		<h2>&copy; 2019 Younger Sister. All rights reserved.
 		</h2>
 	</div>
 	<!-- //copyright -->

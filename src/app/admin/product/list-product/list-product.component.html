@@ -1,0 +1,225 @@
+<div class="p-2">
+   
+    <div class="franchise-sec1" data-aos="fade-down" data-aos-duration="800">
+        <div class="franchise-form mb-2">
+             <div class="franchise-top-header">
+                 <h2 class="heading-name">{{'Product List' | translate}}<!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> --></h2>  
+             </div>
+            <form [formGroup]="itemForm">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group row">
+                             <label for="email_address" class="col-md-4 col-form-label custom_franchise">{{'Search' | translate}}</label>
+                             <div class="col-md-8 form-err custom_form_err" >
+                                <mat-form-field>
+                                  <input matInput (keyup)="applyFilter($event.target.value)">
+                                </mat-form-field>    
+                             </div>
+                        </div>
+                       <!--    <div class="form-group row">
+                             <label for="email_address" class="col-md-4 col-form-label">Customer DOB</label>
+                             <div class="col-md-8 form-err">
+                                <input type="date" formControlName="DateOfBirth" id="customer_address" class="form-control" name="email-address" >
+                             
+                             </div>
+                          </div>
+                        <div class="form-group row">
+                             <label for="email_address" class="col-md-4 col-form-label">Phone No.</label>
+                             <div class="col-md-8 file-upload form-err">
+                                <input formControlName="CustomerContactNo" id="phone_no" type="text" class="form-control"/>
+                                <span
+                                    *ngIf="!itemForm.controls['CustomerContactNo'].valid && ( itemForm.controls['CustomerContactNo'].touched)">
+                                        Please enter Phone No.
+                                </span>
+                             </div>
+                        </div> -->
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+
+                          <div class="form-group row">
+                             <label for="email_address" class="col-md-4 col-form-label custom_franchise">{{'Franchise' | translate}}</label>
+                                 <div class="col-md-8 form-err" >
+                                <select formControlName="FranchiseId" class="form-control" (change)="_getItemsListing($event.target.value)">
+                                    <option value=null disabled="">{{'Select' | translate}}</option>
+                                    <option value=0 >{{'All' | translate}}</option>
+                                    <option value="{{franchise.franchiseId}}" *ngFor="let franchise of formServiceData.franchiseList">{{franchise.franchiseName}}</option>
+                                </select>
+                                <span
+                                    *ngIf="!itemForm.controls['FranchiseId'].valid && ( itemForm.controls['FranchiseId'].touched)">
+                                        {{'Please select franchise.' | translate}}
+                                </span>
+                             </div>
+                          </div>
+                        <!--  <div class="form-group row">
+                             <label for="email_address" class="col-md-4 col-form-label">Customer Address</label>
+                             <div class="col-md-8 form-err">
+                                <input type="text" formControlName="CustomerAddress" id="customer_address" class="form-control" name="email-address" >
+                                <span
+                                    *ngIf="!itemForm.controls['CustomerAddress'].valid && ( itemForm.controls['CustomerAddress'].touched)">
+                                        Please enter Customer Address.
+                                </span>
+                             </div>
+                          </div> -->
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <!--     <div class="form-group row m-0">
+                             <div class="col-md-2"></div>
+                             <div class="col-md-10">
+                                <button class="btn btn-info submit sm-btn" [disabled]="!itemForm.valid" > Submit</button>
+                                <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="Cancel">
+                             </div>
+                          </div> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-gridbox" data-aos="fade-down" data-aos-duration="2000">
+        <mat-card>
+           <!--  <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field> -->
+
+            <div class="mat-elevation-z8">
+                <div class="table-responsive">
+                    <table width="2000" mat-table [dataSource]="dataSource" matSort>
+
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="sku">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:200px;">{{'Item Name' | translate}}</th>
+                            <td mat-cell *matCellDef="let element" style="width:200px;">
+                                <span class="product-name-right">
+                                    <div>{{element!.itemName || 'N/A'}}</div>
+                                    <div> Sku : {{element!.sku || 'N/A'}}
+                                    </div>
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <!--   <ng-container matColumnDef="Sku">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sku </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.sku || 'N/A'}} </td>
+			  </ng-container> -->
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="categoryName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:180px;"> {{'Category' | translate}} </th>
+                            <td mat-cell *matCellDef="let element">
+                                <span class="product-name-right" style="width:180px;"><div>{{element!.categoryName || 'N/A'}}</div> <div>
+                                        {{element!.subCategoryName || 'N/A'}}</div></span>
+                                <!-- <div> {{element!.subCategoryName || 'N/A'}}</div> -->
+                            </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <!--   <ng-container matColumnDef="SubCategoryId">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Sub Category </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.subCategoryName || 'N/A'}} </td>
+			  </ng-container> -->
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="unitMeasurementName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:130px;"> {{'Unit Category' | translate}} </th>
+                            <td mat-cell *matCellDef="let element">
+                                <span class="product-name-right" style="width:130px;">
+                                      <div>  {{element!.unitCategoryName || 'N/A'}} </div>
+                                      <div>  {{element!.unitMeasurementName || 'N/A'}}</div></span>
+                                <!-- <div>{{element!.unitMeasurementName || 'N/A'}}</div> -->
+                            </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <!-- 	  <ng-container matColumnDef="UnitMeasurementId">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Unit Measurement </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.unitMeasurementName || 'N/A'}} </td>
+			  </ng-container> -->
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="itemRentPrice">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Item Price' | translate}}</th>
+                            <td mat-cell *matCellDef="let element">
+                                <span class="product-name-right">
+
+                                    <div>S.P. :{{currency}}{{element!.itemSalePrice | number:'0.2'}} </div>
+                                    <div>R.P. :{{currency}}{{element!.itemRentPrice  | number:'0.2'}}
+                                    </div>
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <!--   <ng-container matColumnDef="ItemRentPrice">
+			    <th mat-header-cell *matHeaderCellDef mat-sort-header> Item Rent Price </th>
+			    <td mat-cell *matCellDef="let element"> {{element!.itemRentPrice || 'N/A'}} </td>
+			  </ng-container> -->
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="QuantityStock">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Stock' | translate}}</th>
+                            <td mat-cell *matCellDef="let element">
+                                <span class="product-name-right">{{element!.quantityStock || 'N/A'}}</span>
+                            </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="IsRented">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'Is Rentable' | translate}}</th>
+                            <td mat-cell *matCellDef="let element"><span class="product-name-right">
+                                    {{getRentedShowFormat(element.isRented)}} </span></td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="productImage">
+                            <th mat-header-cell *matHeaderCellDef>{{'Image' | translate}}</th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="td-logo-img">
+                                    <img src="{{element!.productLogo || 'assets/images/franchise_logo_placeholder.png'}}"
+                                        width="80">
+                                </div>
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef> {{'Action' | translate}} </th>
+                            <td mat-cell *matCellDef="let element">
+                                <ul class="list-inline list-btn-td">
+
+                                        <li class="list-inline-item"><mat-card class="result">
+                                                <mat-card-content>
+                                                             
+                                                  <section class="example-section">
+                                                    <mat-slide-toggle
+                                                        class="example-margin"
+                                                        [color]="color"
+                                                        [checked]="element.isActive"
+                                                        (click)="ActivateItem(element.itemId)"
+                                                        [disabled]="disabled">
+                                                    </mat-slide-toggle>
+                                                  </section>
+                                                </mat-card-content>
+                                              </mat-card> 
+                                          </li>
+
+                                    <!-- <li class="list-inline-item edit-pen-btn"><a class="btn btn-primary btn-sm"
+                                            href="javascript:void(0);" (click)="openEdit(element)"><i
+                                                class="fa fa-pencil"></i></a></li> -->
+                                    <li class="list-inline-item trash-btn"><a class="btn btn-danger btn-sm"
+                                            href="javascript:void(0);" (click)="openDelete(element.itemId)"><i
+                                                class="fa fa-trash"></i></a></li>
+                                </ul>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+                <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+            </div>
+        </mat-card>
+    </div>
+
+</div>

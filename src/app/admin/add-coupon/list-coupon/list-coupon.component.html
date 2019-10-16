@@ -1,0 +1,155 @@
+<div class="p-2">
+
+  <div class="franchise-sec1">
+        <div class="franchise-form mb-2">
+             <div class="franchise-top-header">
+                 <h2 class="heading-name">Coupon List<!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> --></h2>  
+             </div>
+          <form [formGroup]="couponForm" (ngSubmit)="onSubmit(couponForm.value)">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                    <div class="form-group row">
+                         <label for="email_address" class="col-md-4 col-form-label custom_franchise">{{'Search' | translate}}</label>
+                         <div class="col-md-8 form-err custom_form_err" >
+                                    <mat-form-field>
+                  <input matInput (keyup)="doFilter($event.target.value)">
+                </mat-form-field>    
+                         </div>
+                    </div>
+                   <!--    <div class="form-group row">
+                         <label for="email_address" class="col-md-4 col-form-label">Customer DOB</label>
+                         <div class="col-md-8 form-err">
+                            <input type="date" formControlName="DateOfBirth" id="customer_address" class="form-control" name="email-address" >
+                             
+                         </div>
+                      </div>
+                    <div class="form-group row">
+                         <label for="email_address" class="col-md-4 col-form-label">Phone No.</label>
+                         <div class="col-md-8 file-upload form-err">
+                            <input formControlName="CustomerContactNo" id="phone_no" type="text" class="form-control"/>
+                                <span
+                                    *ngIf="!couponForm.controls['CustomerContactNo'].valid && ( couponForm.controls['CustomerContactNo'].touched)">
+                                        Please enter Phone No.
+                                </span>
+                         </div>
+                    </div> -->
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+
+                      <div class="form-group row">
+                         <label for="email_address" class="col-md-4 col-form-label custom_franchise">{{'Franchise' | translate}}</label>
+                             <div class="col-md-8 form-err" >
+                                <select formControlName="franchiseId" class="form-control" (change)="_getCouponListing($event.target.value)">
+                                    <!-- <option value=null disabled="">Select</option> -->
+                                    <option value=0 >{{'All' | translate}}</option>
+                                    <option value="{{franchise.franchiseId}}" *ngFor="let franchise of formServiceData.franchiseList">{{franchise.franchiseName}}</option>
+                                </select>
+                                <span
+                                    *ngIf="!couponForm.controls['franchiseId'].valid && ( couponForm.controls['franchiseId'].touched)">
+                                       {{ 'Please select franchise.' | translate}}
+                                </span>
+                         </div>
+                      </div>
+                    <!--  <div class="form-group row">
+                         <label for="email_address" class="col-md-4 col-form-label">Customer Address</label>
+                         <div class="col-md-8 form-err">
+                            <input type="text" formControlName="CustomerAddress" id="customer_address" class="form-control" name="email-address" >
+                                <span
+                                    *ngIf="!couponForm.controls['CustomerAddress'].valid && ( couponForm.controls['CustomerAddress'].touched)">
+                                        Please enter Customer Address.
+                                </span>
+                         </div>
+                      </div> -->
+                </div>
+               <!--  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                      <div class="form-group row m-0">
+                         <div class="col-md-2"></div>
+                         <div class="col-md-10">
+                            <button class="btn btn-info submit sm-btn" [disabled]="!couponForm.valid" > Submit</button>
+                            <input type="button" class="btn btn-info cancel" (click)="onCancel()" value="Cancel">
+                         </div>
+                      </div>
+                </div> -->
+              </div>
+            </form>
+        </div>
+  </div>
+    <div class="table-gridbox">
+        <mat-card>
+         <!--  <mat-form-field>
+                <input matInput (keyup)="doFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field> -->
+            <div class="mat-elevation-z8">
+                <div class="table-responsive white-space-normal">
+                    <table mat-table [dataSource]="couponRecord" matSort class="mat-elevation-z8">
+                     
+                        <ng-container matColumnDef="couponCode" >
+                          <th class="text-left" width="100" mat-header-cell *matHeaderCellDef mat-sort-header >{{'Coupon Code' | translate}}</th>
+                          <td class="text-left" mat-cell *matCellDef="let element"> {{element.couponCode}} </td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="products"  >
+                          <th class="text-left" width="300" mat-header-cell *matHeaderCellDef mat-sort-header> {{'Products' | translate}} </th>
+                          <td class="text-left" mat-cell *matCellDef="let element"> {{element.products}} </td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="value">
+                          <th class="text-left" mat-header-cell *matHeaderCellDef mat-sort-header> {{'Value' | translate}} </th>
+                          <td class="text-left" mat-cell *matCellDef="let element"> {{element.couponType == '1' ? element.value + '%' : currency + element.value}} </td>
+                        </ng-container>
+                      
+                 
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="expirationDate">
+                          <th class="text-left" mat-header-cell *matHeaderCellDef mat-sort-header> {{'Expiration Date' | translate}} </th>
+                          <td class="text-left" mat-cell *matCellDef="let element">{{element.expirationDate != null ? element.expirationDate.split('T')[0] : '--'}}</td>
+                        </ng-container>
+                    
+                        <ng-container matColumnDef="isActive">
+                            <th class="text-left" mat-header-cell *matHeaderCellDef mat-sort-header> {{'Is Active' | translate}} </th>
+                            <td class="text-left" mat-cell *matCellDef="let element"> {{ element.isActive==1 ? 'Active' : 'Inactive' }}</td>
+                        </ng-container>
+                    
+                        <ng-container matColumnDef="Action">
+                          <th class="text-right" mat-header-cell *matHeaderCellDef mat-sort-header> {{'Action' | translate}} </th>
+                          <td class="text-right" mat-cell *matCellDef="let element">
+                              <ul class="list-inline list-btn-td">
+                              <!--<li class="list-inline-item edit-pen-btn" (click)="ActivateCoupon(element.couponCode)"><a class="btn btn-primary btn-sm"  href="javascript:void(0);"><i class="fa fa-arrow-circle-down" style="margin: 0 8px" aria-hidden="true"></i></a></li>-->
+                              <li class="list-inline-item"><mat-card class="result">
+                                <mat-card-content>
+                                                  
+                                  <section class="example-section">
+                                    <mat-slide-toggle
+                                        class="example-margin"
+                                        [color]="color"
+                                        [checked]="element.isActive"
+                                        (click)="ActivateCoupon(element.couponCode)"
+                                        [disabled]="disabled">
+                                    </mat-slide-toggle>
+                                  </section>
+                                </mat-card-content>
+                              </mat-card> 
+                            </li>
+                              
+                              <!-- <li class="list-inline-item edit-pen-btn" (click)="openEdit(element)"><a class="btn btn-primary btn-sm"  href="javascript:void(0);"><i class="fa fa-pencil" style="margin: 0 8px" aria-hidden="true"></i></a></li> -->
+                              <li class="list-inline-item edit-user-btn" (click)="DeleteCoupon(element.couponId)" ><a class="btn btn-danger btn-sm" href="javascript:void(0);"><i class="fa fa-trash"></i></a></li>
+                                
+                          </ul>
+                          </td>
+                      </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                      </table>
+                    <!--   <mat-paginator [length]="length"
+                        [pageSize]="pageSize"
+                        [pageSizeOptions]="pageSizeOptions">
+                      </mat-paginator> -->
+                </div>
+              
+            </div>
+        </mat-card>
+    </div>
+</div>

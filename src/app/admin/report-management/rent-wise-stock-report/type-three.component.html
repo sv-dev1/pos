@@ -1,0 +1,78 @@
+<div class="p-2">
+	<div class="franchise-sec1" data-aos="fade-down" data-aos-duration="800">
+        <div class="franchise-form franchise-form mb-2 pb-0">
+             <div class="franchise-top-header mb-0">
+                 <h2 class="heading-name">{{'Rent Wise Stock Report' | translate}}<!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> --></h2>  
+             </div>
+        </div>
+	</div>
+	<div class="franchise-form custom-franchise-form pb-0 mb-4 pt-2" data-aos="fade-down" data-aos-duration="1200">
+			<select *ngIf="loginData.userRole == 1" class="form-control custom_select ml-2 mr-2 mb-2" style="width:30%;" (change)="filterForeCasts($event.target.value)" >
+		<option value="0">{{'All' | translate}}</option>
+		<option *ngFor="let rent of bkUpTableList" value={{rent.franchiseName}}>
+		{{rent.franchiseName}}
+		</option>
+		</select>
+		<div class="table-gridbox table_type_three">
+			<table width="100%">
+				<thead>
+					<tr>
+<!-- 						<th>Item Name</th>
+						<th>Current Stock</th>
+						<th>Rented Stock</th>
+						<th>Total Stock</th> -->
+						<th>{{'Item Name' | translate}}</th>
+						<th>{{'Sku' | translate}}</th>
+						<th>{{'Category' | translate}}</th>
+						<th>{{'Stock In Hand' | translate}}</th>
+						<th>{{'Rented Stock' | translate}}</th>
+						<th>{{'Total Stock' | translate}}</th>
+					</tr>
+				</thead>
+				<tbody *ngFor="let rent of tableList; index as i">
+					<tr *ngIf="loginData.userRole == 1">
+						<td class="bg-dark-franchise text-white" colspan="6"><strong>{{rent.franchiseName}}</strong></td>
+					</tr>
+					<tr *ngFor="let rentlist of rent.inventoryRentList; index as j">
+						<td>{{rentlist!.itemName || '--'}}</td>
+						<td>{{rentlist!.sku || '0'}}</td>
+						<td>{{rentlist!.unitCategoryName  || '0'}}/{{rentlist!.unitMeasurementName  || '0'}}</td>
+						<td>{{rentlist!.quantityStock || '0'}}
+							<!-- <br><span class="cstm-total-cal" *ngIf="rent.inventoryRentList.length == j+1">{{getTotal(i, j, rent.inventoryRentList, rent.franchiseName, 'QtyStock')}}</span> -->
+						</td>
+						<td>{{rentlist!.rentedQuantityStock || '0'}}
+						<!-- 	<br><span class="cstm-total-cal" *ngIf="rent.inventoryRentList.length == j+1">{{getTotal(i, j, rent.inventoryRentList, rent.franchiseName, 'rentedQty')}}</span> -->
+						</td>
+						<td>{{rentlist!.totalQuantity || '0'}}
+							<!-- <br><span class="cstm-total-cal" *ngIf="rent.inventoryRentList.length == j+1">{{getTotal(i, j, rent.inventoryRentList, rent.franchiseName, 'totalQty')}}</span> -->
+						</td>
+					</tr>
+					<tr class="cstm-total-cal" *ngIf="rent.inventoryRentList && rent.inventoryRentList.length > 0">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td >
+							{{getTotal(i, rent.inventoryRentList, rent.franchiseName, 'QtyStock')}}
+						</td>
+						<td>
+							{{getTotal(i, rent.inventoryRentList, rent.franchiseName, 'rentedQty')}}
+						</td>
+						<td>
+							{{getTotal(i, rent.inventoryRentList, rent.franchiseName, 'totalQty')}}
+						</td>
+					</tr>
+					<tr *ngIf="rent.inventoryRentList && rent.inventoryRentList.length < 1">
+						<td>
+							{{'Data Not Found!' | translate}}
+						</td>
+					</tr>
+					<tr *ngIf="tableList.length == i+1">
+						<td colspan="6">
+							<div echarts [options]="getPieChartsOption()" class="echart" style="height: 250px; width: 550px; margin: auto"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,10 +1,31 @@
-.side-logo {
+/* .side-logo {
     padding: 20px 22px;
 }
-
-.side-logo img {
+ */
+/* .side-logo img {
     max-width: 190px;
     margin: 0 auto;
     text-align: center;
     width: 100%;
+} */
+.csr-ptr li a{
+	cursor: pointer;
+}
+.footer-section.enlarged {
+    padding-left: 80px;
+}
+
+@media(max-width:767px){
+    .footer-section.enlarged {
+        padding-left: 50px;
+    }
+}
+
+.mlt_lg {
+    position: absolute;
+    right: 0;
+}
+.mlt-lg-drp {
+    position: relative;
+    z-index: 9999;
 }

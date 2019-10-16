@@ -1,0 +1,186 @@
+<div class="p-2">
+    <div class="franchise-sec1" data-aos="fade-down" data-aos-duration="800">
+        <div class="franchise-form mb-2">
+             <div class="franchise-top-header">
+                 <h2 class="heading-name">{{'Group List' | translate}}<!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> --></h2>  
+             </div>
+            <form [formGroup]="groupItemForm">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group row">
+                             <label for="email_address" class="col-md-4 col-form-label custom_franchise">{{'Search' | translate}}</label>
+                             <div class="col-md-8 form-err custom_form_err" >
+                                <mat-form-field>
+                                  <input matInput (keyup)="applyFilter($event.target.value)">
+                                </mat-form-field>    
+                             </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+
+                          <div class="form-group row" *ngIf="loginData.userRole == 1">
+                             <label for="email_address" class="col-md-4 col-form-label custom_franchise">{{'Franchise' | translate}}</label>
+                                 <div class="col-md-8 form-err" >
+                                <select formControlName="FranchiseId" class="form-control" (change)="GetAllGroupListing($event.target.value)">
+                                    <option value=null disabled="">{{'Select' | translate}}</option>
+                                    <option value=0 >{{'All' | translate}}</option>
+                                    <option value="{{franchise.franchiseId}}" *ngFor="let franchise of formServiceData.franchiseList">{{franchise.franchiseName}}</option>
+                                </select>
+                                <span
+                                    *ngIf="!groupItemForm.controls['FranchiseId'].valid && ( groupItemForm.controls['FranchiseId'].touched)">
+                                        {{'Please select franchise.' | translate}}
+                                </span>
+                             </div>
+                          </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-gridbox grp-prd-lst" data-aos="fade-down" data-aos-duration="2000">
+        <div class="table-responsive">
+            <table width="100%" class="table">
+                <thead>
+                    <tr>
+                        <th class="text-left">{{'Item Name' | translate}}</th>
+                        <th class="text-left">{{'Category' | translate}}</th>
+                        <th class="text-left">{{'Unit Category' | translate}}</th>
+                        <th class="text-left">{{'Item Price' | translate}}</th>
+                        <th class="text-left">{{'Is Rentable' | translate}}</th>
+                        <th class="text-left">{{'Stock' | translate}}</th>
+                      
+                        <th class="text-left">{{'Image' | translate}}</th>
+                        <th class="text-left">{{'Action' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let data of grouplistData; index as i">
+					<tr class="max-cust">
+						<td class="bg-dark-franchise">
+                            <span class="product-name-right">
+                                <div>
+							        {{data!.itemName || '--'}}
+                                </div>
+                            </span>
+                        </td>
+                        <td class="bg-dark-franchise ">
+                            <span class="product-name-right">
+                                <div>
+                                    {{data!.categoryName || '--'}}
+                                </div>
+                                <div>
+                                    {{data!.subCategoryName || '--'}}
+                                </div>
+                            </span>
+                        </td>
+                        <td class="bg-dark-franchise ">
+                            <span class="product-name-right">
+                                <div>
+                                    {{data!.unitCategoryName || '--'}}
+                                </div>
+                                <div>
+                                    {{data!.unitMeasurementName || '--'}}
+                                </div>
+                            </span>
+                        </td>
+                        <td class="bg-dark-franchise ">
+                            <span class="product-name-right">
+                                <div>
+                                    {{currency}}{{data.itemSalePrice | number:'0.2'}}
+                                </div>
+                            </span>
+                        </td>
+                        <td class="bg-dark-franchise ">
+                            <span class="product-name-right">
+                                <div>
+                                    {{data!.isRented != true ? 'No' : 'Yes'}}
+                                </div>
+                            </span>
+                        </td>
+                        <td class="bg-dark-franchise ">
+                            <span class="product-name-right">
+                                <div>
+                                    {{data!.quantityStock || '0'}}
+                                </div>
+                            </span>
+                        </td>
+                        <td class="bg-dark-franchise">
+                            <div class="td-logo-img">
+                                <img src="{{data.productLogo || 'assets/images/franchise_logo_placeholder.png'}}"
+                                   >
+                            </div>
+                        </td>
+                        <td class="bg-dark-franchise">
+                            <strong><a class="btn btn-danger btn-sm"
+                                href="javascript:void(0);" (click)="openDelete(data.itemId)"><i
+                                    class="fa fa-trash"></i></a></strong>
+                            <strong style="margin-left: 10px;"> <a class="btn btn-primary btn-sm"  [routerLink]="['/admin/group-product',data.itemId]"><i
+                                    class="fa fa-pencil"></i></a></strong>
+						</td>
+					</tr>
+					<tr *ngFor="let dataobj of data.groupItemViewModelList; index as j">
+						<!-- <td class="agent-class" colspan="8">
+							
+							<table width="100%" class="inner-table-data">
+								<tbody> -->
+									<!-- <tr *ngFor="let dataobj of data.groupItemViewModelList;"> -->
+										<td class="text-left" width="28%">
+                                            <span class="product-name-right">
+                                                {{dataobj!.itemGroupName || '--'}}
+                                            </span>
+                                        </td>
+										<td class="text-left" width="12%">
+                                            <span class="product-name-right">
+                                                <div>  {{dataobj!.categoryName || '--'}} </div>
+                                                <div>  {{dataobj!.subCategoryName || '--'}}</div>
+                                            </span>
+                                        </td>
+										<td class="text-left" width="12%">
+                                            <span class="product-name-right">
+                                                <div>  {{dataobj!.unitCategoryName || '--'}} </div>
+                                                <div>  {{dataobj!.unitMeasurementName || '--'}}</div>
+                                            </span>
+                                        </td>
+										<!-- <td class="text-left" width="14%">{{dataobj!.itemSalePrice || '0'}}</td> -->
+                                        <td class="text-left" width="10%" >
+                                            <!-- {{dataobj.isRented != true ? 'No' : 'Yes'}} -->
+                                        </td>
+										<td class="text-left" width="10%">
+                                            <!-- {{dataobj!.quantityStock || '0'}} -->
+                                        </td>
+										<td width="35%">
+                                            <!-- <div class="td-logo-img">
+                                                <img style="margin-right: 85px;" src="{{dataobj!.productLogo || 'assets/images/franchise_logo_placeholder.png'}}"
+                                                    width="80">
+                                            </div>
+ -->                                        </td>
+                                        <td width="35%">
+											<!-- <strong><a class="btn btn-danger btn-sm"
+                                                href="javascript:void(0);" (click)="openDelete()"><i
+                                                    class="fa fa-trash"></i></a></strong>
+                                            <strong style="margin-left: 10px;"> <a class="btn btn-primary btn-sm"
+                                                href="javascript:void(0);" (click)="openEdit(element)"><i
+                                                    class="fa fa-pencil"></i></a></strong> -->
+										</td>
+									<!-- </tr> -->
+						<!-- 		</tbody>
+							</table>
+						</td> -->
+					</tr>
+					<tr *ngIf="data.groupItemViewModelList &&  data.groupItemViewModelList.length < 1">
+						<td>Data Not Found!</td>
+					</tr>
+    			</tbody>
+                <tbody *ngIf="grouplistData && grouplistData.length < 1">
+                    <tr>
+                        Data Not Found!
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

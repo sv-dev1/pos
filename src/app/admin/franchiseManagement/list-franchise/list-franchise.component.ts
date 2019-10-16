@@ -5,16 +5,19 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { AdminService } from '../../../shared/admin/admin.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { DeleteConfirmationComponent } from '../../Alerts/delete-confirmation/delete-confirmation.component';
-import { FormGroup, FormArray, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl,FormArray, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+declare var AOS;
+import {TranslateService} from '@ngx-translate/core';
 
 export interface PeriodicElement {
-  branchName: string;
-  branchAddress: string;
-  phone: number;
-  branchCode: string;
-  date : string;
+  franchiseName: string;
+  franchiseAddress: string;
+  franchisePhone;
+  franchiseCode: string;
+  createdDate : string;
 }
 
 var ELEMENT_DATA: PeriodicElement[] = [];
@@ -26,7 +29,7 @@ var ELEMENT_DATA: PeriodicElement[] = [];
 })
 export class ListFranchiseComponent implements OnInit {
 
-	displayedColumns: string[] = ['branchName', 'branchAddress', 'phone', 'branchCode', 'date', 'image', 'action'];
+	displayedColumns: string[] = ['franchiseName', 'franchiseAddress', 'franchisePhone', 'franchiseCode', 'createdDate', 'image', 'action'];
 	dataSource = new MatTableDataSource(ELEMENT_DATA);
 	  // @ViewChild(MatPaginator) paginator: MatPaginator;
 	  // @ViewChild(MatSort) sort: MatSort;
@@ -39,9 +42,13 @@ export class ListFranchiseComponent implements OnInit {
   franchiseForm: FormGroup;
   sendImage : any;
   branch : any
-	constructor(private AdminService: AdminService, public dialog: MatDialog,
+  length=100;
+  pageSize=10;
+  pageSizeOptions=[5, 10, 25, 100]; 
+  itemImage: any;
+	constructor(private translate:TranslateService,private AdminService: AdminService, public dialog: MatDialog,private _snackBar: MatSnackBar,
 		private formbulider: FormBuilder, private route: ActivatedRoute,public router: Router) { 
-        
+      
       this.branch = {}
 	    this.franchiseForm = this.formbulider.group({
 		    Name: [null, [Validators.required]],
@@ -53,10 +60,18 @@ export class ListFranchiseComponent implements OnInit {
 	}
 
     ngOnInit() {
+      this.translate.setDefaultLang('sp');
+      AOS.init();
 	    this.dataSource.paginator = this.paginator;
 	    this.dataSource.sort = this.sort;
 	    this.getFranchise();
     }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 
 	applyFilter(filterValue: string) {
 	    this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -68,7 +83,7 @@ export class ListFranchiseComponent implements OnInit {
     getFranchise() {
       this.AdminService.getFranchiseDetails().subscribe(data=>{
         console.log(data);
-        this.tableData = data
+        this.tableData = data.result
         ELEMENT_DATA = this.tableData
         this.dataSource = new MatTableDataSource(ELEMENT_DATA);
         this.dataSource.paginator = this.paginator;
@@ -92,77 +107,94 @@ export class ListFranchiseComponent implements OnInit {
             this.AdminService.onDeleteFranchise(id).subscribe(res=>{
             	if(res){
 		           	this.tableData = this.tableData.filter(data => data.franchiseId != id)
-			        ELEMENT_DATA = this.tableData
-			        this.dataSource = new MatTableDataSource(ELEMENT_DATA);
-			        this.dataSource.paginator = this.paginator;
-			        this.dataSource.sort = this.sort;
+  			        ELEMENT_DATA = this.tableData
+  			        this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+  			        this.dataSource.paginator = this.paginator;
+  			        this.dataSource.sort = this.sort;
+                this.openSnackBar(res.message,'Success')
+                let temp = {
+                   delete : 1,
+                   franchiseId : id
+                }
+                this.AdminService.franchiseAddedOrUpdate.next(temp); 
             	}else{
-            		alert("server encountered with some error!")
+            		this.openSnackBar(res.message,'Error')
             	}
             },err=>{
-              alert("server encountered with some error!")
+              this.openSnackBar('Sever encountered with some error, please try after some time.','Error')
             });
 
          }
         });
     }
 
-    // openEdit(data): void{
-    //     let dialogRef = this.dialog.open(EditFormDialog, {
-    //         width: '500px',
-    //     });
-    //     dialogRef.afterClosed().subscribe(result => {
-    //      	if (result) {
-
-    //      	}
-    //     });
-    // }
+    
 
     onCancel(){
+      this.itemImage = null
     	this.franchiseForm.reset();
-    	this.branch = {}
+      this.branch = {}
+      this.franchiseForm.controls['uploadFile'].setValue(null)
     }
 
 	onSubmit(formValue) {
-	    if (this.franchiseForm.invalid == true && !this.branch.franchiseId) {
+	   if(this.franchiseForm.valid){
+      if (this.franchiseForm.invalid == true && !this.branch.franchiseId) {
 	      alert('Kindly fill the entire form');
 	      return;
 	    // }else if(!this.branch.franchiseId && formValue.uploadFile == null){
      //    alert('Please upload the franchise logo');
       }else {
-	    	console.log(formValue)
+	    
 	      this.branch.franchiseName = formValue.Name;
-	      this.branch.franchiseAddress = formValue.address;
+	      this.branch.contactPerson = formValue.address;
 	      this.branch.franchisePhone = formValue.phonenumber;
 	      this.branch.franchiseCode = formValue.code;
-	      	// this.AdminService.uploadFranchiseLogo(this.sendImage).subscribe(res => {
-	       //    if(res){
-	       //      console.log(res)
-	            // this.branch.ImageLogo = res
-
-	            this.AdminService.insertBranch(this.branch).subscribe(res=>{
-	                console.log(res)
-			        if(this.branch.franchiseId){
-			        	this.updateTableList(res)
-			        }else{		        	
-		                this.tableData.push(res)
-				        ELEMENT_DATA = this.tableData
-				        this.dataSource = new MatTableDataSource(ELEMENT_DATA);
-				        this.dataSource.paginator = this.paginator;
-				        this.dataSource.sort = this.sort;
-			        }
-	                this.onCancel();
-	            },err=>{
-	              alert("server encountered with some error!")
-	            });
-	       //    }else{
-	       //      alert("Server encountered with some error!")
-	       //    }
-	       //  },err=>{
-	       //    alert("server encountered with some error!")
-	      	// });
+        
+        console.log(this.branch)
+	      this.AdminService.insertBranch(this.branch).subscribe(res=>{
+	         
+            if(res.statusCode == 200){
+              console.log(res.result);
+              console.log(this.branch);
+  			      if(this.branch.franchiseId){
+                  res.result.update = 1
+  			        	this.updateTableList(res.result)
+                  this.openSnackBar(res.message,'')
+  			      }else{	
+  		            this.tableData.push(res.result)
+  				        ELEMENT_DATA = this.tableData
+  				        this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+  				        this.dataSource.paginator = this.paginator;
+  				        this.dataSource.sort = this.sort;
+                  this.openSnackBar(res.message,'Success')
+  			      }
+              this.AdminService.franchiseAddedOrUpdate.next(res.result);       	
+            }else{
+              this.openSnackBar(res.message,'Success')
+            }
+	          this.onCancel();
+	      },err=>{
+	          this.openSnackBar('Sever encountered with some error, please try after some time.','Error')
+	      });
 	    }
+     }else{
+        this.validateAllFormFields(this.franchiseForm);
+     }
 	}
+
+
+    validateAllFormFields(formGroup: FormGroup) {
+      Object.keys(formGroup.controls).forEach(field => {
+        const control = formGroup.get(field);
+        if (control instanceof FormControl) {
+          control.markAsTouched({ onlySelf: true });
+        } else if (control instanceof FormGroup) {
+          this.validateAllFormFields(control);
+        }
+      });
+  }
+
 
 	updateTableList(data){
 		let tempArray = []
@@ -175,12 +207,7 @@ export class ListFranchiseComponent implements OnInit {
 		        this.dataSource.sort = this.sort;
 			}
 		}
-		// let index = this.tableData.indexOf(data=>{
-		// 	if(data.franchiseId == id){
-		// 		return;
-		// 	}
-		// })
-		// console.log(id)
+		
 	}
 
   onFileChange(event) {
@@ -198,6 +225,7 @@ export class ListFranchiseComponent implements OnInit {
 
   onUpload(evt:any){
     console.log(evt)
+    this.branch.ImageLogo = null
     if (!evt.target) {
         return;
     }
@@ -210,25 +238,29 @@ export class ListFranchiseComponent implements OnInit {
     const file = evt.target.files[0];
     if (file.type != 'image/jpeg' && file.type != 'image/png' && file.type != 'image/jpg') {
         alert('You can upload image only!')
+        this.franchiseForm.controls['uploadFile'].setValue(null)
         return;
     }
     const fr = new FileReader();
     fr.onloadend = (loadEvent) => {
       let mainImage = fr.result;
       this.branch.ImageLogo = mainImage;
-      console.log(this.branch.ImageLogo)
+      this.itemImage = mainImage;
     };
     fr.readAsDataURL(file);
     // this.onuploadFiles(evt,type)
   }
 
   openEdit(data){
-  	console.log(data)
+    
+    console.log(data)
+    this.itemImage = data.imageLogo
   	this.branch.franchiseId = data.franchiseId
   	this.franchiseForm.controls['Name'].setValue(data.franchiseName)
-  	this.franchiseForm.controls['address'].setValue(data.franchiseAddress)
+  	this.franchiseForm.controls['address'].setValue(data.contactPerson)
   	this.franchiseForm.controls['code'].setValue(data.franchiseCode)
-  	this.franchiseForm.controls['phonenumber'].setValue(data.franchisePhone)
+    this.franchiseForm.controls['phonenumber'].setValue(data.franchisePhone)
+    window.scroll(0,0);
   }
 
   onSeeFranchiseUsers(franchiseId){

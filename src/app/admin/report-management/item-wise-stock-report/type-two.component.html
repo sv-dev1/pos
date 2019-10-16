@@ -1,0 +1,64 @@
+<div class="p-2">
+	<div class="franchise-sec1" data-aos="fade-down" data-aos-duration="800">
+        <div class="franchise-form franchise-form mb-2 pb-0">
+             <div class="franchise-top-header mb-0">
+                 <h2 class="heading-name">{{'Item Wise Stock Report' | translate}}<!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> --></h2>  
+             </div>
+        </div>
+	</div>
+
+	<div class="franchise-form custom-franchise-form pb-0 mb-4 pt-2" data-aos="fade-down" data-aos-duration="800">
+		<select *ngIf="loginData.userRole == 1" class="form-control custom_select ml-2 mr-2 mb-2" style="width:30%;" (change)="filterForeCasts($event.target.value)" >
+			<option value="0">{{'All' | translate}}</option>
+			<option *ngFor="let stock of bkUpTableList" value={{stock.franchiseName}}>
+				{{stock.franchiseName}}
+			</option>
+		</select>
+		<div class="table-gridbox custom_gridbox">
+			<table width="100%" class="border-2px">
+				<thead>
+					<tr>
+						<th>{{'Item Name' | translate}}</th>
+						<th>{{'Sku' | translate}}</th>
+						<th>{{'Category' | translate}}</th>
+						<th>{{'Stock In Hand' | translate}}</th>
+					</tr>
+				</thead>
+				<tbody *ngFor="let stock of tableData; index as i">
+					<tr *ngIf="loginData.userRole == 1">
+						<td class="bg-dark-franchise text-white" colspan="4"><strong>{{stock.franchiseName}}</strong></td>
+					</tr>
+					<tr *ngFor="let stockAlertlist of stock.inventorySaleList; index as j">
+						<td>{{stockAlertlist!.itemName || '--'}}</td>
+						<td>{{stockAlertlist!.sku || '--'}}</td>
+						<td>{{stockAlertlist!.unitCategoryName || '--'}}/{{stockAlertlist!.unitMeasurementName || '--'}}</td>
+						<td class="{{stockAlertlist!.quantityStock >= stockAlertlist.minimumStockValue  && 'nil'|| 'fill'}}"><span>{{stockAlertlist!.quantityStock || '0'}}</span>
+							<!-- <br><span class="cstm-total-cal" *ngIf="stock.inventorySaleList.length == j+1">{{getTotal(i,j, stock.inventorySaleList)}}</span>
+						</td> -->
+						
+					</tr>
+					<tr class="cstm-total-cal" *ngIf="stock.inventorySaleList && stock.inventorySaleList.length > 0">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>{{getTotal(i,j, stock.inventorySaleList, stock.franchiseName)}}</td>
+					</tr>
+					<tr *ngIf="stock.inventorySaleList && stock.inventorySaleList.length < 1">
+						<td>
+							{{'Data Not Found!' | translate}}
+						</td>
+					</tr>
+					<tr *ngIf="tableData.length == i+1">
+						<td colspan="4">
+							<div echarts [options]="getPieChartsOption()" class="echart" style="height: 250px; width: 550px; margin: auto"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- <div>
+				<div echarts [options]="option" class="echart" style="height: 250px; width: 550px; margin: auto"></div>
+			</div> -->
+		</div>
+	</div>
+
+</div>

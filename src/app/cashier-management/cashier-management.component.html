@@ -1,0 +1,569 @@
+﻿<div class="lang-top">
+        <ul class="list-inline">
+           <li class="list-inline-item csr-ptr " (click)="translate.use('en')"><img src="assets/images/united-states.png"></li>
+           <li class="list-inline-item csr-ptr" (click)="translate.use('sp')"><img src="assets/images/spain.png"></li>
+        </ul>
+        
+</div>
+<div class="header-section">
+    <div class="blue-header-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-sm-9 col-md-9 col-lg-9 order-1 order-sm-2">
+                    <div class="text-center text-sm-right time-list-in">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a href=""><i class="mdi mdi-clock-outline"></i> {{systemTime}}</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="">
+                                    <i class="mdi mdi-calendar-outline"></i>
+                                    {{currentdate}}
+                                </a>
+                            </li>
+                            <li class="list-inline-item dropdown open">
+                                <a class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="assets/images/user-image.jpg" alt="user-img" class="rounded-circle"> {{loginData!.firstName || 'Unknown'}} {{loginData!.lastName || ''}}</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0)" class="dropdown-item" (click)="onLogout()"><i class="fa fa-sign-out mr-2"></i> Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-3 col-md-3 col-lg-3 order-2 order-sm-1">
+                    <div class="pos-logo text-center text-sm-left" *ngIf="AdminFranchiseData">
+                        <a *ngIf="!AdminFranchiseData.imageLogo"><img src="assets/images/large-logo.png"></a>
+                        <a *ngIf="AdminFranchiseData && AdminFranchiseData.imageLogo"><img src="{{AdminFranchiseData!.imageLogo || '../../assets/images/mas-logo.png'}}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="white-header-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    
+                    <form class="example-form">
+                        <mat-form-field class="example-full-width">
+                            <label>{{'Search Customer' | translate}}</label>
+                            <input (change)="bindCustomerData()" matInput placeholder="" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let state of filteredStates | async" [value]="state.customerContactNo">
+                                    <span>{{state!.customerName || 'Unknown'}}</span> |
+                                    <small>{{state!.customerContactNo || 'N/A'}}</small>
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+
+                    </form>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+                    <div class="dash-btn-top">
+                        <ul class="list-inline text-center text-sm-right">
+                            <li class="list-inline-item linkRent"><a routerLink="/rentManagement"><i class="mdi mdi-restore-clock"></i>{{'Rent Screen' | translate}}</a></li>
+                            <li class="list-inline-item"><a (click)="onUnholdListPopUp()"><i class="mdi mdi-restore-clock"></i> {{'Hold' | translate}}</a></li>
+                            <li class="list-inline-item" *ngIf="superAdmin == true">
+                                <a (click)="goBackToAdminDashboard()"><i class="mdi mdi-view-dashboard"></i> {{'Dashboard' | translate}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrappercontainer">
+    <nav id="sidebar" class="active">
+        <ul class="list-unstyled components cst-ptr">
+            <li>
+                <a (click)="addCustomer()">
+                    <i class="mdi mdi-account-multiple-plus"></i><span class="d-none d-lg-block">
+                        {{'Add customer' | translate}}
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a (click)="onClickAddNotes()"><i class="mdi mdi-square-edit-outline"></i><span class="d-none d-lg-block">{{'Note' | translate}}</span></a>
+            </li>
+            <li><a class="darkgreen-btn" data-toggle="modal" data-target="#shippingpopup"><i class="mdi mdi-van-utility"></i><span class="d-none d-lg-block">{{'shipping' | translate}}</span></a></li>
+            <li><a (click)="onAddItems()"><i class="mdi mdi-plus"></i><span class="d-none d-lg-block">{{'Item' | translate}}</span></a></li>
+        </ul>
+
+    </nav>
+
+    <div class="bodycontainer" id="content">
+        <div class="pl-3">
+            <div class="row mr0">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                    <div class="white-area-p p-2 mb-2">
+                           
+                        <div class="input-group search-barbox">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="mdi mdi-magnify"></i></span>
+                            </div>
+                            <input type="text" class="form-control"
+                                   [(ngModel)]='searchString' (keyup.enter)="matchbarcode(searchString)" placeholder= "{{ 'Barcode, SKU, product name or category ...' | translate }}" >
+                            <div class="input-group-append">
+                                <span class="input-group-text barcode-img"><img src="../../assets/images/barcode.jpg"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="white-area-p">
+                            <div class="loadWrapper" *ngIf="showProgress"> 
+                                    <img src="../../assets/images/loader-image.gif">
+                            </div>
+                        <div class="product-list-slide">
+                            <mat-tab-group (selectedTabChange)="tabClick($event)">
+                              <mat-tab *ngFor="let tab of categoryData; let index i" [label]="tab.categoryName"></mat-tab>
+                            </mat-tab-group>
+                        </div>
+                        <div class="products-img-btm scroll-height-400 overflow-auto mCustomScrollbar">
+                            <div class="p-4 p-xl-3">
+                                <div class="row">
+                                    <div class="col-6 col-sm-4 col-md-4 col-lg-2 product mb-3 pb-3 border-bottom"
+                                         *ngFor="let item of productData | searchProducts:searchString">
+                                        <a (click)="addItem(item.itemId,item.itemName,item.itemSalePrice,item.productLogo,item.quantityStock)">
+                                            <div class="product-details-p text-center">
+
+                                                <div class="rented-block">
+                                                    <span class="img-span"><img src={{item.productLogo}}></span>
+                                                    <div *ngIf="item.quantityStock<=0" class="rented-box">
+                                                        <h6>Out of stock</h6>
+                                                    </div>
+                                                </div>
+
+                                                <div *ngIf="item.quantityStock!=0 && item.quantityStock>0" class="product-price">
+                                                    <div class="product_text">
+                                                       
+                                                        <p class="stock-text">
+                                                            Stock - {{item.quantityStock}} <br />
+                                                            {{item!.unitMeasurementName || ''}}
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>
+                                                <h5><span class="product-name-right">{{item.itemName}} - {{currency}}{{item.itemSalePrice | number:'0.2'}}</span></h5>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 pr0 mt-4 mt-lg-0">
+                    <div class="white-area-p h-100 position-relative">
+                        <div class="tablegrid-cart scroll-height-250 overflow-auto mCustomScrollbar">
+                            <table width="100%">
+                                <thead>
+                                    <tr>
+                                        <th width="50"></th>
+                                        <th class="text-left" width="120">{{'Name' | translate}}</th>
+                                        <th width="70" class="text-left">U.Price</th>
+                                        <th width="150">{{'QTY' | translate}}</th>
+                                        <th class="text-right pr-2">{{'T.Price' | translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let pr of product">
+                                    <tr>
+                                        <td width="50" align="center">
+                                            <span class="span-img-td">
+                                                <img src={{pr.image}}>
+                                            </span>
+                                        </td>
+                                        <td class="text-left" width="120"><span class="product-name-right">{{pr.Name}}</span></td>
+                                        <td width="70" class="text-left">{{currency}}{{pr.Price | number:'0.2'}}</td>
+                                        <td class="qty-td" width="100">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="quantity-left-minus btn-number"
+                                                            (click)="removeItem(pr.Id,pr.Name)" data-type="minus"
+                                                            data-field="">
+                                                        <span class="mdi mdi-minus"></span>
+                                                    </button>
+                                                </span>
+                                                <input disabled="disabled" type="text" id="quantity" name="quantity"
+                                                       class="form-control input-number" value={{pr.Qty}} min="1"
+                                                       max="100">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="quantity-right-plus btn-number"
+                                                            (click)="addItem(pr.Id,pr.Name,pr.Price,pr.image,pr.Quantity)"
+                                                            data-type="plus" data-field="">
+                                                        <span class="mdi mdi-plus"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td class="text-right pr-2">{{currency}} {{pr.Qty * pr.Price | number:'0.2'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="graybox-table pt-2">
+                            <div style="display:none;" id="divRent" class="row m-0">
+                                <div class="col-md-12 p-0">
+                                    <div class="input-group mb-1">
+                                        <label for="DOI" class="col-sm-2 col-form-label">{{'DOI' | translate}}</label>
+                                        <input type="date" class="form-control" id="txtissuedate" aria-describedby="basic-addon2">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 P-0" style=" padding: 0;">
+                                    <div class="input-group mb-1">
+                                        <label for="DOR" class="col-sm-2 col-form-label">{{'DOR' | translate}}</label>
+                                        <input type="date" class="form-control" id="txtreturndate" aria-describedby="basic-addon2">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <textarea rows="3" id="txtrentNotes" placeholder="{{'Note...' | translate}}" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <table width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left">{{'Sub Total' | translate}}</td>
+                                        <td class="text-right">{{currency}}{{totalValue | number:'0.2'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">{{'Discount on Cart' | translate}} </td>
+                                        <td class="text-right" *ngIf="fixedValue==1">{{currency}}{{discountVal | number:'0.2'}}</td>
+                                        <td class="text-right" *ngIf="fixedValue==2">{{currency}}{{discountVal2 | number:'0.2'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">{{'Shipping' | translate}}</td>
+                                        <td class="text-right">{{currency}}{{shippingAmount | number:'0.2'}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td class="text-left">{{'Net Pay' | translate}}</td>
+                                        <td class="text-right">{{currency}}{{totalNetPayable | number:'0.2'}}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dash-btn-btm">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3 p-0">
+                        <div class="dash-button">
+                            <a class="red-btn" (click)="cancelItemDetails()"><i class="mdi mdi-close"></i> {{'Cancel' | translate}}</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3 p-0">
+                        <div class="dash-button">
+                            <a class="darkgreen-btn" data-toggle="modal" data-target="#container">
+                                <i class="mdi mdi-gift"></i>
+                                {{'Discount' | translate}}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3 p-0">
+                        <div class="dash-button">
+                            <a class="blue-btn" (click)="onPuttingHold()">
+                                <i class="mdi mdi-gesture-tap-hold"></i>
+                                {{'Hold' | translate}}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3 p-0">
+                        <div class="dash-button">
+                            <a class="darkblue-btn" data-toggle="modal" (click)="openCashPayContainer()"><i class="fa fa-money"></i> {{'Pay' | translate}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="shippingpopup" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalScrollableTitle">{{'Shipping Amount' | translate}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" (click)="clearFilters()">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input id="txtshipping" class="form-control" value="0" type="text" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{'Close' | translate}}</button>
+                        <button id="btnShippingapply" (click)="applyShippingAmount()" type="button" class="btn btn-success">{{'Apply' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="container" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalScrollableTitle">{{'Discount On Cart' | translate}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" (click)="clearFilters()">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input id="txtDiscount" class="form-control" value={{discountVal}} type="text" disabled />
+                        </div>
+                        <div class="form-group mt-4">
+                            <ul class="list-inline text-center fixed-button-list">
+                                <li id="fixedVal" class="list-inline-item active"><button class="btn btn-light" (click)="fixedVal(1)">{{'Fixed' | translate}}</button></li>
+                                <li id="percentVal" class="list-inline-item"><button class="btn btn-light" (click)="fixedVal(2)">{{'Percentage' | translate}}</button></li>
+                            </ul>
+
+                        </div>
+                        <div class="form-group-list">
+                            <ul class="list-inline text-center">
+                                <li class="list-inline-item"><button class="btn" (click)="addDiscount(1)">1</button></li>
+                                <li class="list-inline-item"><button class="btn" (click)="addDiscount(2)">2</button></li>
+                                <li class="list-inline-item"><button class="btn" (click)="addDiscount(3)">3</button></li>
+                                <li class="list-inline-item"><button class="btn" (click)="addDiscount(4)">4</button></li>
+                                <li class="list-inline-item"><button class="btn" (click)="addDiscount(5)">5</button></li>
+                                <li class="list-inline-item"><button class="btn" (click)="addDiscount(6)">6</button></li>
+                                <li class="list-inline-item"><button class="btn" (click)="addDiscount(7)">7</button></li>
+                                <li class="list-inline-item"><button class="btn" (click)="addDiscount(8)">8</button></li>
+                                <li class="list-inline-item"><button class="btn" (click)="addDiscount(9)">9</button></li>
+                                <li class="list-inline-item"><button class="btn btn-info" (click)="addDiscount('←')"><a class="mdi mdi-arrow-left"></a></button></li>
+                                <li class="list-inline-item"><button class="btn" (click)="addDiscount(0)">0</button></li>
+                                <li class="list-inline-item"><button class="btn btn-info" (click)="clearVal()">{{'Clear' | translate}}</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">{{'Close' | translate}}</button>
+                        <button style="display:none;" type="button" class="btn btn-success">{{'Apply' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" style="width:100%;" id="container_pay" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalScrollableTitle"> {{'Cash Payment' | translate}} </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" (click)="clearFilters()">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body custom_modl">
+                        <h3 id="txtpayment" style="margin: 15px 0px; text-align: center;"> {{'Cash Payment' | translate}} </h3>
+                        <div class="tab custm_tab">
+                            <button class="tablinks {{getCashPaymentTabFocus('payment')}}" (click)="openCity($event, 'payment')">{{'Payment' | translate}} <b>({{currency}} {{totalNetPayable | number:'0.2'}})</b></button>
+                            <button class="tablinks {{getCashPaymentTabFocus('Paid')}}" (click)="openCity($event, 'Paid')">{{'Paid' | translate}} <b>({{currency}} {{paymentVal | number:'0.2'}})</b></button>
+                            <button class="tablinks {{getCashPaymentTabFocus('coupons')}}" (click)="openCity($event, 'coupons')">{{'Coupon' | translate}} </button>
+                            <button class="tablinks {{getCashPaymentTabFocus('Balance')}}" (click)="openCity($event, 'Balance')">{{'Balance' | translate}} <b>({{currency}} {{paidBal | number:'0.2'}})</b></button>
+                        </div>
+                        <div id="payment" class="tabcontent custom-tab" style="display:block;">
+                            <div>
+                                <ul class="list-inline text-left row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                                        <li class="list-inline-item w-20">
+                                            {{currency }}
+                                        </li>
+                                        <li class="list-inline-item w-50">
+                                            <input id="txtDiscount" (change)="onChangePayment($event)" class="form-control" value={{paymentVal1}} type="text" disabled/>
+                                        </li>
+                                        <li class="list-inline-item w-25">
+                                            <button id="btnAdd" (click)="addPaymentTotal()" class="btn btn-success">{{'Add' | translate}}</button>
+                                        </li>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                                        <li class="list-inline-item full-payment"> <button id="btnAddFullPayment" (click)="addFullPayment()" class="btn btn-success">{{'Full Payment' | translate}}</button> </li>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="form-group-list">
+                                <ul class="list-inline text-center">
+                                    <li class="list-inline-item"><button (click)="addPayment(1)" class="btn">1</button></li>
+                                    <li class="list-inline-item"><button (click)="addPayment(2)" class="btn">2</button></li>
+                                    <li class="list-inline-item"><button (click)="addPayment(3)" class="btn">3</button></li>
+                                    <li class="list-inline-item"><button (click)="addPayment(4)" class="btn">4</button></li>
+                                    <li class="list-inline-item"><button (click)="addPayment(5)" class="btn">5</button></li>
+                                    <li class="list-inline-item"><button (click)="addPayment(6)" class="btn">6</button></li>
+                                    <li class="list-inline-item"><button (click)="addPayment(7)" class="btn">7</button></li>
+                                    <li class="list-inline-item"><button (click)="addPayment(8)" class="btn">8</button></li>
+                                    <li class="list-inline-item"><button (click)="addPayment(9)" class="btn">9</button></li>
+                                    <li class="list-inline-item"><button class="btn btn-info" (click)="addPayment('←')"><a class="mdi mdi-arrow-left"></a></button></li>
+                                    <li class="list-inline-item"><button (click)="addPayment(0)" class="btn">0</button></li>
+                                    <li class="list-inline-item"><button class="btn btn-info" (click)="clearpaymentVal()">{{'Clear' | translate}}</button></li>
+                                </ul>
+                            </div>
+                            <div class="fixed-content">
+                                <h5 *ngIf="fixedValue==1">{{'Discount' | translate}} : {{'Fixed' | translate}} {{currency}}{{discountVal | number:'0.2'}}</h5>
+                                <h5 *ngIf="fixedValue==2">{{'Discount' | translate}} : {{'Percentage' | translate}} {{currency}}{{discountVal2 | number:'0.2'}}</h5>
+                            </div>
+                        </div>
+                        <div id="Paid" class="tabcontent custm_payment">
+                            <b>{{'Cash Payment' | translate}} : </b>{{currency}}{{paymentVal | number:'0.2'}}
+                        </div>
+                        <div id="coupons" class="tabcontent cstm_email_butn row">
+                            <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"></span>
+                                </div>
+                                <input type="text" class="form-control" [(ngModel)]="couponcodes" placeholder="Enter Coupon Code">
+                                <div class="input-group-append">
+                                    <button class="btn btn-success" type="submit" [disabled]="couponchecked" (click)="checkcoupon(couponcodes)">{{'Load A Coupon' | translate}}</button>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-sm-3 col-xs-6 custm_final"> {{'Final value' | translate}}: {{currency}}{{finalvalue | number:'0.2'}}</div>
+                        </div>
+                        <div id="Balance" class="tabcontent tab_balnce">
+                            <p><b> {{'Total Products' | translate}} :</b> <span>{{productCountTotal }}</span></p>
+                            <p><b>{{'Sub Total' | translate}} :</b> <span>{{currency}} {{totalValue | number:'0.2'}} </span></p>
+                            <p><b>{{'Balance' | translate}} : </b><span>{{currency}} {{paidBal | number:'0.2'}}</span></p>
+                            <p><b>Coupon Amount : </b><span> {{currency}}{{couponAmount | number:'0.2'}} </span></p>
+                            <p><b>{{'Shipping Amount' | translate}} : </b><span> {{currency}}{{shippingAmount | number:'0.2'}} </span></p>
+                            <p *ngIf="fixedValue==1"><b>{{'Discount' | translate}} : {{'Fixed' | translate}} </b> <span>{{currency }}{{discountVal | number:'0.2'}}</span></p>
+                            <p *ngIf="fixedValue==2"><b>{{'Discount' | translate}} : {{'Percentage' | translate}} </b> <span>{{currency}}{{discountVal2 | number:'0.2'}}</span></p>
+                            <p> <b>{{'Total' | translate}} : </b><span>{{currency}}{{totalNetPayable | number:'0.2'}}</span></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnCheckout" disabled="disabled" (click)="proceedCheckout()" class="btn btn-success">{{'Proceed To Checkout' | translate}}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clearFilters()">{{'Close' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<div id="print-contents" hidden="hidden">
+    <div style="width:300px; margin:0px; border:1px  solid #ccc; font-family:arial;padding:0px;padding:15px;">
+        <table width="300px" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+            <tbody>
+                <tr>
+                    <td colspan="3" align="center" style="padding:10px 0 10px"><img src="assets/images/YSlogo_black.png" style="width:150px;"></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" style="font-size:16px;font-weight:bold;padding-bottom:5px;" *ngIf="AdminFranchiseData">{{AdminFranchiseData.franchiseName}}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" style="font-size:14px;font-weight:normal;" *ngIf="AdminFranchiseData">{{AdminFranchiseData.franchiseAddress}}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" style="font-size:14px;" *ngIf="AdminFranchiseData">{{AdminFranchiseData.franchiseCity}}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" style="font-size:14px;padding-bottom:5px;" *ngIf="AdminFranchiseData">
+                        {{'Contact No.' | translate}} {{AdminFranchiseData.franchisePhone}}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" style="font-size:14px;" *ngIf="AdminFranchiseData">{{'E-mail' | translate}}: {{AdminFranchiseData.franchiseEmail}}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" style="font-size:18px;padding-bottom:20px;font-weight:bold;padding-top:20px;"><sup>***</sup>{{'Invoice' | translate}}<sup>***</sup></td>
+                </tr>
+                <tr>
+                    <td align="center" style="font-size:14px;padding-bottom:5px;">{{systemTime}}</td>
+                    <td align="center" style="font-size:14px;padding-bottom:5px;">{{currentdate}}</td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;padding-top:10px;">{{'Cashier' | translate}}  : {{loginData.userName}}</td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;padding-top:10px;">
+                        {{'Customer Name' | translate}}  :   {{customerNme}}
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:14px;padding-bottom:5px;padding-left:0px;padding-top:10px;">
+                        {{'Customer Address' | translate}} : {{customerAddress}}
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" style="font-size:14px;padding-bottom:15px;padding-left:0px;">{{'Customer Mobile' | translate}}  : {{customerPhone}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="table-responsive-sm" style="padding-top:20px;padding-bottom:20px;">
+            <table style="width:100%" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:60px;text-align:left;padding-bottom:5px;">{{'Item' | translate}}</th>
+                        <th style="widows:50px;text-align:left;padding-bottom:5px;">{{'Unit' | translate}}</th>
+                        <th style="width:50px;text-align:left;padding-bottom:5px;">{{'Qty' | translate}}</th>
+                        <th style="width:50px;text-align:left;padding-bottom:5px;">{{'Total' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let pr of product">
+                    <tr>
+                        <td style="width:40%;font-size:11px;padding-bottom:5px;">{{pr.Name}}</td>
+                        <td style="width:20%;font-size:11px;padding-bottom:5px;">{{currency}}{{pr.Price | number:'0.2'}}</td>
+                        <td style="width:20%;font-size:11px;padding-bottom:5px;">{{pr.Qty}}</td>
+                        <td style="width:20%;font-size:11px;padding-bottom:5px;white-space: nowrap;" >{{currency}} {{pr.Qty * pr.Price | number:'0.2'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="sub-total" style="width:100%;">
+            <table class="table table-clear" style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td class="left">
+                            <strong> {{'Total Products' | translate}}</strong>
+                        </td>
+                        <td style="text-align:right;">{{productCountTotal}}</td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            <strong>{{'Subtotal' | translate}}</strong>
+                        </td>
+                        <td style="text-align:right;">{{currency}}{{totalValue | number:'0.2'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            <strong>{{'Discount' | translate}}</strong>
+                        </td>
+                        <td style="text-align:right;" *ngIf="fixedValue==1">{{currency}}{{discountVal | number:'0.2'}}</td>
+                        <td style="text-align:right;" *ngIf="fixedValue==2">{{currency}}{{discountVal2 | number:'0.2'}}</td>
+                    </tr>
+                    <tr>
+                    <td class="left">
+                    <strong>{{'Shipping Amount' | translate}}</strong>
+                    </td>
+                    <td style="text-align:right;">{{currency}}{{shippingAmount | number:'0.2'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            <strong>{{'Balance' | translate}}</strong>
+                        </td>
+                        <td style="text-align:right;">{{currency}} {{paidBal | number:'0.2'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            <strong>{{'Total' | translate}}</strong>
+                        </td>
+                        <td style="text-align:right;">
+                            <strong>{{currency}}{{totalNetPayable | number:'0.2'}}</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

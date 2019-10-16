@@ -1,0 +1,23 @@
+<div class="p-2">
+	<div class="franchise-sec1" data-aos="fade-down" data-aos-duration="800">
+        <div class="franchise-form mb-2">
+             <div class="franchise-top-header">
+                 <h2 class="heading-name">{{'General Settings' | translate}}<!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> --></h2>  
+             </div>
+             <div class="cstm-tabs">
+				<mat-tab-group class="cst-tabs">
+				  	<mat-tab label="Informations">
+				  		<div class="cs-tab">
+				  			<app-general-informations></app-general-informations>
+				  		</div>
+					</mat-tab>
+				  	<mat-tab label="Currency" *ngIf="loginData.userRole == 1">
+				  		<div class="cs-tab" >
+				   			<app-currency></app-currency>
+				  		</div>
+				  	</mat-tab>
+				</mat-tab-group>
+             </div>
+        </div>
+	</div>
+</div>

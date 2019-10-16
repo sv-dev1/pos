@@ -1,525 +1,231 @@
-        <!-- Begin page -->
-        <div id="wrapper" class="forced" *ngIf="loginData.userRole == 1">
+<div class="lang-top">
+   <ul class="list-inline">
+      <li class="list-inline-item csr-ptr " (click)="translate.use('en')"><img src="assets/images/united-states.png"></li>
+      <li class="list-inline-item csr-ptr active" (click)="translate.use('sp')"><img src="assets/images/spain.png"></li>
+   </ul>
+</div>
+<!-- Begin page -->
+<div id="wrapper" class="forced">
+   <!-- Top Bar Start -->
+   <div class="topbar">
+      <!-- LOGO -->
+      <div class="topbar-left">
+         <div class="side-logo">
+            <img src="assets/images/large-logo.png">
+            <img class="short-logo" src="assets/images/short-logo.png">
+         </div>
+      </div>
+      <!-- Button mobile view to collapse sidebar menu -->
+      <nav class="navbar navbar-default">
+         <div class="container-fluid">
+            <ul class="list-inline menu-left mb-0">
+               <li class="float-left d-none d-md-block">
+                  <a href="javascript:void(0);" class="button-menu-mobile open-left">
+                  <i class="mdi mdi-menu"></i>
+                  </a>
+               </li>
+               <li class=" float-left top-title-heading" *ngIf="loginData && loginData.userRole != 1"><h5><span>{{franchise_name}}</span></h5></li>
+            </ul>
+            <ul class="nav navbar-right float-right list-inline" *ngIf="loginData">
+               <li class="float-left back-btn" *ngIf="superAdmin == true"><a (click)="backToSuperAdminDashboard()" style="cursor: pointer;"><i class="mdi mdi-view-dashboard"></i> {{'Dashboard' | translate }}</a></li>
+               <li class="dropdown open">
+               <li class="float-left back-btn" *ngIf="loginData.franchiseId != 0"><a (click)="gotToChashierBoard()" style="cursor: pointer;"><i class="fa fa-money"></i> {{'Cashier' | translate}}</a></li>
+               <li class="dropdown open">
+                  <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="assets/images/user-image.jpg" alt="user-img" class="rounded-circle"> {{loginData!.firstName || 'Unknown'}} {{loginData!.lastName || ''}}</a>
+                  <ul class="dropdown-menu">
+                     <li><a href="javascript:void(0)" class="dropdown-item" routerLink="/admin/Profile"><i class="fa fa-user-circle mr-2"></i>{{ 'Profile' | translate }}</a></li>
+                     <li><a href="javascript:void(0)" class="dropdown-item" routerLink="/admin/general-settings"><i class="mdi mdi-settings mr-2"></i>  {{ 'Settings' | translate }}</a></li>
+                     <li><a href="javascript:void(0)" class="dropdown-item" (click)="onLogout()"><i class="fa fa-sign-out mr-2"></i>  {{ 'Logout' | translate }}</a></li>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+      </nav>
+   </div>
+   <!-- Top Bar End -->
+   <!-- ========== Left Sidebar Start ========== -->
+   <div class="left side-menu pb-4">
+      <div class="sidebar-inner h-100 mCustomScrollbar">
 
-            <!-- Top Bar Start -->
-            <div class="topbar">
-                <!-- LOGO -->
-                <div class="topbar-left">
-                    <div class="side-logo">
-                        <img src="assets/images/mas-logo2.png">
-                        <!-- <a href="index.html" class="logo">POS</a> -->
-                    </div>
-                </div>
-                <!-- Button mobile view to collapse sidebar menu -->
-                
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <ul class="list-inline menu-left mb-0">
-                            <li class="float-left">
-                                <a href="javascript:void(0);" class="button-menu-mobile open-left">
-                                    <i class="mdi mdi-menu"></i>
-                                </a>
-                            </li>
-                          <!--   <li class="hide-phone float-left">
-                                <form role="search" class="navbar-form">
-                                    <input type="text" placeholder="Type here for search..." class="form-control search-bar">
-                                    <a href="" class="btn btn-search"><i class="fa fa-search"></i></a>
-                                </form>
-                            </li> -->
-                        </ul>
-    
-                        <ul class="nav navbar-right float-right list-inline">
-                            <li class="dropdown open">
-                                <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="assets/images/avatar-1.jpg" alt="user-img" class="rounded-circle"> {{loginData!.firstName || 'Unknown'}} {{loginData!.lastName || ''}}</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="fa fa-user-circle mr-2"></i> Profile</a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-settings mr-2"></i> Settings</a></li>
-                                   <!--  <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-lock mr-2"></i> Lock screen</a></li> -->
-                                    <li><a href="javascript:void(0)" class="dropdown-item" (click)="onLogout()"><i class="fa fa-sign-out mr-2"></i> Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            <!-- Top Bar End -->
+         <!--- Divider -->
+         <div id="sidebar-menu">
+            <ul id="accordion" *ngIf="loginData && loginData.userRole == 1">
+               <li>
+                  <a routerLink="/admin/dashboard" class="waves-effect"><i class="mdi mdi-home"></i><span> {{'Dashboard' | translate }} </span></a>
+               </li>
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1"><i class="mdi mdi-home-city-outline"></i><span>{{'Franchise' | translate}}</span><span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled csr-ptr" id="collapseExample1" data-parent="#accordion">
+                     <li><a routerLink="/admin/franchise">Add Franchise</a></li>
+                     <li><a *ngFor="let item of results" (click)="changeDashboard(item)">{{item.franchiseName}}</a></li>
+                  </ul>
+               </li>
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2"><i class="mdi mdi-format-list-bulleted"></i><span> {{'Inventroy Management' | translate }}</span><span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample2" data-parent="#accordion">
+                     <!-- <li><a routerLink="/admin/add-items">Items</a></li> -->
+                     <!-- <li><a >Adjustment of Quantity</a></li> -->
+                     <li><a routerLink="/admin/category">{{'Category' | translate}}</a></li>
+                     <li><a routerLink="/admin/sub-category">{{'Sub-Category' | translate}}</a></li>
+                     <!--<li><a routerLink="/admin/AddCoupon">Add Coupon</a></li>-->
+                     <li><a routerLink="/admin/csvimport">{{'Import' | translate}}</a></li>
+                  </ul>
+               </li>
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample6" role="button" aria-expanded="false" aria-controls="collapseExample6"><i class="mdi mdi-cart"></i> <span> {{'Item Management' | translate}} </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample6" data-parent="#accordion">
+                      <li><a routerLink="/admin/add-product">{{'Add Product' | translate}}</a></li>
+                      <li><a routerLink="/admin/list-product">{{'List Product' | translate}}</a></li>
+                      <li><a routerLink="/admin/group-product">{{'Group Products' | translate}}</a></li>
+                      <li><a routerLink="/admin/group-item-list">{{'Group List' | translate}}</a></li>
+                  </ul>
+               </li>
 
-            <!-- ========== Left Sidebar Start ========== -->
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample7" role="button" aria-expanded="false" aria-controls="collapseExample7"><i class="mdi mdi-account"></i> <span>  {{'Customer Management' | translate}} </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample7" data-parent="#accordion">
+                      <li><a routerLink="/admin/add-customer">{{'Add Customer' | translate}}</a></li>
+                      <li><a routerLink="/admin/customer-listing">{{'List Customer' | translate}}</a></li>
+                  </ul>
+               </li>
 
-            <div class="left side-menu">
-                <div class="sidebar-inner slimscrollleft">
-                   <!--  <div class="user-details">
-                        <div class="float-left">
-                            <img src="assets/images/avatar-1.jpg" alt="" class="thumb-md rounded-circle">
-                        </div>
-                        <div class="user-info">
-                            <div class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-settings mr-2"></i> Settings</a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-lock mr-2"></i> Lock screen</a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-settings-power mr-2"></i> Logout</a></li>
-                                </ul>
-                            </div>
-                            
-                            <p class="text-muted m-0">Administrator</p>
-                        </div>
-                    </div> -->
-                    <!--- Divider -->
-                    <div id="sidebar-menu">
-                        <ul>
-                            <li>
-                                <a routerLink="/admin/dashboard" class="waves-effect"><i class="mdi mdi-home"></i><span> Dashboard </span></a>
-                            </li>
-                           <!--  <li>
-                                <a routerLink="/admin/franchise" class="waves-effect"><i class="mdi mdi-account"></i><span> Franchise Management </span></a>
-                            </li> -->
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-cart"></i><span> Franchise</span><span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample1">
-                                    <li><a  routerLink="/admin/franchise">Add Franchise</a></li>
-                                     <li><a routerLink="" *ngFor="let item of tableData">{{item.franchiseName}}</a></li>
-                                </ul>
-                            </li>
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample8"><i class="mdi mdi-alert-octagram"></i> <span> {{'Coupon Management' | translate}} </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample8" data-parent="#accordion">
+                      <li><a routerLink="/admin/add-coupon">{{'Add Coupon' | translate}}</a></li>
+                      <li><a routerLink="/admin/coupon-listing">{{'List Coupon' | translate}}</a></li>
+                  </ul>
+               </li>
+                <li>
+                    <a routerLink="/admin/Supplier" class="waves-effect"><i class="mdi mdi-truck"></i><span> {{'Supplier Management' | translate}} </span></a>
+                </li>
 
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-email"></i><span> Inventroy </span><span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample2">
-                                    <li><a  routerLink="/admin/add-inventory">Add Item</a></li>
-                                    <li><a  routerLink="/admin/list-inventory">List Item</a></li>
-                                    <li><a href="mail-read.html">Adjustment of quantity</a></li>
-                                    <li><a href="mail-read.html">Import/Export</a></li>
-                                </ul>
-                            </li>
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-folder-multiple"></i> <span> {{'Report' | translate}} </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample4" data-parent="#accordion">
+                      <li><a routerLink="sales-report">{{'Date Wise Sales Report' | translate}}</a></li>
+                      <li><a routerLink="inventroy-report">{{'Item Wise Stock Report' | translate}}</a></li>
+                      <li><a routerLink="rent-report">{{'Rent Wise Stock Report' | translate}}</a></li>
+                      <li><a routerLink="date-wise-rent-report">{{'Date Wise Rent Report' | translate}}</a></li>
+                      <li><a routerLink="/admin/incoming_Rented">{{'Incoming Rented Item Report' | translate}}</a></li>
+                      <li><a routerLink="/admin/incoming_Sale">{{'Stock Alert Report' | translate}}</a></li>
+                      <li><a routerLink="/admin/higest_sale">{{'Highest Sale Report' | translate}}</a></li>
+                      <li><a routerLink="/admin/customer_report">{{'Customer Sale Report' | translate}}</a></li>
+                      <li><a routerLink="/admin/customer-rent-report">{{'Customer Rent Report' | translate}}</a></li>
+                     <!--  <li><a routerLink="/admin/supply-report">Supply Report</a></li> -->
+                  </ul>
+               </li>
 
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-account-multiple"></i> <span> Customers </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample3">
-                                    <li><a href="ui-typography.html">Add Customers</a></li>
-                                    <li><a href="ui-buttons.html">List Customers</a></li>
-                                </ul>
-                            </li>
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample5"><i class="mdi mdi-settings"></i> <span> {{'Settings' | translate}} </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample5" data-parent="#accordion">
+                      <li><a routerLink="general-settings">{{'General' | translate}}</a></li>
+                      <li><a routerLink="UnitCategory">{{'Units' | translate}}</a></li>
+                      <li><a routerLink="UnitCategoryMeasurement">{{'Unit Measure' | translate}}</a></li>
+                      <li><a routerLink="TaxManagement">{{'Tax' | translate}}</a></li>
+                  </ul>
+               </li>
+            </ul>
 
+<!--  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-palette"></i> <span> Coupons </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample4">
-                                    <li><a href="ui-typography.html">Add Coupons</a></li>
-                                    <li><a href="ui-buttons.html">List Coupons</a></li>
-                                </ul>
-                            </li>
+            <ul id="accordion" *ngIf="loginData && loginData.userRole == 2">
+               <li>
+                  <a routerLink="/admin/dashboard" class="waves-effect"><i class="mdi mdi-home"></i><span> {{'Dashboard' | translate}} </span></a>
+               </li>
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2"><i class="mdi mdi-format-list-bulleted"></i><span> {{'Inventroy Management' | translate }}</span><span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample2" data-parent="#accordion">
+                     <!-- <li><a routerLink="/admin/add-items">Item</a></li> -->
+                     <!-- <li><a >Adjustment of Quantity</a></li> -->
+                     <li><a routerLink="/admin/category">{{'Category' | translate}}</a></li>
+                     <li><a routerLink="/admin/sub-category">{{'Sub-Category' | translate}}</a></li>
+                   
+                     <li><a routerLink="/admin/csvimport">{{'Import' | translate}} </a></li>
+                  </ul>
+               </li>
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample6" role="button" aria-expanded="false" aria-controls="collapseExample6"><i class="mdi mdi-cart"></i> <span> {{'Item Management' | translate}} </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample6" data-parent="#accordion">
+                      <li><a routerLink="/admin/add-product">{{'Add Product' | translate}}</a></li>
+                      <li><a routerLink="/admin/list-product">{{'List Product' | translate}}</a></li>
+                      <li><a routerLink="/admin/group-product">{{'Group Items' | translate}}</a></li>
+                      <li><a routerLink="/admin/group-item-list">{{'Group List' | translate}}</a></li>
+                  </ul>
+               </li>
 
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-palette"></i> <span> Report </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample5">
-                                    <li><a href="ui-typography.html">Report 1</a></li>
-                                    <li><a href="ui-buttons.html">Report 2</a></li>
-                                    <li><a href="ui-typography.html">Report 3</a></li>
-                                </ul>
-                            </li>
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample7" role="button" aria-expanded="false" aria-controls="collapseExample7"><i class="mdi mdi-account"></i> <span> {{'Customer Management' | translate}} </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample7" data-parent="#accordion">
+                      <li><a routerLink="/admin/add-customer">{{'Add Customer' | translate}}</a></li>
+                      <li><a routerLink="/admin/customer-listing">{{'List Customer' | translate}}</a></li>
+                  </ul>
+               </li>
 
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample6" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-settings"></i> <span> Settings </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample6">
-                                    <li><a href="ui-typography.html">General</a></li>
-                                    <li><a href="ui-buttons.html">Units</a></li>
-                                    <li><a href="ui-buttons.html">Logslists</a></li>
-                                    <li><a href="ui-buttons.html">Test</a></li>
-                                </ul>
-                            </li>
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample8" role="button" aria-expanded="false" aria-controls="collapseExample8"><i class="mdi mdi-alert-octagram"></i> <span> {{'Coupon Management' | translate}} </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample8" data-parent="#accordion">
+                      <li><a routerLink="/admin/add-coupon">{{'Add Coupon' | translate}}</a></li>
+                      <li><a routerLink="/admin/coupon-listing">{{'List Coupon' | translate}}</a></li>
+                  </ul>
+               </li>
+                <!-- <li>
+                    <a routerLink="/admin/Supplier" class="waves-effect"><i class="mdi mdi-truck"></i><span> {{'Supplier Management' | translate}} </span></a>
+                </li> -->
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-folder-multiple"></i> <span> {{'Report' | translate}} </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample4" data-parent="#accordion">
+                      <li><a routerLink="sales-report">{{'Date Wise Sales Report' | translate}}</a></li>
+                      <li><a routerLink="inventroy-report">{{'Item Wise Stock Report' | translate}}</a></li>
+                      <li><a routerLink="rent-report">{{'Rent Wise Stock Report' | translate}}</a></li>
+                      <li><a routerLink="date-wise-rent-report">{{'Date Wise Rent Report' | translate}}</a></li>
+                      <li><a routerLink="/admin/incoming_Rented">{{'Incoming Rented Item Report' | translate}}</a></li>
+                      <li><a routerLink="/admin/incoming_Sale">{{'Stock Alert Report' | translate}}</a></li>
+                      <li><a routerLink="/admin/higest_sale">{{'Highest Sale Report' | translate}}</a></li>
+                      <li><a routerLink="/admin/customer_report">{{'Customer Sale Report' | translate}}</a></li>
+                      <li><a routerLink="/admin/customer-rent-report">{{'Customer Rent Report' | translate}}</a></li>
+                     <!--  <li><a routerLink="/admin/supply-report">Supply Report</a></li> -->
+                  </ul>
+               </li>
 
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample7" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-account"></i> <span> Users </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample7">
-                                    <li><a href="ui-typography.html">Add User</a></li>
-                                    <li><a href="ui-buttons.html">User List</a></li>
-                                </ul>
-                            </li>
+               <li class="has_sub">
+                  <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample5"><i class="mdi mdi-settings"></i> <span> {{'Settings' | translate}} </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
+                  <ul class="collapse list-unstyled" id="collapseExample5" data-parent="#accordion">
+                      <li><a routerLink="general-settings">{{'General' | translate}}</a></li>
+                      <li><a routerLink="/admin/franchise-user/{{loginData.franchiseId}}/{{loginData.franchiseName}}">{{'User' | translate}}</a></li>
+                      <!-- <li><a>Logs</a></li> -->
+                   
 
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <!-- Left Sidebar End --> 
+                      <li><a routerLink="UnitCategory">{{'Units' | translate}}</a></li>
+                      <li><a routerLink="UnitCategoryMeasurement">{{'Unit Measure' | translate}}</a></li>
+                      <li><a routerLink="TaxManagement">{{'Tax' | translate}}</a></li>
+                  </ul>
+               </li>
+            </ul>
 
-            <!-- ============================================================== -->
-            <!-- Start right Content here -->
-            <!-- ============================================================== -->                      
-            <div class="content-page custom-content">
-                <!-- Start content -->
-                <div class="content" style="margin-top: 70px">
-                    <div id="admin-router-outlet ">
-                        <router-outlet></router-outlet>
-                    </div>
-                </div>
-
-                <div class="footer-section">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">
-                                <p>copyright@2019 </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Right content here -->
-            <!-- ============================================================== -->
-
-        </div>
-        
-
-
-                <!-- Begin page -->
-        <div id="wrapper" class="forced" *ngIf="loginData.userRole == 2">
-
-            <!-- Top Bar Start -->
-            <div class="topbar">
-                <!-- LOGO -->
-                <div class="topbar-left">
-                    <div class="side-logo">
-                        <img src="assets/images/mas-logo2.png">
-                        <!-- <a href="index.html" class="logo">POS</a> -->
-                    </div>
-                </div>
-                <!-- Button mobile view to collapse sidebar menu -->
-                
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <ul class="list-inline menu-left mb-0">
-                            <li class="float-left">
-                                <a href="javascript:void(0);" class="button-menu-mobile open-left">
-                                    <i class="mdi mdi-menu"></i>
-                                </a>
-                            </li>
-                          <!--   <li class="hide-phone float-left">
-                                <form role="search" class="navbar-form">
-                                    <input type="text" placeholder="Type here for search..." class="form-control search-bar">
-                                    <a href="" class="btn btn-search"><i class="fa fa-search"></i></a>
-                                </form>
-                            </li> -->
-                        </ul>
-    
-                        <ul class="nav navbar-right float-right list-inline">
-                            <li class="dropdown open">
-                                <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="assets/images/avatar-1.jpg" alt="user-img" class="rounded-circle"> {{loginData!.firstName || 'Unknown'}} {{loginData!.lastName || ''}}</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="fa fa-user-circle mr-2"></i> Profile</a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-settings mr-2"></i> Settings</a></li>
-                                   <!--  <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-lock mr-2"></i> Lock screen</a></li> -->
-                                    <li><a href="javascript:void(0)" class="dropdown-item" (click)="onLogout()"><i class="fa fa-sign-out mr-2"></i> Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            <!-- Top Bar End -->
-
-            <!-- ========== Left Sidebar Start ========== -->
-
-            <div class="left side-menu">
-                <div class="sidebar-inner slimscrollleft">
-                   <!--  <div class="user-details">
-                        <div class="float-left">
-                            <img src="assets/images/avatar-1.jpg" alt="" class="thumb-md rounded-circle">
-                        </div>
-                        <div class="user-info">
-                            <div class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-settings mr-2"></i> Settings</a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-lock mr-2"></i> Lock screen</a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-settings-power mr-2"></i> Logout</a></li>
-                                </ul>
-                            </div>
-                            
-                            <p class="text-muted m-0">Administrator</p>
-                        </div>
-                    </div> -->
-                    <!--- Divider -->
-                    <div id="sidebar-menu">
-                        <ul>
-                            <li>
-                                <a routerLink="/admin/dashboard" class="waves-effect"><i class="mdi mdi-home"></i><span> Dashboard </span></a>
-                            </li>
-                            <li>
-                                <a routerLink="/admin/franchise" class="waves-effect"><i class="mdi mdi-account"></i><span> Franchise Management </span></a>
-                            </li>
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-cart"></i><span> POS</span><span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample1">
-                                    <li><a routerLink="/pages/addFranchise">Store 1</a></li>
-                                    <li><a routerLink="/pages/franchiseListing">Store 2</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-email"></i><span> Inventroy </span><span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample2">
-                                    <li><a  routerLink="/admin/add-inventory">Add Item</a></li>
-                                    <li><a  routerLink="/admin/list-inventory">List Item</a></li>
-                                    <li><a href="mail-read.html">Adjustment of quantity</a></li>
-                                    <li><a href="mail-read.html">Import/Export</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-account-multiple"></i> <span> Customers </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample3">
-                                    <li><a href="ui-typography.html">Add Customers</a></li>
-                                    <li><a href="ui-buttons.html">List Customers</a></li>
-                                </ul>
-                            </li>
-
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-palette"></i> <span> Coupons </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample4">
-                                    <li><a href="ui-typography.html">Add Coupons</a></li>
-                                    <li><a href="ui-buttons.html">List Coupons</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-palette"></i> <span> Report </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample5">
-                                    <li><a href="ui-typography.html">Report 1</a></li>
-                                    <li><a href="ui-buttons.html">Report 2</a></li>
-                                    <li><a href="ui-typography.html">Report 3</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample6" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-settings"></i> <span> Settings </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample6">
-                                    <li><a href="ui-typography.html">General</a></li>
-                                    <li><a href="ui-buttons.html">Units</a></li>
-                                    <li><a href="ui-buttons.html">Logslists</a></li>
-                                    <li><a href="ui-buttons.html">Test</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample7" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-account"></i> <span> Users </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample7">
-                                    <li><a href="ui-typography.html">Add User</a></li>
-                                    <li><a href="ui-buttons.html">User List</a></li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <!-- Left Sidebar End --> 
-
-            <!-- ============================================================== -->
-            <!-- Start right Content here -->
-            <!-- ============================================================== -->                      
-            <div class="content-page custom-content">
-                <!-- Start content -->
-                <div class="content" style="margin-top: 70px">
-                    <div id="admin-router-outlet ">
-                        <router-outlet></router-outlet>
-                    </div>
-                </div>
-
-                <div class="footer-section">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">
-                                <p>copyright@2019 </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Right content here -->
-            <!-- ============================================================== -->
-
-        </div>
-        
- <div id="wrapper" class="forced" *ngIf="loginData.userRole == 3">
-
-            <!-- Top Bar Start -->
-            <div class="topbar">
-                <!-- LOGO -->
-                <div class="topbar-left">
-                    <div class="side-logo">
-                        <img src="assets/images/mas-logo2.png">
-                        <!-- <a href="index.html" class="logo">POS</a> -->
-                    </div>
-                </div>
-                <!-- Button mobile view to collapse sidebar menu -->
-                
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <ul class="list-inline menu-left mb-0">
-                            <li class="float-left">
-                                <a href="javascript:void(0);" class="button-menu-mobile open-left">
-                                    <i class="mdi mdi-menu"></i>
-                                </a>
-                            </li>
-                          <!--   <li class="hide-phone float-left">
-                                <form role="search" class="navbar-form">
-                                    <input type="text" placeholder="Type here for search..." class="form-control search-bar">
-                                    <a href="" class="btn btn-search"><i class="fa fa-search"></i></a>
-                                </form>
-                            </li> -->
-                        </ul>
-    
-                        <ul class="nav navbar-right float-right list-inline">
-                            <li class="dropdown open">
-                                <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="assets/images/avatar-1.jpg" alt="user-img" class="rounded-circle"> {{loginData!.firstName || 'Unknown'}} {{loginData!.lastName || ''}}</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="fa fa-user-circle mr-2"></i> Profile</a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-settings mr-2"></i> Settings</a></li>
-                                   <!--  <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-lock mr-2"></i> Lock screen</a></li> -->
-                                    <li><a href="javascript:void(0)" class="dropdown-item" (click)="onLogout()"><i class="fa fa-sign-out mr-2"></i> Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            <!-- Top Bar End -->
-
-            <!-- ========== Left Sidebar Start ========== -->
-
-            <div class="left side-menu">
-                <div class="sidebar-inner slimscrollleft">
-                   <!--  <div class="user-details">
-                        <div class="float-left">
-                            <img src="assets/images/avatar-1.jpg" alt="" class="thumb-md rounded-circle">
-                        </div>
-                        <div class="user-info">
-                            <div class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John Doe</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-face-unlock mr-2"></i> Profile<div class="ripple-wrapper"></div></a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-settings mr-2"></i> Settings</a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-lock mr-2"></i> Lock screen</a></li>
-                                    <li><a href="javascript:void(0)" class="dropdown-item"><i class="mdi mdi-settings-power mr-2"></i> Logout</a></li>
-                                </ul>
-                            </div>
-                            
-                            <p class="text-muted m-0">Administrator</p>
-                        </div>
-                    </div> -->
-                    <!--- Divider -->
-                    <div id="sidebar-menu">
-                        <ul>
-                            <li>
-                                <a routerLink="/admin/dashboard" class="waves-effect"><i class="mdi mdi-home"></i><span> Dashboard </span></a>
-                            </li>
-                            <li>
-                                <a routerLink="/admin/franchise" class="waves-effect"><i class="mdi mdi-account"></i><span> Franchise Management </span></a>
-                            </li>
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-cart"></i><span> POS</span><span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample1">
-                                    <li><a routerLink="/pages/addFranchise">Store 1</a></li>
-                                    <li><a routerLink="/pages/franchiseListing">Store 2</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-email"></i><span> Inventroy </span><span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample2">
-                                    <li><a  routerLink="/admin/add-inventory">Add Item</a></li>
-                                    <li><a  routerLink="/admin/list-inventory">List Item</a></li>
-                                    <li><a href="mail-read.html">Adjustment of quantity</a></li>
-                                    <li><a href="mail-read.html">Import/Export</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-account-multiple"></i> <span> Customers </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample3">
-                                    <li><a href="ui-typography.html">Add Customers</a></li>
-                                    <li><a href="ui-buttons.html">List Customers</a></li>
-                                </ul>
-                            </li>
-
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-palette"></i> <span> Coupons </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample4">
-                                    <li><a href="ui-typography.html">Add Coupons</a></li>
-                                    <li><a href="ui-buttons.html">List Coupons</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-palette"></i> <span> Report </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample5">
-                                    <li><a href="ui-typography.html">Report 1</a></li>
-                                    <li><a href="ui-buttons.html">Report 2</a></li>
-                                    <li><a href="ui-typography.html">Report 3</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample6" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-settings"></i> <span> Settings </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample6">
-                                    <li><a href="ui-typography.html">General</a></li>
-                                    <li><a href="ui-buttons.html">Units</a></li>
-                                    <li><a href="ui-buttons.html">Logslists</a></li>
-                                    <li><a href="ui-buttons.html">Test</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="has_sub">
-                                <a href="#" class="waves-effect collapsed" data-toggle="collapse" href="#collapseExample7" role="button" aria-expanded="false" aria-controls="collapseExample"><i class="mdi mdi-account"></i> <span> Users </span> <span class="float-right"><i class="mdi mdi-plus"></i></span></a>
-                                <ul class="collapse list-unstyled" id="collapseExample7">
-                                    <li><a href="ui-typography.html">Add User</a></li>
-                                    <li><a href="ui-buttons.html">User List</a></li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <!-- Left Sidebar End --> 
-
-            <!-- ============================================================== -->
-            <!-- Start right Content here -->
-            <!-- ============================================================== -->                      
-            <div class="content-page custom-content">
-                <!-- Start content -->
-                <div class="content" style="margin-top: 70px">
-                    <div id="admin-router-outlet ">
-                        <router-outlet></router-outlet>
-                    </div>
-                </div>
-
-                <div class="footer-section">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 copyright">
-                                <p>copyright@2019 </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Right content here -->
-            <!-- ============================================================== -->
-
-        </div>
+            <div class="clearfix"></div>
+         </div>
+         <div class="clearfix"></div>
+      </div>
+   </div>
+   <!-- Left Sidebar End --> 
+   <!-- ============================================================== -->
+   <!-- Start right Content here -->
+   <!-- ============================================================== --> 
+   <div class="content-page custom-content">
+      <!-- Start content -->
+      <div class="content" style="margin-top: 70px">
+         <div id="admin-router-outlet ">
+            <router-outlet></router-outlet>
+         </div>
+      </div>
+      <div class="footer-section">
+         <div class="copyright">
+            <p>copyright@2019 </p>
+         </div>
+      </div>
+   </div>
+   <!-- ============================================================== -->
+   <!-- End Right content here -->
+   <!-- ============================================================== -->
+</div>

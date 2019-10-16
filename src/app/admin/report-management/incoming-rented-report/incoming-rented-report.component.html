@@ -1,0 +1,50 @@
+<div class="p-2">
+	<div class="franchise-sec1" >
+        <div class="franchise-form franchise-form mb-2 pb-0">
+             <div class="franchise-top-header mb-0">
+                 <h2 class="heading-name">{{'Incoming Rented Report | translate'}}<!-- <span class="heading-name-span">{{franchiseData!.name || 'N/A'}}</span> --></h2>  
+             </div>
+        </div>
+	</div>
+	<div class="franchise-form custom-franchise-form pb-0 mb-4 pt-2" >
+			<select *ngIf="loginData.userRole == 1" class="form-control custom_select" style="width:30%;margin-bottom: 10px;" (change)="filterForeCasts($event.target.value)" >
+				<option value="0">{{'All' | translate}}</option>
+				<option *ngFor="let rent of backupdata" value={{rent.franchiseName}}>{{rent.franchiseName}}</option>
+			</select>
+		<div class="table-gridbox">
+			<table width="100%">
+				<thead>
+					<tr>
+                        <th>{{'Product name' | translate}}</th>
+                        <th>{{'Sku' | translate}}</th>
+                        <th>{{'DOI' | translate}}</th>
+                        <th>{{'DOR' | translate}}</th>
+                        <th>{{'From' | translate}}</th>
+					</tr>
+				</thead>
+				<tbody *ngFor="let rent of tableresult">
+					<tr *ngIf="loginData.userRole == 1">
+						<td class="bg-dark-franchise text-white" colspan="5"><strong>{{rent.franchiseName}}</strong></td>
+					</tr>
+					<tr *ngFor="let rentedItems of rent.rentViewlist">
+                        <td style="width: 42%;"><img style="height: 50px;width: 50px;"
+                            src="{{rentedItems!.productLogo || 'assets/images/customer-img.png'}}"><strong
+                            class="d-product-name">{{rentedItems!.itemName || 'N/A'}}</strong>
+                    </td>
+                    <td>{{rentedItems!.sku }}</td>
+                    <td >{{rentedItems!.rentedOn.split('T')[0] || 'N/A'}}
+                    </td>
+                    <td >{{rentedItems.returnDate.split('T')[0] || 'N/A'}}
+                    </td>
+                    <td >{{rentedItems!.issuedName || 'N/A'}}</td>
+					</tr>
+					<tr *ngIf="rent.rentViewlist && rent.rentViewlist.length < 1">
+						<td>
+							{{'Data Not Found!' | translate}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

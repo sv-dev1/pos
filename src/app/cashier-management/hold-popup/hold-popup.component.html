@@ -1,0 +1,36 @@
+<div class="modal-header" style="position: relative;">
+  <h4 class="modal-title">{{'Put on hold' | translate}}</h4>
+ <h4 class="modal-title" > <span class="pull-right" style="z-index: 9"><a (click)="onNoClick()"><i class="fa fa-times" style="position: absolute;top:-7px;right: 1px; cursor: pointer;"></i></a></span> </h4>
+</div>
+<div class="modal-body" style="margin-top: 5px;">
+	<form [formGroup]="on_hold_form">
+	    <div class="input-group group-content">
+	      <div class="input-group-addon"> <span>{{'Order Title' | translate}}</span></div>
+	      <input formControlName="orderName"  class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="Order Name">
+	    </div>
+	</form>
+    <div class="alert alert-info"><p>{{'You are about to save this order' | translate}}</p></div>
+    <table class="table table-bordered cart-status-for-save">
+      <thead>
+        <tr>
+          <td>{{'Cart Details' | translate}}</td>
+          <td>{{'Amount' | translate}}</td>
+        </tr>
+      </thead>
+      <tbody class="cart-status-fs-tbody">
+        <tr>
+          <td>{{'Cart value' | translate}}</td>
+          <td><strong class="ng-binding">{{data.currency}}{{data.totalValue}}</strong></td>
+        </tr>
+        <tr>
+          <td>{{'Net Payable' | translate}}</td>
+          <td><strong class="ng-binding">{{data.currency}}{{data.totalNetPayable | number:'0.2'}}</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+</div>
+<div class="modal-footer">
+   <button  type="button" class="btn btn-success" (click)="onSubmit()" >{{'Put on hold' | translate}}</button>
+    <button type="button" class="btn btn-danger" (click)="onNoClick()">{{'Close' | translate}}</button>
+</div>
